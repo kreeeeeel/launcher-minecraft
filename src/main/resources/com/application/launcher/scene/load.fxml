@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="800.0" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="69.0" fitWidth="30.0" layoutX="764.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/close.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="69.0" fitWidth="30.0" layoutX="734.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/collapse.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="44.0" fitWidth="39.0" layoutX="8.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="54.0" layoutY="9.0" text="Minecraft.com" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="25.0" />
+         </font>
+      </Label>
+      <ProgressBar focusTraversable="false" layoutX="14.0" layoutY="51.0" prefHeight="29.0" prefWidth="773.0" style="-fx-background-color: white; -fx-background-radius: 25px;" />
+   </children>
+</Pane>
