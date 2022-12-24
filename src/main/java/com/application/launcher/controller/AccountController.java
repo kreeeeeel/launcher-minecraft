@@ -265,7 +265,15 @@ public class AccountController extends Application {
     public void mouseOnSettingsImg() {
         settingsImg.setOnMouseEntered(event -> settingsImg.setOpacity(1.0));
         settingsImg.setOnMouseExited(event -> settingsImg.setOpacity(0.6));
-        settingsImg.setOnMouseClicked(event -> settingsPane.setVisible(true));
+        settingsImg.setOnMouseClicked(event -> {
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), settingsPane);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setByValue(1.0);
+            fadeTransition.setAutoReverse(true);
+
+            settingsPane.setVisible(true);
+            fadeTransition.play();
+        });
     }
 
     public void mouseOnSettingsCloseImg() {
@@ -732,7 +740,6 @@ public class AccountController extends Application {
                 String hash = null;
 
                 if(!file.exists()) {
-                    System.out.println(path);
                     alertShow("Произошла ошибка", "Произошла ошибка в проверке файлов..", true);
                     return;
                 }
