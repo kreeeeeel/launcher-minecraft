@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="update scene">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/account.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/account.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="update upload files" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +94,7 @@
       <workItem from="1671743131277" duration="17323000" />
       <workItem from="1671833383153" duration="1130000" />
       <workItem from="1671834626823" duration="5890000" />
-      <workItem from="1671879134514" duration="1379000" />
+      <workItem from="1671879134514" duration="1706000" />
     </task>
     <task id="LOCAL-00001" summary="add settings">
       <created>1671840364534</created>
@@ -113,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671840754468</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update upload files">
+      <created>1671882213253</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1671882213253</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +138,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="add settings" />
     <MESSAGE value="update scene" />
-    <option name="LAST_COMMIT_MESSAGE" value="update scene" />
+    <MESSAGE value="update upload files" />
+    <option name="LAST_COMMIT_MESSAGE" value="update upload files" />
   </component>
 </project>
