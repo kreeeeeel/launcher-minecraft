@@ -38,7 +38,7 @@
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Pane fx:id="exitAccountPane" layoutX="586.0" layoutY="15.0" opacity="0.74" prefHeight="36.0" prefWidth="200.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;">
+            <Pane fx:id="exitAccountPane" layoutX="586.0" layoutY="15.0" prefHeight="36.0" prefWidth="200.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;">
                <children>
                   <Label layoutX="36.0" layoutY="7.0" text="Выйти из аккаунта" textFill="#dddddd">
                      <font>

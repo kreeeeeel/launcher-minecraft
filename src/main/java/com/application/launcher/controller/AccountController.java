@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -60,135 +61,79 @@ import static com.application.launcher.utils.Constant.*;
 
 public class AccountController extends Application {
 
-    @FXML
-    private ImageView alertCloseImg;
+    @FXML private ImageView exitImg;
+    @FXML private ImageView collapseImg;
+    @FXML private ImageView alertCloseImg;
+    @FXML private ImageView alertImg;
+    @FXML private ImageView rubleImg;
+    @FXML private ImageView settingsCloseImg;
+    @FXML private ImageView settingsImg;
 
-    @FXML
-    private ImageView alertImg;
+    @FXML private Label alertMessage;
+    @FXML private Label alertTitle;
+    @FXML private Label balanceLabel;
+    @FXML private Label fileUpdate;
+    @FXML private Label loginLabel;
+    @FXML private Label settingsRamLabel;
+    @FXML private Label titleUpdate;
+    @FXML private Label urlContent;
+    @FXML private Label urlLabel;
 
-    @FXML
-    private Label alertMessage;
+    @FXML private Pane alertPane;
+    @FXML private Pane exitAccountPane;
+    @FXML private Pane exitPane;
+    @FXML private Pane paneUpdate;
+    @FXML private Pane removeClientPane;
+    @FXML private Pane settingsPane;
+    @FXML private Pane top;
+    @FXML private Pane urlPane;
 
-    @FXML
-    private Pane alertPane;
+    @FXML private CheckBox boxLaunchAuto;
+    @FXML private CheckBox boxLaunchFullScreen;
 
-    @FXML
-    private Label alertTitle;
+    @FXML private Button cancelBtn;
+    @FXML private Button exitBtn;
+    @FXML private Button noUrlBtn;
+    @FXML private Button settingsClear;
+    @FXML private Button settingsOpenFolder;
+    @FXML private Button yesUrlBtn;
 
-    @FXML
-    private Label balanceLabel;
+    @FXML private Group loadingGroup;
 
-    @FXML
-    private CheckBox boxLaunchAuto;
+    @FXML private Circle photoCircle;
 
-    @FXML
-    private CheckBox boxLaunchFullScreen;
+    @FXML private ProgressBar progresUpdate;
 
-    @FXML
-    private Button cancelBtn;
+    @FXML private AnchorPane serversAnchor;
 
-    @FXML
-    private ImageView collapseImg;
+    @FXML private TextField settingsRamText;
 
-    @FXML
-    private Pane exitAccountPane;
+    private Retrofit retrofit;
 
-    @FXML
-    private Button exitBtn;
-
-    @FXML
-    private ImageView exitImg;
-
-    @FXML
-    private Pane exitPane;
-
-    @FXML
-    private Label fileUpdate;
-
-    @FXML
-    private Group loadingGroup;
-
-    @FXML
-    private Label loginLabel;
-
-    @FXML
-    private Button noUrlBtn;
-
-    @FXML
-    private Pane paneUpdate;
-
-    @FXML
-    private Circle photoCircle;
-
-    @FXML
-    private ProgressBar progresUpdate;
-
-    @FXML
-    private Pane removeClientPane;
-
-    @FXML
-    private ImageView rubleImg;
-
-    @FXML
-    private AnchorPane serversAnchor;
-
-    @FXML
-    private Button settingsClear;
-
-    @FXML
-    private ImageView settingsCloseImg;
-
-    @FXML
-    private ImageView settingsImg;
-
-    @FXML
-    private Button settingsOpenFolder;
-
-    @FXML
-    private Pane settingsPane;
-
-    @FXML
-    private Label settingsRamLabel;
-
-    @FXML
-    private TextField settingsRamText;
-
-    @FXML
-    private Label titleUpdate;
-
-    @FXML
-    private Pane top;
-
-    @FXML
-    private Label urlContent;
-
-    @FXML
-    private Label urlLabel;
-
-    @FXML
-    private Pane urlPane;
-
-    @FXML
-    private Button yesUrlBtn;
-
-    private List<String> list = new ArrayList<>();
     private int folders;
     private int files;
 
     private double stagePosX;
     private double stagePosY;
 
+    private List<String> list;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/account.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-
         stage.setScene(scene);
         stage.show();
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
+
+        list = new ArrayList<>();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         // Mouse events
         mouseOnTop();
@@ -337,8 +282,8 @@ public class AccountController extends Application {
     }
 
     public void mouseOnExitAccount() {
-        exitAccountPane.setOnMouseEntered(event -> exitAccountPane.setOpacity(1.0));
-        exitAccountPane.setOnMouseExited(event -> exitAccountPane.setOpacity(0.6));
+        exitAccountPane.setOnMouseEntered(event -> exitAccountPane.setOpacity(0.6));
+        exitAccountPane.setOnMouseExited(event -> exitAccountPane.setOpacity(1.0));
         exitAccountPane.setOnMouseClicked(event -> {
             exitPane.setVisible(true);
 
@@ -356,11 +301,6 @@ public class AccountController extends Application {
         service.execute(() -> {
 
             String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
 
             ProfileApi profileApi = retrofit.create(ProfileApi.class);
             profileApi.getProfile(token).enqueue(new Callback<>() {
@@ -519,27 +459,25 @@ public class AccountController extends Application {
         more.setLayoutX(494);
         more.setLayoutY(129);
         more.setPrefSize(127, 34);
-        more.setStyle("-fx-background-color: #064f5e");
+        more.setStyle("-fx-background-color: #167288");
         more.setFont(Font.font("Franklin Gothic Medium", 18));
-        more.setTextFill(Paint.valueOf("#c3c3c3"));
-        more.setOpacity(0.7);
+        more.setTextFill(Paint.valueOf("#dddddd"));
         more.setCursor(Cursor.HAND);
 
-        more.setOnMouseEntered(event -> more.setOpacity(1.0));
-        more.setOnMouseExited(event -> more.setOpacity(0.7));
+        more.setOnMouseEntered(event -> more.setStyle("-fx-background-color: #0e4957"));
+        more.setOnMouseExited(event -> more.setStyle("-fx-background-color: #167288"));
 
         Button play = new Button("Играть");
         play.setLayoutX(636);
         play.setLayoutY(129);
         play.setPrefSize(113, 34);
-        play.setStyle("-fx-background-color: #134213");
+        play.setStyle("-fx-background-color: #227322");
         play.setFont(Font.font("Franklin Gothic Medium", 18));
-        play.setTextFill(Paint.valueOf("#c3c3c3"));
-        play.setOpacity(0.7);
+        play.setTextFill(Paint.valueOf("#dddddd"));
         play.setCursor(Cursor.HAND);
 
-        play.setOnMouseEntered(event -> play.setOpacity(1.0));
-        play.setOnMouseExited(event -> play.setOpacity(0.7));
+        play.setOnMouseEntered(event -> play.setStyle("-fx-background-color: #1a571a"));
+        play.setOnMouseExited(event -> play.setStyle("-fx-background-color: #227322"));
         play.setOnMouseClicked(event -> getLauncherInfo(serverResponse.getClient()));
 
         pane.getChildren().addAll(icon, title, versionImg, versionLabel, playersImg, playersLabel, pvpImg, pvpLabel,
@@ -838,7 +776,6 @@ public class AccountController extends Application {
                 urlPane.setVisible(false);
 
             });
-
             noUrlBtn.setOnMouseEntered(event -> noUrlBtn.setOpacity(1.0));
             noUrlBtn.setOnMouseExited(event -> noUrlBtn.setOpacity(0.7));
             noUrlBtn.setOnMouseClicked(event -> urlPane.setVisible(false));
