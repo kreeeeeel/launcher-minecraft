@@ -88,9 +88,6 @@ public class AccountController extends Application {
     private Button cancelBtn;
 
     @FXML
-    private Button cancelUpdate;
-
-    @FXML
     private ImageView collapseImg;
 
     @FXML
@@ -125,6 +122,9 @@ public class AccountController extends Application {
 
     @FXML
     private ProgressBar progresUpdate;
+
+    @FXML
+    private Pane removeClientPane;
 
     @FXML
     private ImageView rubleImg;
@@ -170,9 +170,6 @@ public class AccountController extends Application {
 
     @FXML
     private Button yesUrlBtn;
-
-    @FXML
-    private Pane removeClientPane;
 
     private List<String> list = new ArrayList<>();
     private int folders;

@@ -94,7 +94,7 @@
       </Group>
       <Pane fx:id="paneUpdate" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="115.0" layoutY="234.0" prefHeight="133.0" prefWidth="570.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane layoutX="115.0" layoutY="245.0" prefHeight="110.0" prefWidth="570.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
                   <Label fx:id="titleUpdate" layoutX="78.0" layoutY="23.0" prefHeight="24.0" prefWidth="208.0" text="Обновление файлов.." textFill="#544646">
                      <font>
@@ -112,11 +112,6 @@
                      </image>
                   </ImageView>
                   <ProgressBar fx:id="progresUpdate" layoutX="76.0" layoutY="69.0" prefHeight="18.0" prefWidth="472.0" progress="0.0" style="-fx-background-color: white;" />
-                  <Button fx:id="cancelUpdate" layoutX="444.0" layoutY="91.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" style="-fx-background-color: #8c0606;" text="Отменить" textFill="#bfbfbf">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
-                     </font>
-                  </Button>
                </children>
             </Pane>
          </children>

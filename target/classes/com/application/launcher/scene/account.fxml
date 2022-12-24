@@ -162,7 +162,7 @@
       </Pane>
       <Pane fx:id="urlPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="183.0" layoutY="229.0" prefHeight="169.0" prefWidth="435.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane layoutX="183.0" layoutY="216.0" prefHeight="169.0" prefWidth="435.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
                   <Label layoutX="75.0" layoutY="41.0" text="Переход по ссылке" textFill="#544646">
                      <font>

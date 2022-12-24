@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="add settings">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/account.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/servers.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController.class" afterDir="false" />
+    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="update scene">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/account.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/account.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +96,8 @@
       <workItem from="1671662117235" duration="10485000" />
       <workItem from="1671743131277" duration="17323000" />
       <workItem from="1671833383153" duration="1130000" />
-      <workItem from="1671834626823" duration="5642000" />
+      <workItem from="1671834626823" duration="5890000" />
+      <workItem from="1671879134514" duration="1379000" />
     </task>
     <task id="LOCAL-00001" summary="add settings">
       <created>1671840364534</created>
@@ -107,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671840364534</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update scene">
+      <created>1671840754468</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1671840754468</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +133,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="add settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="add settings" />
+    <MESSAGE value="update scene" />
+    <option name="LAST_COMMIT_MESSAGE" value="update scene" />
   </component>
 </project>
