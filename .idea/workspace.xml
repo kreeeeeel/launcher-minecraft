@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="" />
+    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/application/launcher/utils/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/launcher/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/application/launcher/utils/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/load.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/servers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/account.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/dto/SignInDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/entity/ProfileEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/entity/ServerEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/entity/TokenEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/servers.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/servers.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/utils/Constant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/utils/Constant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,7 +110,8 @@
       <workItem from="1671570518998" duration="20408000" />
       <workItem from="1671662117235" duration="10485000" />
       <workItem from="1671743131277" duration="17323000" />
-      <workItem from="1671833383153" duration="1050000" />
+      <workItem from="1671833383153" duration="1130000" />
+      <workItem from="1671834626823" duration="5312000" />
     </task>
     <servers />
   </component>

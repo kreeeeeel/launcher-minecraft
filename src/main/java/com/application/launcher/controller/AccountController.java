@@ -18,10 +18,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -36,13 +36,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import okhttp3.ResponseBody;
 
-import org.apache.http.impl.conn.SingleClientConnManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.awt.*;
 import java.io.*;
 import java.math.BigDecimal;
 import java.net.*;
@@ -61,9 +61,6 @@ import static com.application.launcher.utils.Constant.*;
 public class AccountController extends Application {
 
     @FXML
-    private Pane top;
-
-    @FXML
     private ImageView alertCloseImg;
 
     @FXML
@@ -80,6 +77,12 @@ public class AccountController extends Application {
 
     @FXML
     private Label balanceLabel;
+
+    @FXML
+    private CheckBox boxLaunchAuto;
+
+    @FXML
+    private CheckBox boxLaunchFullScreen;
 
     @FXML
     private Button cancelBtn;
@@ -112,6 +115,9 @@ public class AccountController extends Application {
     private Label loginLabel;
 
     @FXML
+    private Button noUrlBtn;
+
+    @FXML
     private Pane paneUpdate;
 
     @FXML
@@ -127,10 +133,46 @@ public class AccountController extends Application {
     private AnchorPane serversAnchor;
 
     @FXML
+    private Button settingsClear;
+
+    @FXML
+    private ImageView settingsCloseImg;
+
+    @FXML
     private ImageView settingsImg;
 
     @FXML
+    private Button settingsOpenFolder;
+
+    @FXML
+    private Pane settingsPane;
+
+    @FXML
+    private Label settingsRamLabel;
+
+    @FXML
+    private TextField settingsRamText;
+
+    @FXML
     private Label titleUpdate;
+
+    @FXML
+    private Pane top;
+
+    @FXML
+    private Label urlContent;
+
+    @FXML
+    private Label urlLabel;
+
+    @FXML
+    private Pane urlPane;
+
+    @FXML
+    private Button yesUrlBtn;
+
+    @FXML
+    private Pane removeClientPane;
 
     private List<String> list = new ArrayList<>();
     private int folders;
@@ -141,7 +183,7 @@ public class AccountController extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/servers.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/account.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
 
         stage.setScene(scene);
@@ -158,12 +200,18 @@ public class AccountController extends Application {
         mouseOnSettingsImg();
         mouseOnCloseErrorImg();
         mouseOnRubleImg();
+
         mouseOnExitAccount();
         mouseOnExitBtn();
         mouseOnCancelBtn();
 
+        mouseOnSettingsCloseImg();
+        mouseOnSettingsOpenFolderButton();
+        mouseOnSettingsRemoveButton();
+
         update();
 
+        initSettings();
     }
 
     public void mouseOnTop() {
@@ -217,6 +265,46 @@ public class AccountController extends Application {
     public void mouseOnSettingsImg() {
         settingsImg.setOnMouseEntered(event -> settingsImg.setOpacity(1.0));
         settingsImg.setOnMouseExited(event -> settingsImg.setOpacity(0.6));
+        settingsImg.setOnMouseClicked(event -> settingsPane.setVisible(true));
+    }
+
+    public void mouseOnSettingsCloseImg() {
+        settingsCloseImg.setOnMouseEntered(event -> settingsCloseImg.setOpacity(1.0));
+        settingsCloseImg.setOnMouseExited(event -> settingsCloseImg.setOpacity(0.6));
+        settingsCloseImg.setOnMouseClicked(event -> settingsPane.setVisible(false));
+    }
+
+    public void mouseOnSettingsOpenFolderButton() {
+        settingsOpenFolder.setOnMouseEntered(event -> settingsOpenFolder.setOpacity(1.0));
+        settingsOpenFolder.setOnMouseExited(event -> settingsOpenFolder.setOpacity(0.6));
+        settingsOpenFolder.setOnMouseClicked(event -> {
+            String currentdir = System.getProperty("user.dir");
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().open(new File(currentdir));
+                } catch (IOException e) {
+                    alertShow("Открытие папки", "Не удалось открыть папку", false);
+                }
+            } else {
+                alertShow("Не поддерживается", "Не удалось открыть папку", false);
+            }
+        });
+    }
+
+    public void mouseOnSettingsRemoveButton() {
+        settingsClear.setOnMouseEntered(event -> settingsClear.setOpacity(1.0));
+        settingsClear.setOnMouseExited(event -> settingsClear.setOpacity(0.6));
+        settingsClear.setOnMouseClicked(event -> {
+            ExecutorService service = Executors.newSingleThreadExecutor();
+            service.execute(() -> {
+
+                removeClientPane.setVisible(true);
+                deleteFiles("client");
+                alertShow("Удаление файлов", "Файлы были удалены..", false);
+                removeClientPane.setVisible(false);
+
+            });
+        });
     }
 
 
@@ -240,6 +328,7 @@ public class AccountController extends Application {
             rubleImg.setImage(image);
             rubleImg.setOpacity(0.6);
         });
+        rubleImg.setOnMouseClicked(event -> followingALink(URL + PAY, "Вы действительно хотите перейти по ссылке для пополнения своего баланса?"));
     }
 
     public void mouseOnExitAccount() {
@@ -716,4 +805,52 @@ public class AccountController extends Application {
             fadeTransition.play();
         });
     }
+
+    public void followingALink(String url, String content){
+        Platform.runLater(() -> {
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), urlPane);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setByValue(1.0);
+            fadeTransition.setAutoReverse(true);
+
+            urlLabel.setText(url);
+            urlContent.setText(content);
+
+            yesUrlBtn.setOnMouseEntered(event -> yesUrlBtn.setOpacity(1.0));
+            yesUrlBtn.setOnMouseExited(event -> yesUrlBtn.setOpacity(0.7));
+            yesUrlBtn.setOnMouseClicked(event -> {
+
+                try {
+                    URI uri = new URI(url);
+                    if(Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().browse(uri);
+                    } else {
+                        alertShow("Не поддерживается", "Невозможно перейти по ссылке", false);
+                    }
+                } catch (IOException | URISyntaxException e) {
+                    alertShow("Произошла ошибка", "Невозможно перейти по ссылке", false);
+                }
+                urlPane.setVisible(false);
+
+            });
+
+            noUrlBtn.setOnMouseEntered(event -> noUrlBtn.setOpacity(1.0));
+            noUrlBtn.setOnMouseExited(event -> noUrlBtn.setOpacity(0.7));
+            noUrlBtn.setOnMouseClicked(event -> urlPane.setVisible(false));
+
+            urlPane.setVisible(true);
+            fadeTransition.play();
+        });
+    }
+
+    public void initSettings() {
+
+        Platform.runLater(() -> {
+            long usedMBytes = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            settingsRamLabel.setText("Доступно " + usedMBytes + " MB");
+        });
+
+    }
+
 }

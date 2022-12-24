@@ -206,14 +206,14 @@
       </Pane>
       <Pane fx:id="settingsPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="258.0" layoutY="178.0" prefHeight="244.0" prefWidth="252.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane layoutX="258.0" layoutY="178.0" prefHeight="244.0" prefWidth="285.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
                   <Label layoutX="41.0" layoutY="9.0" text="Настройки" textFill="#544646">
                      <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="settingsClear" layoutX="22.0" layoutY="196.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Очистить клиент" textFill="#dbdbdb">
+                  <Button fx:id="settingsClear" layoutX="39.0" layoutY="194.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Очистить клиент" textFill="#dbdbdb">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -221,7 +221,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="settingsOpenFolder" layoutX="22.0" layoutY="151.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Перейти в папку" textFill="#dddddd">
+                  <Button fx:id="settingsOpenFolder" layoutX="39.0" layoutY="151.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Перейти в папку" textFill="#dddddd">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -234,22 +234,22 @@
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="settingsRamText" layoutX="169.0" layoutY="46.0" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: white;" text="1024">
+                  <TextField fx:id="settingsRamText" layoutX="172.0" layoutY="48.0" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: white;" text="1024">
                      <font>
                         <Font name="Franklin Gothic Medium" size="15.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="settingsRamLabel" layoutX="14.0" layoutY="60.0" prefHeight="14.0" prefWidth="148.0" text="Доступно 10200 MB" textFill="#544646">
+                  <Label fx:id="settingsRamLabel" layoutX="14.0" layoutY="62.0" prefHeight="14.0" prefWidth="148.0" text="Доступно 10200 MB" textFill="#544646">
                      <font>
                         <Font name="Franklin Gothic Medium" size="12.0" />
                      </font>
                   </Label>
-                  <CheckBox fx:id="boxLaunchFullScreen" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" text="Запуск в полном экране" textFill="#544646">
+                  <CheckBox fx:id="boxLaunchFullScreen" layoutX="22.0" layoutY="86.0" mnemonicParsing="false" text="Запуск в полном экране" textFill="#544646">
                      <font>
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="boxLaunchAuto" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" text="Авто вход на сервер" textFill="#544646">
+                  <CheckBox fx:id="boxLaunchAuto" layoutX="22.0" layoutY="113.0" mnemonicParsing="false" text="Авто вход на сервер" textFill="#544646">
                      <font>
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
@@ -259,7 +259,7 @@
                         <Image url="@../images/settings.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="settingsCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="215.0" layoutY="7.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="settingsCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="250.0" layoutY="6.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/close.png" />
                      </image>
