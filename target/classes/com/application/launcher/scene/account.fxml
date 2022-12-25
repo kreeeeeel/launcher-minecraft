@@ -25,7 +25,7 @@
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <ImageView fx:id="rubleImg" fitHeight="22.0" fitWidth="22.0" layoutX="90.0" layoutY="31.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="rubleImg" fitHeight="22.0" fitWidth="22.0" layoutX="90.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/balance.png" />
                </image>
@@ -55,7 +55,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <ImageView fx:id="settingsImg" fitHeight="30.0" fitWidth="30.0" layoutX="153.0" layoutY="5.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="settingsImg" fitHeight="30.0" fitWidth="30.0" layoutX="153.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/settings.png" />
                </image>
@@ -135,7 +135,7 @@
                         <Image url="@../images/question.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="exitBtn" layoutX="248.0" layoutY="75.0" mnemonicParsing="false" opacity="0.7" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Выйти" textFill="#dbdbdb">
+                  <Button fx:id="exitBtn" layoutX="248.0" layoutY="75.0" mnemonicParsing="false" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Выйти" textFill="#dbdbdb">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -143,7 +143,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="cancelBtn" layoutX="333.0" layoutY="75.0" mnemonicParsing="false" opacity="0.7" style="-fx-background-color: #067597; -fx-background-radius: 5px;" text="Отмена" textFill="#dddddd">
+                  <Button fx:id="cancelBtn" layoutX="333.0" layoutY="75.0" mnemonicParsing="false" style="-fx-background-color: #067597; -fx-background-radius: 5px;" text="Отмена" textFill="#dddddd">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -174,7 +174,7 @@
                         <Image url="@../images/question.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="noUrlBtn" layoutX="337.0" layoutY="121.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Нет" textFill="#dbdbdb">
+                  <Button fx:id="noUrlBtn" layoutX="337.0" layoutY="121.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Нет" textFill="#dbdbdb">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -182,7 +182,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="yesUrlBtn" layoutX="245.0" layoutY="121.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Да" textFill="#dddddd">
+                  <Button fx:id="yesUrlBtn" layoutX="245.0" layoutY="121.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Да" textFill="#dddddd">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -208,7 +208,7 @@
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="settingsClear" layoutX="22.0" layoutY="196.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Очистить клиент" textFill="#dbdbdb">
+                  <Button fx:id="settingsClear" layoutX="22.0" layoutY="196.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Очистить клиент" textFill="#dbdbdb">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -216,7 +216,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="settingsOpenFolder" layoutX="22.0" layoutY="151.0" mnemonicParsing="false" opacity="0.7" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Перейти в папку" textFill="#dddddd">
+                  <Button fx:id="settingsOpenFolder" layoutX="22.0" layoutY="151.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Перейти в папку" textFill="#dddddd">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>

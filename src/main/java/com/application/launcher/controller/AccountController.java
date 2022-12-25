@@ -170,8 +170,8 @@ public class AccountController extends Application {
     }
 
     public void mouseOnExitBtn() {
-        exitBtn.setOnMouseEntered(event -> exitBtn.setOpacity(1.0));
-        exitBtn.setOnMouseExited(event -> exitBtn.setOpacity(0.6));
+        exitBtn.setOnMouseEntered(event -> exitBtn.setStyle("-fx-background-color: #540202; -fx-background-radius: 5px"));
+        exitBtn.setOnMouseExited(event -> exitBtn.setStyle("-fx-background-color: #8c0606; -fx-background-radius: 5px"));
         exitBtn.setOnMouseClicked(event -> {
             try {
                 Stage stage = (Stage) exitAccountPane.getScene().getWindow();
@@ -184,8 +184,8 @@ public class AccountController extends Application {
     }
 
     public void mouseOnCancelBtn() {
-        cancelBtn.setOnMouseEntered(event -> cancelBtn.setOpacity(1.0));
-        cancelBtn.setOnMouseExited(event -> cancelBtn.setOpacity(0.6));
+        cancelBtn.setOnMouseEntered(event -> cancelBtn.setStyle("-fx-background-color: #044d64; -fx-background-radius: 5px"));
+        cancelBtn.setOnMouseExited(event -> cancelBtn.setStyle("-fx-background-color: #067597; -fx-background-radius: 5px"));
         cancelBtn.setOnMouseClicked(event -> exitPane.setVisible(false));
     }
 
@@ -205,8 +205,8 @@ public class AccountController extends Application {
     }
 
     public void mouseOnSettingsImg() {
-        settingsImg.setOnMouseEntered(event -> settingsImg.setOpacity(1.0));
-        settingsImg.setOnMouseExited(event -> settingsImg.setOpacity(0.6));
+        settingsImg.setOnMouseEntered(event -> settingsImg.setOpacity(0.6));
+        settingsImg.setOnMouseExited(event -> settingsImg.setOpacity(1.0));
         settingsImg.setOnMouseClicked(event -> {
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), settingsPane);
             fadeTransition.setFromValue(0.0);
@@ -225,8 +225,8 @@ public class AccountController extends Application {
     }
 
     public void mouseOnSettingsOpenFolderButton() {
-        settingsOpenFolder.setOnMouseEntered(event -> settingsOpenFolder.setOpacity(1.0));
-        settingsOpenFolder.setOnMouseExited(event -> settingsOpenFolder.setOpacity(0.6));
+        settingsOpenFolder.setOnMouseEntered(event -> settingsOpenFolder.setStyle("-fx-background-color: #0c2a0c; -fx-background-radius: 5px"));
+        settingsOpenFolder.setOnMouseExited(event -> settingsOpenFolder.setStyle("-fx-background-color: #134213; -fx-background-radius: 5px"));
         settingsOpenFolder.setOnMouseClicked(event -> {
             String currentdir = System.getProperty("user.dir");
             if (Desktop.isDesktopSupported()) {
@@ -242,8 +242,8 @@ public class AccountController extends Application {
     }
 
     public void mouseOnSettingsRemoveButton() {
-        settingsClear.setOnMouseEntered(event -> settingsClear.setOpacity(1.0));
-        settingsClear.setOnMouseExited(event -> settingsClear.setOpacity(0.6));
+        settingsClear.setOnMouseEntered(event -> settingsClear.setStyle("-fx-background-color: #540202; -fx-background-radius: 5px"));
+        settingsClear.setOnMouseExited(event -> settingsClear.setStyle("-fx-background-color: #8c0606; -fx-background-radius: 5px"));
         settingsClear.setOnMouseClicked(event -> {
             ExecutorService service = Executors.newSingleThreadExecutor();
             service.execute(() -> {
@@ -257,33 +257,31 @@ public class AccountController extends Application {
         });
     }
 
-
     public void mouseOnCloseErrorImg() {
         alertCloseImg.setOnMouseEntered(event -> alertCloseImg.setOpacity(1.0));
         alertCloseImg.setOnMouseExited(event -> alertCloseImg.setOpacity(0.6));
         alertCloseImg.setOnMouseClicked(event -> alertPane.setVisible(false));
     }
+
     public void mouseOnRubleImg(){
         rubleImg.setOnMouseEntered(event -> {
             String path = new File(Runner.class.getResource("images/pay.png").getPath()).getAbsolutePath();
             Image image = new Image(path);
 
             rubleImg.setImage(image);
-            rubleImg.setOpacity(1.0);
         });
         rubleImg.setOnMouseExited(event -> {
             String path = new File(Runner.class.getResource("images/balance.png").getPath()).getAbsolutePath();
             Image image = new Image(path);
 
             rubleImg.setImage(image);
-            rubleImg.setOpacity(0.6);
         });
         rubleImg.setOnMouseClicked(event -> followingALink(URL + PAY, "Вы действительно хотите перейти по ссылке для пополнения своего баланса?"));
     }
 
     public void mouseOnExitAccount() {
-        exitAccountPane.setOnMouseEntered(event -> exitAccountPane.setOpacity(0.6));
-        exitAccountPane.setOnMouseExited(event -> exitAccountPane.setOpacity(1.0));
+        exitAccountPane.setOnMouseEntered(event -> exitAccountPane.setStyle("-fx-background-color: #500404; -fx-background-radius: 5px"));
+        exitAccountPane.setOnMouseExited(event -> exitAccountPane.setStyle("-fx-background-color: #8c0606; -fx-background-radius: 5px"));
         exitAccountPane.setOnMouseClicked(event -> {
             exitPane.setVisible(true);
 
@@ -684,7 +682,6 @@ public class AccountController extends Application {
                 } catch (IOException | NoSuchAlgorithmException ex) {}
 
                 FileResponse fileResponse = clientResponse.getFileResponse(path);
-
                 if(file.isFile() && (!hash.equals(fileResponse.getMd5()) || fileResponse.getSize() != file.length())){
                     alertShow("Произошла ошибка", "Произошла ошибка в проверке файлов..", true);
                     return;
@@ -759,8 +756,8 @@ public class AccountController extends Application {
             urlLabel.setText(url);
             urlContent.setText(content);
 
-            yesUrlBtn.setOnMouseEntered(event -> yesUrlBtn.setOpacity(1.0));
-            yesUrlBtn.setOnMouseExited(event -> yesUrlBtn.setOpacity(0.7));
+            yesUrlBtn.setOnMouseEntered(event -> yesUrlBtn.setStyle("-fx-background-color: #0e310e; -fx-background-radius: 5px"));
+            yesUrlBtn.setOnMouseExited(event -> yesUrlBtn.setStyle("-fx-background-color: #134213; -fx-background-radius: 5px"));
             yesUrlBtn.setOnMouseClicked(event -> {
 
                 try {
@@ -776,8 +773,8 @@ public class AccountController extends Application {
                 urlPane.setVisible(false);
 
             });
-            noUrlBtn.setOnMouseEntered(event -> noUrlBtn.setOpacity(1.0));
-            noUrlBtn.setOnMouseExited(event -> noUrlBtn.setOpacity(0.7));
+            noUrlBtn.setOnMouseEntered(event -> noUrlBtn.setStyle("-fx-background-color: #500404; -fx-background-radius: 5px"));
+            noUrlBtn.setOnMouseExited(event -> noUrlBtn.setStyle("-fx-background-color: #8c0606; -fx-background-radius: 5px"));
             noUrlBtn.setOnMouseClicked(event -> urlPane.setVisible(false));
 
             urlPane.setVisible(true);

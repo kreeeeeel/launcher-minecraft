@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="update upload files">
+    <list default="true" id="b54f91d4-41c5-444a-bb87-4757857b5c27" name="Changes" comment="update">
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/123.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/323.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/ForgeModLoader-client-0.log" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/ForgeModLoader-client-0.log.lck" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/Industrial_1.5.2.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/LiteLoader.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/Tooltips.cfg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/bg_sound" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/lib/argo-small-3.2.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/lib/asm-all-4.1.jar" afterDir="false" />
@@ -428,13 +429,430 @@
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave13.ogg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave2.ogg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave6.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave7.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave8.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/cave/cave9.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/weather/rain1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/weather/rain2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/weather/rain3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/weather/rain4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/weather/thunder1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/weather/thunder2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/ambient/weather/thunder3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/damage/fallbig.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/damage/fallsmall.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/damage/hit1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/damage/hit2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/damage/hit3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/cloth1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/cloth2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/cloth3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/cloth4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/grass1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/grass2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/grass3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/grass4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/gravel1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/gravel2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/gravel3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/gravel4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/sand1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/sand2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/sand3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/sand4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/snow1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/snow2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/snow3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/snow4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/stone1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/stone2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/stone3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/stone4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/wood1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/wood2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/wood3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/dig/wood4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fire/fire.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fire/ignite.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fireworks/blast1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fireworks/blast_far1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fireworks/largeBlast1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fireworks/largeBlast_far1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fireworks/launch1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fireworks/twinkle1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/fireworks/twinkle_far1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/lava.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/lavapop.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/splash.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/splash2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/swim1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/swim2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/swim3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/swim4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/liquid/water.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/minecart/base.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/minecart/inside.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/hurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/hurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/hurt3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/hurt4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/idle1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/idle2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/idle3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/idle4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/loop.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/bat/takeoff.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/breathe1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/breathe2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/breathe3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/breathe4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/hit1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/hit2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/hit3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/blaze/hit4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/hiss1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/hiss2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/hiss3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/hitt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/hitt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/hitt3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/meow1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/meow2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/meow3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/meow4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/purr1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/purr2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/purr3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/purreow1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cat/purreow2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/hurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/hurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/plop.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/chicken/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/hurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/hurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/hurt3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/say4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/cow/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/creeper/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/creeper/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/creeper/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/creeper/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/creeper/say4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/end.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/growl1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/growl2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/growl3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/growl4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/hit1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/hit2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/hit3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/hit4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/wings1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/wings2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/wings3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/wings4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/wings5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/enderdragon/wings6.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/hit1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/hit2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/hit3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/hit4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/idle1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/idle2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/idle3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/idle4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/idle5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/portal.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/portal2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/scream1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/scream2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/scream3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/scream4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/endermen/stare.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/affectionate scream.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/charge.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/fireball4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/moan1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/moan2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/moan3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/moan4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/moan5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/moan6.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/moan7.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/scream1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/scream2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/scream3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/scream4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/ghast/scream5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/hit1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/hit2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/hit3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/hit4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/throw.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/walk1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/walk2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/walk3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/irongolem/walk4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/big1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/big2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/big3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/big4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/jump1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/jump2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/jump3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/jump4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/small1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/small2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/small3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/small4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/magmacube/small5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/pig/step5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/shear.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/sheep/step5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/hit1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/hit2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/hit3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/kill.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/say4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/silverfish/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/hurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/hurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/hurt3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/hurt4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/skeleton/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/attack1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/attack2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/big1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/big2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/big3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/big4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/small1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/small2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/small3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/small4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/slime/small5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/say4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/spider/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/hurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/hurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/hurt3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/hurt4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/idle1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/idle2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/idle3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/idle4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/shoot.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wither/spawn.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/bark1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/bark2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/bark3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/growl1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/growl2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/growl3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/howl1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/howl2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/hurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/hurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/hurt3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/panting.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/step5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/wolf/whine.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/death.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/hurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/hurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/infect.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/metal1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/metal2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/metal3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/remedy.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/say1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/say2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/say3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/step1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/step2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/step3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/step4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/step5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/unfect.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/wood1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/wood2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/wood3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/wood4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombie/woodbreak.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpig1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpig2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpig3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpig4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpigangry1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpigangry2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpigangry3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpigangry4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpigdeath.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpighurt1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/mob/zombiepig/zpighurt2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/note/bass.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/note/bassattack.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/note/bd.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/note/harp.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/note/hat.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/note/pling.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/note/snare.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/portal/portal.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/portal/travel.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/portal/trigger.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/anvil_break.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/anvil_land.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/anvil_use.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/bow.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/bowhit1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/bowhit2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/bowhit3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/bowhit4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/break.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/breath.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/burp.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/chestclosed.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/chestopen.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/classic_hurt.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/click.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/door_close.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/door_open.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/drink.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/eat1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/eat2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/eat3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/explode1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/explode2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/explode3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/explode4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/fizz.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/fuse.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/glass1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/glass2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/glass3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/levelup.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/orb.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/pop.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/splash.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/successful_hit.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/random/wood click.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/cloth1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/cloth2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/cloth3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/cloth4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/grass1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/grass2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/grass3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/grass4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/grass5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/grass6.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/gravel1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/gravel2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/gravel3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/gravel4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/ladder1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/ladder2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/ladder3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/ladder4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/ladder5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/sand1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/sand2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/sand3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/sand4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/sand5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/snow1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/snow2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/snow3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/snow4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/stone2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/stone3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/stone4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/stone5.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/stone6.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/wood1.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/wood2.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/wood3.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/wood4.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/step/wood6.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/tile/piston/in.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/resources/sound3/tile/piston/out.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/saves/NEI.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/saves/NEI/remote/164.132.233.161~25535/NEI.cfg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/saves/NEI/remote/164.132.233.161~25535/NEI.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/servers.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Industrial_1.5.2/texturepacks/MCskill HD.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/application/launcher/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/application/launcher/utils/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/application/launcher/utils/Constant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/account.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/account.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/auth.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/application/launcher/scene/auth.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AuthController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AuthController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/controller/AuthController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/account.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/application/launcher/scene/account.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -529,6 +947,8 @@
       <workItem from="1671879134514" duration="2465000" />
       <workItem from="1671920881479" duration="1990000" />
       <workItem from="1671924592221" duration="26000" />
+      <workItem from="1671924659624" duration="457000" />
+      <workItem from="1671962619102" duration="2968000" />
     </task>
     <task id="LOCAL-00001" summary="add settings">
       <created>1671840364534</created>
@@ -558,7 +978,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671882246989</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update">
+      <created>1671925105692</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1671925105692</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -580,6 +1007,7 @@
     <MESSAGE value="add settings" />
     <MESSAGE value="update scene" />
     <MESSAGE value="update upload files" />
-    <option name="LAST_COMMIT_MESSAGE" value="update upload files" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>

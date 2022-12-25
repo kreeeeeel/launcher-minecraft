@@ -38,7 +38,7 @@
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="49.0" layoutY="312.0" text="Я забыл(-а) пароль" textFill="#b2b2b2">
+            <Label fx:id="recoveryLabel" layoutX="49.0" layoutY="312.0" text="Я забыл(-а) пароль" textFill="#b2b2b2">
                <font>
                   <Font name="Franklin Gothic Medium" size="16.0" />
                </font>
@@ -46,7 +46,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label layoutX="181.0" layoutY="564.0" text="Создать" textFill="#23c363">
+            <Label fx:id="registerLabel" layoutX="181.0" layoutY="564.0" text="Создать" textFill="#23c363">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -118,12 +118,56 @@
             </Pane>
          </children>
       </Pane>
+      <Pane fx:id="urlPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="183.0" layoutY="216.0" prefHeight="169.0" prefWidth="435.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+               <children>
+                  <Label layoutX="75.0" layoutY="41.0" text="Переход по ссылке" textFill="#544646">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="urlContent" layoutX="75.0" layoutY="65.0" prefHeight="45.0" prefWidth="341.0" text="Вы действительно хотите перейти по ссылке?" textFill="#5e5e5e" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="69.0" fitWidth="62.0" layoutX="6.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/question.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="noUrlBtn" layoutX="337.0" layoutY="121.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Нет" textFill="#dbdbdb">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="yesUrlBtn" layoutX="245.0" layoutY="121.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="84.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Да" textFill="#dddddd">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label fx:id="urlLabel" alignment="CENTER" layoutY="5.0" prefHeight="19.0" prefWidth="435.0" text="https://localhost:8745/server/industrial_1.5.2" textAlignment="CENTER" textFill="#9a9a9a" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
       <ImageView fx:id="exitImg" fitHeight="69.0" fitWidth="30.0" layoutX="764.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/close.png" />
          </image>
          <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
+            <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
       <ImageView fx:id="collapseImg" fitHeight="69.0" fitWidth="30.0" layoutX="734.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
@@ -131,7 +175,7 @@
             <Image url="@../images/collapse.png" />
          </image>
          <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
+            <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
    </children>
