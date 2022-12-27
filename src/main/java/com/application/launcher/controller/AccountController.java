@@ -3,12 +3,10 @@ package com.application.launcher.controller;
 import com.application.launcher.Runner;
 import com.application.launcher.rest.api.LauncherApi;
 import com.application.launcher.rest.api.ProfileApi;
-import com.application.launcher.rest.response.ClientResponse;
-import com.application.launcher.rest.response.FileResponse;
-import com.application.launcher.rest.response.ProfileResponse;
-import com.application.launcher.rest.response.ServerResponse;
-import com.application.launcher.utils.MD5Files;
-import com.application.launcher.utils.TokenHandler;
+import com.application.launcher.rest.response.*;
+import com.application.launcher.utils.LaunchUtils;
+import com.application.launcher.utils.MD5Utils;
+import com.application.launcher.utils.TokenUtils;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -17,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -56,6 +53,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static com.application.launcher.utils.Constant.*;
 
@@ -117,6 +116,9 @@ public class AccountController extends Application {
     private double stagePosY;
 
     private List<String> list;
+
+    private final AtomicInteger sendRequest = new AtomicInteger(0);
+    private final AtomicInteger succesRequest = new AtomicInteger(0);
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -298,8 +300,7 @@ public class AccountController extends Application {
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
 
-            String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
-
+            String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
             ProfileApi profileApi = retrofit.create(ProfileApi.class);
             profileApi.getProfile(token).enqueue(new Callback<>() {
                 @Override
@@ -461,6 +462,7 @@ public class AccountController extends Application {
         more.setFont(Font.font("Franklin Gothic Medium", 18));
         more.setTextFill(Paint.valueOf("#dddddd"));
         more.setCursor(Cursor.HAND);
+        more.setFocusTraversable(false);
 
         more.setOnMouseEntered(event -> more.setStyle("-fx-background-color: #0e4957"));
         more.setOnMouseExited(event -> more.setStyle("-fx-background-color: #167288"));
@@ -473,6 +475,7 @@ public class AccountController extends Application {
         play.setFont(Font.font("Franklin Gothic Medium", 18));
         play.setTextFill(Paint.valueOf("#dddddd"));
         play.setCursor(Cursor.HAND);
+        play.setFocusTraversable(false);
 
         play.setOnMouseEntered(event -> play.setStyle("-fx-background-color: #1a571a"));
         play.setOnMouseExited(event -> play.setStyle("-fx-background-color: #227322"));
@@ -512,7 +515,7 @@ public class AccountController extends Application {
         service.execute(() -> {
 
             paneUpdate.setVisible(true);
-            String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
+            String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
@@ -547,6 +550,9 @@ public class AccountController extends Application {
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
 
+            sendRequest.set(0);
+            succesRequest.set(0);
+
             folders = 0;
             files = 0;
 
@@ -555,14 +561,14 @@ public class AccountController extends Application {
                 fileUpdate.setText("Подготовка к обновлению..");
             });
 
-            String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
+            String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
             LauncherApi launcherApi = retrofit.create(LauncherApi.class);
-            MD5Files md5Files = new MD5Files();
+            MD5Utils md5Utils = new MD5Utils();
 
             File folder = new File("client");
             if( folder.mkdir() ){
@@ -593,20 +599,27 @@ public class AccountController extends Application {
                 File file = new File(fileResponse.getPath());
                 String hash = null;
                 try {
-                    hash = md5Files.getHash(file.getAbsolutePath());
+                    hash = md5Utils.getMD5File(file.getAbsolutePath());
                 } catch (IOException | NoSuchAlgorithmException e) {
                 }
 
-                showUpdate(fileResponse.getPath());
-                if(!file.exists() || hash == null || !hash.equals(fileResponse.getMd5()) || file.length() != fileResponse.getSize()){
-                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath(), StandardCharsets.UTF_8)).enqueue(new Callback<>() {
+                if(!file.exists() || hash == null || !hash.equals(fileResponse.getMd5()) || file.length() != fileResponse.getSize()) {
+                    sendRequest.incrementAndGet();
+                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/"), StandardCharsets.UTF_8)).enqueue(new Callback<>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                            int cur = succesRequest.incrementAndGet();
+                            System.out.println(sendRequest.get() - succesRequest.get());
+
+                            showUpdate(fileResponse.getPath());
+
 
                             if(!response.isSuccessful()) {
                                 //alertShow("Ошибка авторизации!", "Неверно указан логин или пароль!");
                                 return;
                             }
+
 
                             try {
                                 ResponseBody responseBody = response.body();
@@ -624,30 +637,30 @@ public class AccountController extends Application {
                             } catch (IOException ex){
                                 System.out.println(ex.getMessage());
                             }
+
+                            if (sendRequest.get() == cur){
+                                launchMinecraft(name);
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            //alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..");
+                            System.out.println(t.getMessage());
+                            //alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", true);
+                            return;
                         }
                     });
                 }
-
-                files += 1;
-                double value = (double) (folders + files) / (clientResponse.getCountFiles() + clientResponse.getCountFolders());
-                showUpdateProgres(value);
             }
-            Platform.runLater(() -> titleUpdate.setText("Индексация файлов.."));
-            launchMinecraft(name);
         });
     }
 
-    public void checkingFiles(String name, ClientResponse clientResponse) {
+    /*public void checkingFiles(String name, ClientResponse clientResponse) {
 
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
 
-            MD5Files md5Files = new MD5Files();
+            MD5Utils md5Utils = new MD5Utils();
             File folder = new File("client");
             if( folder.mkdir() ){
                 showUpdate("Создание папки с клиентами.");
@@ -678,7 +691,7 @@ public class AccountController extends Application {
                 }
 
                 try {
-                    hash = md5Files.getHash(path);
+                    hash = md5Utils.getMD5File(path);
                 } catch (IOException | NoSuchAlgorithmException ex) {}
 
                 FileResponse fileResponse = clientResponse.getFileResponse(path);
@@ -688,10 +701,10 @@ public class AccountController extends Application {
                 }
             }
 
-            launchMinecraft(name);
+            //launchMinecraft(name);
             paneUpdate.setVisible(false);
         });
-    }
+    }*/
 
     public void indexingFiles(String path){
         File file = new File(path);
@@ -793,52 +806,37 @@ public class AccountController extends Application {
     }
 
     public void launchMinecraft(String client) {
-        try {
+        String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
+        LauncherApi launcherApi = retrofit.create(LauncherApi.class);
 
-            //Runtime.getRuntime().exec("\"C:\\Users\\kiril\\Desktop\\Projects\\launcher\\jdk\\jre\\bin\\javaw.exe\" -Xmx1024M -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:-UseAdaptiveSizePolicy -Xmn128M \"-Djava.library.path=versions\\1.12.2\\natives\" -cp \"libraries\\net\\minecraftforge\\forge\\1.12.2-14.23.5.2838\\forge-1.12.2-14.23.5.2838.jar;libraries\\net\\minecraft\\launchwrapper\\1.12\\launchwrapper-1.12.jar;libraries\\org\\ow2\\asm\\asm-all\\5.2\\asm-all-5.2.jar;libraries\\org\\jline\\jline\\3.5.1\\jline-3.5.1.jar;libraries\\net\\java\\dev\\jna\\jna\\4.4.0\\jna-4.4.0.jar;libraries\\com\\typesafe\\akka\\akka-actor_2.11\\2.3.3\\akka-actor_2.11-2.3.3.jar;libraries\\com\\typesafe\\config\\1.2.1\\config-1.2.1.jar;libraries\\org\\scala-lang\\scala-actors-migration_2.11\\1.1.0\\scala-actors-migration_2.11-1.1.0.jar;libraries\\org\\scala-lang\\scala-compiler\\2.11.1\\scala-compiler-2.11.1.jar;libraries\\org\\scala-lang\\plugins\\scala-continuations-library_2.11\\1.0.2\\scala-continuations-library_2.11-1.0.2.jar;libraries\\org\\scala-lang\\plugins\\scala-continuations-plugin_2.11.1\\1.0.2\\scala-continuations-plugin_2.11.1-1.0.2.jar;libraries\\org\\scala-lang\\scala-library\\2.11.1\\scala-library-2.11.1.jar;libraries\\org\\scala-lang\\scala-parser-combinators_2.11\\1.0.1\\scala-parser-combinators_2.11-1.0.1.jar;libraries\\org\\scala-lang\\scala-reflect\\2.11.1\\scala-reflect-2.11.1.jar;libraries\\org\\scala-lang\\scala-swing_2.11\\1.0.1\\scala-swing_2.11-1.0.1.jar;libraries\\org\\scala-lang\\scala-xml_2.11\\1.0.2\\scala-xml_2.11-1.0.2.jar;libraries\\lzma\\lzma\\0.0.1\\lzma-0.0.1.jar;libraries\\net\\sf\\jopt-simple\\jopt-simple\\5.0.3\\jopt-simple-5.0.3.jar;libraries\\java3d\\vecmath\\1.5.2\\vecmath-1.5.2.jar;libraries\\net\\sf\\trove4j\\trove4j\\3.0.3\\trove4j-3.0.3.jar;libraries\\org\\apache\\maven\\maven-artifact\\3.5.3\\maven-artifact-3.5.3.jar;libraries\\com\\mojang\\patchy\\1.1\\patchy-1.1.jar;libraries\\oshi-project\\oshi-core\\1.1\\oshi-core-1.1.jar;libraries\\net\\java\\dev\\jna\\jna\\4.4.0\\jna-4.4.0.jar;libraries\\net\\java\\dev\\jna\\platform\\3.4.0\\platform-3.4.0.jar;libraries\\com\\ibm\\icu\\icu4j-core-mojang\\51.2\\icu4j-core-mojang-51.2.jar;libraries\\net\\sf\\jopt-simple\\jopt-simple\\5.0.3\\jopt-simple-5.0.3.jar;libraries\\com\\paulscode\\codecjorbis\\20101023\\codecjorbis-20101023.jar;libraries\\com\\paulscode\\codecwav\\20101023\\codecwav-20101023.jar;libraries\\com\\paulscode\\libraryjavasound\\20101123\\libraryjavasound-20101123.jar;libraries\\com\\paulscode\\librarylwjglopenal\\20100824\\librarylwjglopenal-20100824.jar;libraries\\com\\paulscode\\soundsystem\\20120107\\soundsystem-20120107.jar;libraries\\io\\netty\\netty-all\\4.1.9.Final\\netty-all-4.1.9.Final.jar;libraries\\com\\google\\guava\\guava\\21.0\\guava-21.0.jar;libraries\\org\\apache\\commons\\commons-lang3\\3.5\\commons-lang3-3.5.jar;libraries\\commons-io\\commons-io\\2.5\\commons-io-2.5.jar;libraries\\commons-codec\\commons-codec\\1.10\\commons-codec-1.10.jar;libraries\\net\\java\\jinput\\jinput\\2.0.5\\jinput-2.0.5.jar;libraries\\net\\java\\jutils\\jutils\\1.0.0\\jutils-1.0.0.jar;libraries\\com\\google\\code\\gson\\gson\\2.8.0\\gson-2.8.0.jar;libraries\\com\\mojang\\authlib\\1.5.25\\authlib-1.5.25.jar;libraries\\com\\mojang\\realms\\1.10.22\\realms-1.10.22.jar;libraries\\org\\apache\\commons\\commons-compress\\1.8.1\\commons-compress-1.8.1.jar;libraries\\org\\apache\\httpcomponents\\httpclient\\4.3.3\\httpclient-4.3.3.jar;libraries\\commons-logging\\commons-logging\\1.1.3\\commons-logging-1.1.3.jar;libraries\\org\\apache\\httpcomponents\\httpcore\\4.3.2\\httpcore-4.3.2.jar;libraries\\it\\unimi\\dsi\\fastutil\\7.1.0\\fastutil-7.1.0.jar;libraries\\org\\apache\\logging\\log4j\\log4j-api\\2.8.1\\log4j-api-2.8.1.jar;libraries\\org\\apache\\logging\\log4j\\log4j-core\\2.8.1\\log4j-core-2.8.1.jar;libraries\\org\\lwjgl\\lwjgl\\lwjgl\\2.9.4-nightly-20150209\\lwjgl-2.9.4-nightly-20150209.jar;libraries\\org\\lwjgl\\lwjgl\\lwjgl_util\\2.9.4-nightly-20150209\\lwjgl_util-2.9.4-nightly-20150209.jar;libraries\\com\\mojang\\text2speech\\1.10.3\\text2speech-1.10.3.jar;versions\\1.12.2\\1.12.2.jar\" net.minecraft.launchwrapper.Launch --username Name --version 1.12.2-forge1.12.2-14.23.5.2838 --gameDir C:\\Users\\kiril\\Desktop\\Projects\\launcher\\client\\Minecraft_1.12.2_Forge\\ --assetsDir assets --assetIndex 1.12 --uuid 0f28983a46ce33b1aed45cdc95bf44c3 --accessToken 00000000000000000000000000000000 --userType mojang --tweakClass net.minecraftforge.fml.common.launcher.FMLTweaker --versionType Forge");
+        launcherApi.getLauncherSettings(token, client).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<SettingsResponse> call, Response<SettingsResponse> response) {
 
-            String home = System.getProperty("user.dir");
-            ArrayList<String> params = new ArrayList<>();
+                if(!response.isSuccessful()) {
+                    alertShow("Ошибка запуска!", "Не удалось получить данные..", false);
+                    return;
+                }
 
-            params.add("\"Поставишь свой путь\"");
-            params.add("-Dos.name=Windows 10");
-            params.add("-Dos.version=10.0");
-            params.add("-Xmx1024M");
-            params.add("-javaagent:authlib-injector-1.2.1.jar=" + URL);
-            params.add("-Xmn128M");
-            params.add("-XX:MaxPermSize=128m");
-            params.add("-XX:+UseConcMarkSweepGC");
-            params.add("-XX:+CMSIncrementalMode");
-            params.add("-XX:-UseAdaptiveSizePolicy");
-            params.add("\"-Djava.library.path=versions\\1.12.2\\natives\"");
-            params.add("-cp \"libraries\\net\\minecraftforge\\forge\\1.12.2-14.23.5.2838\\forge-1.12.2-14.23.5.2838.jar;libraries\\net\\minecraft\\launchwrapper\\1.12\\launchwrapper-1.12.jar;libraries\\org\\ow2\\asm\\asm-all\\5.2\\asm-all-5.2.jar;libraries\\org\\jline\\jline\\3.5.1\\jline-3.5.1.jar;libraries\\net\\java\\dev\\jna\\jna\\4.4.0\\jna-4.4.0.jar;libraries\\com\\typesafe\\akka\\akka-actor_2.11\\2.3.3\\akka-actor_2.11-2.3.3.jar;libraries\\com\\typesafe\\config\\1.2.1\\config-1.2.1.jar;libraries\\org\\scala-lang\\scala-actors-migration_2.11\\1.1.0\\scala-actors-migration_2.11-1.1.0.jar;libraries\\org\\scala-lang\\scala-compiler\\2.11.1\\scala-compiler-2.11.1.jar;libraries\\org\\scala-lang\\plugins\\scala-continuations-library_2.11\\1.0.2\\scala-continuations-library_2.11-1.0.2.jar;libraries\\org\\scala-lang\\plugins\\scala-continuations-plugin_2.11.1\\1.0.2\\scala-continuations-plugin_2.11.1-1.0.2.jar;libraries\\org\\scala-lang\\scala-library\\2.11.1\\scala-library-2.11.1.jar;libraries\\org\\scala-lang\\scala-parser-combinators_2.11\\1.0.1\\scala-parser-combinators_2.11-1.0.1.jar;libraries\\org\\scala-lang\\scala-reflect\\2.11.1\\scala-reflect-2.11.1.jar;libraries\\org\\scala-lang\\scala-swing_2.11\\1.0.1\\scala-swing_2.11-1.0.1.jar;libraries\\org\\scala-lang\\scala-xml_2.11\\1.0.2\\scala-xml_2.11-1.0.2.jar;libraries\\lzma\\lzma\\0.0.1\\lzma-0.0.1.jar;libraries\\net\\sf\\jopt-simple\\jopt-simple\\5.0.3\\jopt-simple-5.0.3.jar;libraries\\java3d\\vecmath\\1.5.2\\vecmath-1.5.2.jar;libraries\\net\\sf\\trove4j\\trove4j\\3.0.3\\trove4j-3.0.3.jar;libraries\\org\\apache\\maven\\maven-artifact\\3.5.3\\maven-artifact-3.5.3.jar;libraries\\com\\mojang\\patchy\\1.1\\patchy-1.1.jar;libraries\\oshi-project\\oshi-core\\1.1\\oshi-core-1.1.jar;libraries\\net\\java\\dev\\jna\\jna\\4.4.0\\jna-4.4.0.jar;libraries\\net\\java\\dev\\jna\\platform\\3.4.0\\platform-3.4.0.jar;libraries\\com\\ibm\\icu\\icu4j-core-mojang\\51.2\\icu4j-core-mojang-51.2.jar;libraries\\net\\sf\\jopt-simple\\jopt-simple\\5.0.3\\jopt-simple-5.0.3.jar;libraries\\com\\paulscode\\codecjorbis\\20101023\\codecjorbis-20101023.jar;libraries\\com\\paulscode\\codecwav\\20101023\\codecwav-20101023.jar;libraries\\com\\paulscode\\libraryjavasound\\20101123\\libraryjavasound-20101123.jar;libraries\\com\\paulscode\\librarylwjglopenal\\20100824\\librarylwjglopenal-20100824.jar;libraries\\com\\paulscode\\soundsystem\\20120107\\soundsystem-20120107.jar;libraries\\io\\netty\\netty-all\\4.1.9.Final\\netty-all-4.1.9.Final.jar;libraries\\com\\google\\guava\\guava\\21.0\\guava-21.0.jar;libraries\\org\\apache\\commons\\commons-lang3\\3.5\\commons-lang3-3.5.jar;libraries\\commons-io\\commons-io\\2.5\\commons-io-2.5.jar;libraries\\commons-codec\\commons-codec\\1.10\\commons-codec-1.10.jar;libraries\\net\\java\\jinput\\jinput\\2.0.5\\jinput-2.0.5.jar;libraries\\net\\java\\jutils\\jutils\\1.0.0\\jutils-1.0.0.jar;libraries\\com\\google\\code\\gson\\gson\\2.8.0\\gson-2.8.0.jar;libraries\\com\\mojang\\authlib\\1.5.25\\authlib-1.5.25.jar;libraries\\com\\mojang\\realms\\1.10.22\\realms-1.10.22.jar;libraries\\org\\apache\\commons\\commons-compress\\1.8.1\\commons-compress-1.8.1.jar;libraries\\org\\apache\\httpcomponents\\httpclient\\4.3.3\\httpclient-4.3.3.jar;libraries\\commons-logging\\commons-logging\\1.1.3\\commons-logging-1.1.3.jar;libraries\\org\\apache\\httpcomponents\\httpcore\\4.3.2\\httpcore-4.3.2.jar;libraries\\it\\unimi\\dsi\\fastutil\\7.1.0\\fastutil-7.1.0.jar;libraries\\org\\apache\\logging\\log4j\\log4j-api\\2.8.1\\log4j-api-2.8.1.jar;libraries\\org\\apache\\logging\\log4j\\log4j-core\\2.8.1\\log4j-core-2.8.1.jar;libraries\\org\\lwjgl\\lwjgl\\lwjgl\\2.9.4-nightly-20150209\\lwjgl-2.9.4-nightly-20150209.jar;libraries\\org\\lwjgl\\lwjgl\\lwjgl_util\\2.9.4-nightly-20150209\\lwjgl_util-2.9.4-nightly-20150209.jar;libraries\\com\\mojang\\text2speech\\1.10.3\\text2speech-1.10.3.jar;versions\\1.12.2\\1.12.2.jar\"");
-            params.add("net.minecraft.launchwrapper.Launch");
-            params.add("--username Name");
-            params.add("--version 1.12.2-forge1.12.2-14.23.5.2838");
-            params.add("--gameDir C:\\Users\\kiril\\Desktop\\Projects\\launcher\\client\\Minecraft_1.12.2_Forge\\");
-            params.add("--assetsDir assets");
-            params.add("--assetIndex 1.12");
-            params.add("--uuid 0f28983a46ce33b1aed45cdc95bf44c3");
-            params.add("--accessToken 00000000000000000000000000000000");
-            params.add("--userType mojang");
-            params.add("--tweakClass net.minecraftforge.fml.common.launcher.FMLTweaker");
-            params.add("--versionType Forge");
+                SettingsResponse settingsResponse = response.body();
+                if(settingsResponse == null){
+                    alertShow("Ошибка запуска!", "Тело запроса оказалось пустым..", false);
+                    return;
+                }
 
-            ProcessBuilder processBuilder = new ProcessBuilder(params);
-            processBuilder.directory(new File(home + "\\client\\" + client));
-            Process process = processBuilder.start();
-            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String s = "";
-            while((s = in.readLine()) != null){
-                System.out.println(s);
+                Platform.runLater(() -> titleUpdate.setText("Запуск.."));
+                showUpdate("Инициализация запуска..");
+                showUpdateProgres(-1.0);
+
+                LaunchUtils launchUtils = new LaunchUtils();
+                launchUtils.start(client, settingsResponse, boxLaunchFullScreen.isSelected());
             }
-            int status = process.waitFor();
-            System.out.println("Exited with status: " + status);
 
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
+            @Override
+            public void onFailure(Call<SettingsResponse> call, Throwable t) {
+                alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", false);
+            }
+        });
     }
 
 }

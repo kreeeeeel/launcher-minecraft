@@ -2,12 +2,13 @@ package com.application.launcher.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5Files {
+public class MD5Utils {
 
-    public String getHash(String fileName) throws IOException, NoSuchAlgorithmException
+    public String getMD5File(String fileName) throws IOException, NoSuchAlgorithmException
     {
         MessageDigest md = MessageDigest.getInstance("MD5");
         FileInputStream fis = new FileInputStream(fileName);

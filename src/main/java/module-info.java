@@ -9,6 +9,7 @@ module com.application.launcher {
     requires java.desktop;
     requires okhttp3;
 
+    opens com.application.launcher.entity to com.google.gson;
     opens com.application.launcher.rest.request to com.google.gson;
     opens com.application.launcher.rest.response to com.google.gson;
 

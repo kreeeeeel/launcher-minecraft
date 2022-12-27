@@ -1,7 +1,10 @@
 package com.application.launcher.controller;
 
 import com.application.launcher.Runner;
-import com.application.launcher.utils.TokenHandler;
+import com.application.launcher.entity.AccountEntity;
+import com.application.launcher.utils.AccountUtils;
+import com.application.launcher.utils.AuthFromRegUtils;
+import com.application.launcher.utils.TokenUtils;
 import com.application.launcher.rest.api.AuthApi;
 import com.application.launcher.rest.request.AuthRequest;
 import com.application.launcher.rest.response.TokenResponse;
@@ -10,16 +13,21 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import retrofit2.Call;
@@ -32,6 +40,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -43,10 +53,12 @@ public class AuthController extends Application {
     @FXML private Button auth;
     @FXML private Button yesUrlBtn;
     @FXML private Button noUrlBtn;
+    @FXML private Button authChange;
 
     @FXML private Pane authPane;
     @FXML private Pane alertPane;
     @FXML private Pane urlPane;
+    @FXML private Pane changePane;
 
     @FXML private Label authTitle;
     @FXML private Label alertMessage;
@@ -60,13 +72,21 @@ public class AuthController extends Application {
     @FXML private ImageView alertCloseImg;
     @FXML private ImageView alertImg;
     @FXML private ImageView exitImg;
+    @FXML private ImageView changeCloseImg;
+    @FXML private ImageView changeImg;
 
     @FXML private TextField login;
 
     @FXML private PasswordField password;
 
+    @FXML private AnchorPane anchorChange;
+
     private double stagePosX;
     private double stagePosY;
+
+    private String authLogin;
+    private String authPassword;
+    private Pane authUserPane;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -99,9 +119,17 @@ public class AuthController extends Application {
         mouseOnRecoveryLabel();
         mouseOnRegisterLabel();
 
+        mouseOnChangeImg();
+        mouseOnChangeCloseImg();
+
+        mouseOnFastAuth();
+
         // Keyboard events
         keyboardOnLogin();
         keyboardOnPassword();
+
+        //
+        eventFromRegister();
 
     }
 
@@ -109,6 +137,21 @@ public class AuthController extends Application {
         exitImg.setOnMouseEntered(event -> exitImg.setOpacity(1.0));
         exitImg.setOnMouseExited(event -> exitImg.setOpacity(0.6));
         exitImg.setOnMouseClicked(event -> System.exit(1));
+    }
+
+    public void eventFromRegister() {
+        if (!AuthFromRegUtils.register){
+            return;
+        }
+
+        login.setText(AuthFromRegUtils.username);
+        password.setText(AuthFromRegUtils.password);
+
+        authorization();
+
+        AuthFromRegUtils.username = null;
+        AuthFromRegUtils.password = null;
+        AuthFromRegUtils.register = false;
     }
 
     public void mouseOnCollapseImg(){
@@ -141,7 +184,53 @@ public class AuthController extends Application {
     public void mouseOnRegisterLabel() {
         registerLabel.setOnMouseEntered(event -> registerLabel.setTextFill(Paint.valueOf("#158640")));
         registerLabel.setOnMouseExited(event -> registerLabel.setTextFill(Paint.valueOf("#23c363")));
-        registerLabel.setOnMouseClicked(event -> followingALink(URL + REGISTER, "Вы действительно хотите перейти по ссылке для регистрации?"));
+        registerLabel.setOnMouseClicked(event -> {
+            try {
+                Stage stage = (Stage) registerLabel.getScene().getWindow();
+                RegisterController registerController = new RegisterController();
+                registerController.start(stage);
+            } catch (IOException e) {
+                alertShow("Произошла ошибка", "Невозможно сменить сцену..", false);
+            }
+        });
+    }
+
+    public void mouseOnChangeImg(){
+        changeImg.setOnMouseEntered(event -> changeImg.setOpacity(1.0));
+        changeImg.setOnMouseExited(event -> changeImg.setOpacity(0.5));
+        changeImg.setOnMouseClicked(event -> {
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), changePane);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setByValue(1.0);
+            fadeTransition.setAutoReverse(true);
+
+            ProgressIndicator progressIndicator = new ProgressIndicator();
+            progressIndicator.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+            progressIndicator.setLayoutX(131);
+            progressIndicator.setLayoutY(126);
+            progressIndicator.setPrefSize(77, 90);
+
+            anchorChange.getChildren().clear();
+            anchorChange.getChildren().add(progressIndicator);
+
+            changePane.setVisible(true);
+
+            fadeTransition.play();
+
+            accounts();
+        });
+    }
+
+    public void mouseOnChangeCloseImg() {
+        changeCloseImg.setOnMouseEntered(event -> changeCloseImg.setOpacity(1.0));
+        changeCloseImg.setOnMouseExited(event -> changeCloseImg.setOpacity(0.6));
+        changeCloseImg.setOnMouseClicked(event -> changePane.setVisible(false));
+    }
+
+    public void mouseOnFastAuth() {
+        authChange.setOnMouseEntered(event -> authChange.setStyle("-fx-background-color: #0e310e; -fx-background-radius: 5px"));
+        authChange.setOnMouseExited(event -> authChange.setStyle("-fx-background-color: #134213; -fx-background-radius: 5px"));
+        authChange.setOnMouseClicked(event -> authorization(authLogin, authPassword));
     }
 
     public void keyboardOnLogin(){
@@ -160,13 +249,117 @@ public class AuthController extends Application {
         });
     }
 
-    public void authorization() {
+    public void accounts(){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+
+            authLogin = null;
+            authPassword = null;
+            authUserPane = null;
+
+            authChange.setDisable(true);
+
+            AccountUtils accountUtils = new AccountUtils();
+            List<AccountEntity> list = accountUtils.getAccounts();
+
+            Platform.runLater(() -> anchorChange.getChildren().clear());
+            if(list == null || list.size() == 0) {
+                alertShow("Пусто :(", "У вас нет сохраненных аккаунтов..", true);
+                return;
+            }
+
+            int count = 0;
+            for (AccountEntity accountEntity : list) {
+
+                Image image = null;
+                try {
+                    image = new Image(new URL(URL + PHOTO + accountEntity.getUsername() + ".png").openStream());
+                } catch (IOException e) {
+                    accountUtils.remove(accountEntity);
+                    continue;
+                }
+
+                Pane pane = new Pane();
+                pane.setPrefSize(300, 45);
+                pane.setLayoutX(13);
+                pane.setLayoutY(50*count);
+                pane.setStyle("-fx-background-color: white; -fx-background-radius: 5px");
+                pane.setCursor(Cursor.HAND);
+
+                Circle circle = new Circle();
+                circle.setLayoutX(26);
+                circle.setLayoutY(23);
+                circle.setRadius(19);
+                circle.setStroke(Paint.valueOf("#544646"));
+                circle.setFill(new ImagePattern(image));
+
+                Label label = new Label(accountEntity.getUsername());
+                label.setPrefSize(208, 24);
+                label.setLayoutX(54);
+                label.setLayoutY(10);
+                label.setFont(Font.font("Franklin Gothic Medium", 18));
+                label.setTextFill(Paint.valueOf("#544646"));
+
+                ImageView imageView = new ImageView(new File(Runner.class.getResource("images/remove.png").getPath()).getAbsolutePath());
+                imageView.setFitWidth(30);
+                imageView.setFitHeight(30);
+                imageView.setLayoutX(262);
+                imageView.setLayoutY(8);
+                imageView.setOpacity(0.6);
+
+                pane.setOnMouseEntered(event ->
+                        pane.setStyle("-fx-background-radius: 5px;-fx-background-color: " + ((pane == authUserPane) ? "#217fdc" : "#b9b8b8")));
+                pane.setOnMouseExited(event ->
+                        pane.setStyle("-fx-background-radius: 5px;-fx-background-color: " + ((pane == authUserPane) ? "#2388ec" : "white")));
+                pane.setOnMouseClicked(event -> {
+
+                    if (authUserPane != null){
+                        authUserPane.setStyle("-fx-background-radius: 5px;-fx-background-color: white");
+                    }
+
+                    pane.setStyle("-fx-background-radius: 5px;-fx-background-color: #217fdc");
+
+                    authLogin = accountEntity.getUsername();
+                    authPassword = accountEntity.getPassword();
+                    authUserPane = pane;
+
+                    authChange.setDisable(false);
+                });
+
+                imageView.setOnMouseEntered(event -> imageView.setOpacity(1.0));
+                imageView.setOnMouseExited(event -> imageView.setOpacity(0.6));
+                imageView.setOnMouseClicked(event -> {
+                    accountUtils.remove(accountEntity);
+                    accounts();
+                });
+
+                count += 1;
+                pane.getChildren().addAll(circle, label, imageView);
+                Platform.runLater(() -> anchorChange.getChildren().add(pane));
+            }
+            anchorChange.setPrefHeight(Math.max(count * 50, 304));
+
+            if(count == 0){
+                alertShow("Пусто :(", "У вас нет сохраненных аккаунтов..", true);
+            }
+        });
+    }
+
+    public void authorization(){
+
+        String username = login.getText().trim();
+        String pass = password.getText().trim();
+
+        authorization(username, pass);
+
+    }
+
+    public void authorization(String username, String pass) {
 
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
 
-            String username = login.getText().trim();
-            String pass = password.getText().trim();
+            Platform.runLater(() -> changePane.setVisible(false));
 
             if (username.length() < LOGIN_MIN || username.length() > LOGIN_MAX) {
                 alertShow("Корректность данных", "Длина логина от " + LOGIN_MIN + " до " + LOGIN_MAX + " символов.", true);
@@ -178,8 +371,10 @@ public class AuthController extends Application {
                 return;
             }
 
-            authPane.setVisible(true);
-            Platform.runLater(() -> authTitle.setText(username));
+            Platform.runLater(() -> {
+                authTitle.setText(username);
+                authPane.setVisible(true);
+            });
 
             AuthRequest authRequest = new AuthRequest();
             authRequest.setUsername(username);
@@ -206,8 +401,16 @@ public class AuthController extends Application {
                         return;
                     }
 
-                    TokenHandler.setAccessToken(tokenResponse.getAccessToken());
-                    TokenHandler.setTokenType(tokenResponse.getTokenType());
+                    AccountUtils accountUtils = new AccountUtils();
+                    AccountEntity accountEntity = new AccountEntity();
+
+                    accountEntity.setUsername(username);
+                    accountEntity.setPassword(pass);
+
+                    accountUtils.add(accountEntity);
+
+                    TokenUtils.setAccessToken(tokenResponse.getAccessToken());
+                    TokenUtils.setTokenType(tokenResponse.getTokenType());
                     Platform.runLater(() -> {
                         try {
                             Stage stage = (Stage) auth.getScene().getWindow();
@@ -215,7 +418,6 @@ public class AuthController extends Application {
                             AccountController accountController = new AccountController();
                             accountController.start(stage);
                         } catch (IOException e) {
-                            e.printStackTrace();
                             alertShow("Произошла ошибка!", "Произошла ошибка в загрузке сцены!");
                         }
                     });
@@ -245,6 +447,7 @@ public class AuthController extends Application {
             fadeTransition.setAutoReverse(true);
 
             authPane.setVisible(false);
+            changePane.setVisible(false);
 
             alertPane.setVisible(true);
             alertTitle.setText(title);
@@ -291,4 +494,5 @@ public class AuthController extends Application {
             fadeTransition.play();
         });
     }
+
 }

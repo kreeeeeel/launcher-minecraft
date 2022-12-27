@@ -1,6 +1,6 @@
 package com.application.launcher.utils;
 
-public class TokenHandler {
+public class TokenUtils {
     private static String accessToken;
     private static String tokenType;
 
@@ -9,7 +9,7 @@ public class TokenHandler {
     }
 
     public static void setAccessToken(String accessToken) {
-        TokenHandler.accessToken = accessToken;
+        TokenUtils.accessToken = accessToken;
     }
 
     public static String getTokenType() {
@@ -17,6 +17,6 @@ public class TokenHandler {
     }
 
     public static void setTokenType(String tokenType) {
-        TokenHandler.tokenType = tokenType;
+        TokenUtils.tokenType = tokenType;
     }
 }
