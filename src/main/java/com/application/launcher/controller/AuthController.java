@@ -2,12 +2,12 @@ package com.application.launcher.controller;
 
 import com.application.launcher.Runner;
 import com.application.launcher.entity.AccountEntity;
-import com.application.launcher.utils.AccountUtils;
-import com.application.launcher.utils.AuthFromRegUtils;
-import com.application.launcher.utils.TokenUtils;
 import com.application.launcher.rest.api.AuthApi;
 import com.application.launcher.rest.request.AuthRequest;
 import com.application.launcher.rest.response.TokenResponse;
+import com.application.launcher.utils.AccountUtils;
+import com.application.launcher.utils.AuthFromRegUtils;
+import com.application.launcher.utils.TokenUtils;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,9 +15,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,7 +38,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -46,7 +48,13 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.application.launcher.utils.Constant.*;
+import static com.application.launcher.utils.Constant.LOGIN_MAX;
+import static com.application.launcher.utils.Constant.LOGIN_MIN;
+import static com.application.launcher.utils.Constant.PASSWORD_MAX;
+import static com.application.launcher.utils.Constant.PASSWORD_MIN;
+import static com.application.launcher.utils.Constant.PHOTO;
+import static com.application.launcher.utils.Constant.RECOVERY;
+import static com.application.launcher.utils.Constant.URL;
 
 public class AuthController extends Application {
 
@@ -407,7 +415,7 @@ public class AuthController extends Application {
                     accountEntity.setUsername(username);
                     accountEntity.setPassword(pass);
 
-                    accountUtils.add(accountEntity);
+                    //accountUtils.add(accountEntity);
 
                     TokenUtils.setAccessToken(tokenResponse.getAccessToken());
                     TokenUtils.setTokenType(tokenResponse.getTokenType());

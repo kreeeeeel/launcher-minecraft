@@ -22,7 +22,7 @@ public class Runner extends Application {
         authController.start(stage);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch();
     }
 

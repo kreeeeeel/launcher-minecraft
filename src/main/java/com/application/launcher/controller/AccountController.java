@@ -3,11 +3,14 @@ package com.application.launcher.controller;
 import com.application.launcher.Runner;
 import com.application.launcher.rest.api.LauncherApi;
 import com.application.launcher.rest.api.ProfileApi;
-import com.application.launcher.rest.response.*;
+import com.application.launcher.rest.response.ClientResponse;
+import com.application.launcher.rest.response.FileResponse;
+import com.application.launcher.rest.response.ProfileResponse;
+import com.application.launcher.rest.response.ServerResponse;
+import com.application.launcher.rest.response.SettingsResponse;
 import com.application.launcher.utils.LaunchUtils;
 import com.application.launcher.utils.MD5Utils;
 import com.application.launcher.utils.TokenUtils;
-
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -16,9 +19,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,7 +37,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import okhttp3.ResponseBody;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,9 +44,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
@@ -54,58 +64,97 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
-import static com.application.launcher.utils.Constant.*;
+import static com.application.launcher.utils.Constant.ICONS;
+import static com.application.launcher.utils.Constant.PAY;
+import static com.application.launcher.utils.Constant.PHOTO;
+import static com.application.launcher.utils.Constant.URL;
 
 public class AccountController extends Application {
 
-    @FXML private ImageView exitImg;
-    @FXML private ImageView collapseImg;
-    @FXML private ImageView alertCloseImg;
-    @FXML private ImageView alertImg;
-    @FXML private ImageView rubleImg;
-    @FXML private ImageView settingsCloseImg;
-    @FXML private ImageView settingsImg;
+    @FXML
+    private ImageView exitImg;
+    @FXML
+    private ImageView collapseImg;
+    @FXML
+    private ImageView alertCloseImg;
+    @FXML
+    private ImageView alertImg;
+    @FXML
+    private ImageView rubleImg;
+    @FXML
+    private ImageView settingsCloseImg;
+    @FXML
+    private ImageView settingsImg;
 
-    @FXML private Label alertMessage;
-    @FXML private Label alertTitle;
-    @FXML private Label balanceLabel;
-    @FXML private Label fileUpdate;
-    @FXML private Label loginLabel;
-    @FXML private Label settingsRamLabel;
-    @FXML private Label titleUpdate;
-    @FXML private Label urlContent;
-    @FXML private Label urlLabel;
+    @FXML
+    private Label alertMessage;
+    @FXML
+    private Label alertTitle;
+    @FXML
+    private Label balanceLabel;
+    @FXML
+    private Label fileUpdate;
+    @FXML
+    private Label loginLabel;
+    @FXML
+    private Label settingsRamLabel;
+    @FXML
+    private Label titleUpdate;
+    @FXML
+    private Label urlContent;
+    @FXML
+    private Label urlLabel;
 
-    @FXML private Pane alertPane;
-    @FXML private Pane exitAccountPane;
-    @FXML private Pane exitPane;
-    @FXML private Pane paneUpdate;
-    @FXML private Pane removeClientPane;
-    @FXML private Pane settingsPane;
-    @FXML private Pane top;
-    @FXML private Pane urlPane;
+    @FXML
+    private Pane alertPane;
+    @FXML
+    private Pane exitAccountPane;
+    @FXML
+    private Pane exitPane;
+    @FXML
+    private Pane paneUpdate;
+    @FXML
+    private Pane removeClientPane;
+    @FXML
+    private Pane settingsPane;
+    @FXML
+    private Pane top;
+    @FXML
+    private Pane urlPane;
 
-    @FXML private CheckBox boxLaunchAuto;
-    @FXML private CheckBox boxLaunchFullScreen;
+    @FXML
+    private CheckBox boxLaunchAuto;
+    @FXML
+    private CheckBox boxLaunchFullScreen;
 
-    @FXML private Button cancelBtn;
-    @FXML private Button exitBtn;
-    @FXML private Button noUrlBtn;
-    @FXML private Button settingsClear;
-    @FXML private Button settingsOpenFolder;
-    @FXML private Button yesUrlBtn;
+    @FXML
+    private Button cancelBtn;
+    @FXML
+    private Button exitBtn;
+    @FXML
+    private Button noUrlBtn;
+    @FXML
+    private Button settingsClear;
+    @FXML
+    private Button settingsOpenFolder;
+    @FXML
+    private Button yesUrlBtn;
 
-    @FXML private Group loadingGroup;
+    @FXML
+    private Group loadingGroup;
 
-    @FXML private Circle photoCircle;
+    @FXML
+    private Circle photoCircle;
 
-    @FXML private ProgressBar progresUpdate;
+    @FXML
+    private ProgressBar progresUpdate;
 
-    @FXML private AnchorPane serversAnchor;
+    @FXML
+    private AnchorPane serversAnchor;
 
-    @FXML private TextField settingsRamText;
+    @FXML
+    private TextField settingsRamText;
 
     private Retrofit retrofit;
 
@@ -197,7 +246,7 @@ public class AccountController extends Application {
         exitImg.setOnMouseClicked(event -> System.exit(1));
     }
 
-    public void mouseOnCollapseImg(){
+    public void mouseOnCollapseImg() {
         collapseImg.setOnMouseEntered(event -> collapseImg.setOpacity(1.0));
         collapseImg.setOnMouseExited(event -> collapseImg.setOpacity(0.6));
         collapseImg.setOnMouseClicked(event -> {
@@ -265,7 +314,7 @@ public class AccountController extends Application {
         alertCloseImg.setOnMouseClicked(event -> alertPane.setVisible(false));
     }
 
-    public void mouseOnRubleImg(){
+    public void mouseOnRubleImg() {
         rubleImg.setOnMouseEntered(event -> {
             String path = new File(Runner.class.getResource("images/pay.png").getPath()).getAbsolutePath();
             Image image = new Image(path);
@@ -306,13 +355,13 @@ public class AccountController extends Application {
                 @Override
                 public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
 
-                    if(!response.isSuccessful()){
+                    if (!response.isSuccessful()) {
                         alertShow("Ошибка", "Произошла ошибка, при получении данных о пользователе..", true);
                         return;
                     }
 
                     ProfileResponse profileResponse = response.body();
-                    if(profileResponse == null){
+                    if (profileResponse == null) {
                         alertShow("Ошибка авторизации!", "Произошла ошибка, нет полученных данных", true);
                         return;
                     }
@@ -363,7 +412,7 @@ public class AccountController extends Application {
         balanceLabel.setText(value);
     }
 
-    public void showPhoto(String login){
+    public void showPhoto(String login) {
         try {
             Image image = new Image(new URL(URL + PHOTO + login + ".png").openStream());
             photoCircle.setFill(new ImagePattern(image));
@@ -372,10 +421,10 @@ public class AccountController extends Application {
         }
     }
 
-    public void showServers(ServerResponse[] servers){
+    public void showServers(ServerResponse[] servers) {
 
         serversAnchor.getChildren().clear();
-        if(servers == null || servers.length <= 0){
+        if (servers == null || servers.length <= 0) {
 
             String path = new File(Runner.class.getResource("images/shoked.png").getPath()).getAbsolutePath();
             Image image = new Image(path);
@@ -407,14 +456,14 @@ public class AccountController extends Application {
         }
 
         int count = 0;
-        for(ServerResponse serverResponse : servers) {
+        for (ServerResponse serverResponse : servers) {
             Pane pane = getServerPane(serverResponse);
-            pane.setLayoutY(14 + 186*count);
+            pane.setLayoutY(14 + 186 * count);
 
             serversAnchor.getChildren().add(pane);
             count += 1;
         }
-        serversAnchor.setPrefHeight(Math.max(494, 14 + 186*count));
+        serversAnchor.setPrefHeight(Math.max(494, 14 + 186 * count));
     }
 
     public Pane getServerPane(ServerResponse serverResponse) {
@@ -496,7 +545,7 @@ public class AccountController extends Application {
         return imageView;
     }
 
-    public Label getLabel(String name, String color, int x, int y, int size){
+    public Label getLabel(String name, String color, int x, int y, int size) {
         Text text = new Text(name);
         text.setFont(Font.font("Franklin Gothic Medium", size));
 
@@ -509,7 +558,7 @@ public class AccountController extends Application {
         return label;
     }
 
-    public void getLauncherInfo(String launcher){
+    public void getLauncherInfo(String launcher) {
 
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
@@ -527,7 +576,7 @@ public class AccountController extends Application {
                 @Override
                 public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
 
-                    if(!response.isSuccessful()){
+                    if (!response.isSuccessful()) {
                         //alertShow("Ошибка авторизации!", "Неверно указан логин или пароль!");
                         return;
                     }
@@ -570,21 +619,26 @@ public class AccountController extends Application {
             LauncherApi launcherApi = retrofit.create(LauncherApi.class);
             MD5Utils md5Utils = new MD5Utils();
 
-            File folder = new File("client");
-            if( folder.mkdir() ){
+            File folder = new File("launcher");
+            if (folder.mkdir()) {
                 showUpdate("Создание папки с клиентами.");
             }
 
-            File launcher = new File("client/" + name);
-            if( launcher.mkdir() ){
+            File client = new File("launcher/client");
+            if (client.mkdir()) {
+                showUpdate("Создание клиент с клиентами.");
+            }
+
+            File launcher = new File("launcher/client/" + name);
+            if (launcher.mkdir()) {
                 showUpdate("Создание папки для сборки.");
             }
 
-            for(String fileName : clientResponse.getFolders()){
+            for (String fileName : clientResponse.getFolders()) {
 
                 File file = new File(fileName);
 
-                if(!file.isDirectory() && !file.mkdir()){
+                if (!file.isDirectory() && !file.mkdir()) {
                     return;
                 }
                 showUpdate(fileName);
@@ -594,7 +648,7 @@ public class AccountController extends Application {
                 showUpdateProgres(value);
             }
 
-            for(FileResponse fileResponse : clientResponse.getFiles()) {
+            for (FileResponse fileResponse : clientResponse.getFiles()) {
 
                 File file = new File(fileResponse.getPath());
                 String hash = null;
@@ -603,42 +657,38 @@ public class AccountController extends Application {
                 } catch (IOException | NoSuchAlgorithmException e) {
                 }
 
-                if(!file.exists() || hash == null || !hash.equals(fileResponse.getMd5()) || file.length() != fileResponse.getSize()) {
+                if (!file.exists() || hash == null || !hash.equals(fileResponse.getMd5()) || file.length() != fileResponse.getSize()) {
                     sendRequest.incrementAndGet();
-                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/"), StandardCharsets.UTF_8)).enqueue(new Callback<>() {
+                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/").replace("launcher/",""), StandardCharsets.UTF_8)).enqueue(new Callback<>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                             int cur = succesRequest.incrementAndGet();
-                            System.out.println(sendRequest.get() - succesRequest.get());
+                            showUpdateProgres((double) cur/ sendRequest.get());
 
                             showUpdate(fileResponse.getPath());
 
 
-                            if(!response.isSuccessful()) {
+                            if (!response.isSuccessful()) {
                                 //alertShow("Ошибка авторизации!", "Неверно указан логин или пароль!");
+                                System.out.println(response.code());
                                 return;
                             }
 
 
-                            try {
-                                ResponseBody responseBody = response.body();
-                                InputStream inputStream = new BufferedInputStream(response.body().byteStream());
+                            try(InputStream inputStream = new BufferedInputStream(response.body().byteStream())) {
                                 FileOutputStream fileOutputStream = new FileOutputStream(fileResponse.getPath());
+                                fileOutputStream.write(inputStream.readAllBytes());
 
-                                byte[] buffer = new byte[65536];
-                                int line = 0;
-                                while ((line = inputStream.read(buffer, 0, buffer.length)) != -1) {
-                                    fileOutputStream.write(buffer, 0, line);
-                                }
+                                fileOutputStream.flush();
                                 inputStream.close();
                                 fileOutputStream.close();
 
-                            } catch (IOException ex){
+                            } catch (IOException ex) {
                                 System.out.println(ex.getMessage());
                             }
 
-                            if (sendRequest.get() == cur){
+                            if (sendRequest.get() == cur) {
                                 launchMinecraft(name);
                             }
                         }
@@ -653,6 +703,10 @@ public class AccountController extends Application {
                 }
             }
         });
+
+        if (sendRequest.get() == 0) {
+            launchMinecraft(name);
+        }
     }
 
     /*public void checkingFiles(String name, ClientResponse clientResponse) {
@@ -706,12 +760,12 @@ public class AccountController extends Application {
         });
     }*/
 
-    public void indexingFiles(String path){
+    public void indexingFiles(String path) {
         File file = new File(path);
         for (File item : file.listFiles()) {
 
             list.add(item.getPath());
-            if(item.isDirectory()) {
+            if (item.isDirectory()) {
                 indexingFiles(item.getPath());
             }
         }
@@ -719,21 +773,21 @@ public class AccountController extends Application {
 
     public void deleteFiles(String path) {
         File file = new File(path);
-        if(file.isFile()) file.delete();
-        if(file.isDirectory()){
+        if (file.isFile()) file.delete();
+        if (file.isDirectory()) {
             File[] array = file.listFiles();
-            for(File temp : array){
+            for (File temp : array) {
                 deleteFiles(temp.getPath());
             }
             file.delete();
         }
     }
 
-    public void showUpdateProgres(double value){
+    public void showUpdateProgres(double value) {
         Platform.runLater(() -> progresUpdate.setProgress(value));
     }
 
-    public void showUpdate(String name){
+    public void showUpdate(String name) {
         Platform.runLater(() -> fileUpdate.setText(name));
     }
 
@@ -759,7 +813,7 @@ public class AccountController extends Application {
         });
     }
 
-    public void followingALink(String url, String content){
+    public void followingALink(String url, String content) {
         Platform.runLater(() -> {
 
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), urlPane);
@@ -776,7 +830,7 @@ public class AccountController extends Application {
 
                 try {
                     URI uri = new URI(url);
-                    if(Desktop.isDesktopSupported()) {
+                    if (Desktop.isDesktopSupported()) {
                         Desktop.getDesktop().browse(uri);
                     } else {
                         alertShow("Не поддерживается", "Невозможно перейти по ссылке", false);
@@ -813,13 +867,13 @@ public class AccountController extends Application {
             @Override
             public void onResponse(Call<SettingsResponse> call, Response<SettingsResponse> response) {
 
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     alertShow("Ошибка запуска!", "Не удалось получить данные..", false);
                     return;
                 }
 
                 SettingsResponse settingsResponse = response.body();
-                if(settingsResponse == null){
+                if (settingsResponse == null) {
                     alertShow("Ошибка запуска!", "Тело запроса оказалось пустым..", false);
                     return;
                 }

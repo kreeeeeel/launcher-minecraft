@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import static com.application.launcher.utils.Constant.URL;
-
 public class LaunchUtils {
 
     public void start(String client, SettingsResponse settingsResponse, boolean fullscreen) {
@@ -33,7 +31,7 @@ public class LaunchUtils {
             params.add("--version");
             params.add(settingsResponse.getVersion());
             params.add("--gameDir");
-            params.add(home + "\\client\\" + client + "\\");
+            params.add(home + "\\launcher\\client\\" + client + "\\");
             params.add("--assetsDir");
             params.add("assets");
             params.add("--assetIndex");
@@ -53,7 +51,7 @@ public class LaunchUtils {
             }
 
             ProcessBuilder processBuilder = new ProcessBuilder(params);
-            processBuilder.directory(new File(home + "\\client\\" + client + "\\"));
+            processBuilder.directory(new File(home + "\\launcher\\client\\" + client + "\\"));
 
             System.out.println(String.join(" ",processBuilder.command().toArray(new String[0])));
 
