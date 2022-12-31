@@ -14,6 +14,14 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AuthController">
    <children>
+      <ImageView fx:id="fastAuthImg" fitHeight="48.0" fitWidth="48.0" layoutX="740.0" layoutY="538.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/change.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
       <Pane layoutX="14.0" prefHeight="600.0" prefWidth="327.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
             <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="116.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
@@ -56,7 +64,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Button fx:id="auth" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="42.0" layoutY="320.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" scaleShape="false" style="-fx-background-color: #099e47;" text="Войти" textFill="WHITESMOKE">
+            <Button fx:id="authBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="42.0" layoutY="320.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" scaleShape="false" style="-fx-background-color: #099e47;" text="Войти" textFill="WHITESMOKE">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -64,6 +72,45 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="fastAuthPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="237.0" layoutY="97.0" prefHeight="426.0" prefWidth="327.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+               <children>
+                  <Button fx:id="fastAuthBtn" layoutX="75.0" layoutY="355.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="177.0" style="-fx-background-color: #123f12; -fx-background-radius: 5px;" text="Авторизоваться" textFill="#dddddd">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <ScrollPane hbarPolicy="NEVER" layoutY="40.0" prefHeight="307.0" prefWidth="327.0">
+                    <content>
+                      <AnchorPane fx:id="fastAuthAnchor" minHeight="0.0" minWidth="0.0" prefHeight="304.0" prefWidth="313.0" />
+                    </content>
+                  </ScrollPane>
+                  <ImageView fx:id="fastAuthCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="290.0" layoutY="5.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Label layoutX="67.0" layoutY="8.0" text="Быстрая авторизация" textFill="#544646">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="1.0" layoutY="392.0" prefHeight="30.0" prefWidth="327.0" text="Чтобы авторизоваться, выберите аккаунт и нажмите 'Авторизоваться'" textAlignment="CENTER" textFill="#544646" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Pane fx:id="authPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
@@ -85,45 +132,6 @@
                         <Image url="@../images/spinner.gif" />
                      </image>
                   </ImageView>
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-      <Pane fx:id="changePane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
-         <children>
-            <Pane layoutX="237.0" layoutY="97.0" prefHeight="426.0" prefWidth="327.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
-               <children>
-                  <Button fx:id="authChange" layoutX="75.0" layoutY="355.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="177.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Авторизоваться" textFill="#dddddd">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="18.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <ScrollPane hbarPolicy="NEVER" layoutY="40.0" prefHeight="307.0" prefWidth="327.0">
-                    <content>
-                      <AnchorPane fx:id="anchorChange" minHeight="0.0" minWidth="0.0" prefHeight="304.0" prefWidth="313.0" />
-                    </content>
-                  </ScrollPane>
-                  <ImageView fx:id="changeCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="290.0" layoutY="5.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/close.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <Label layoutX="67.0" layoutY="8.0" text="Быстрая авторизация" textFill="#544646">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="1.0" layoutY="392.0" prefHeight="30.0" prefWidth="327.0" text="Чтобы авторизоваться, выберите аккаунт и нажмите 'Авторизоваться'" textAlignment="CENTER" textFill="#544646" wrapText="true">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="12.0" />
-                     </font>
-                  </Label>
                </children>
             </Pane>
          </children>
@@ -150,7 +158,7 @@
                         <Font name="Franklin Gothic Medium" size="17.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="alertImg" fitHeight="69.0" fitWidth="62.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="69.0" fitWidth="62.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/error.png" />
                      </image>
@@ -203,6 +211,24 @@
             </Pane>
          </children>
       </Pane>
+      <Pane fx:id="loadPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="243.0" layoutY="255.0" prefHeight="45.0" prefWidth="320.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+               <children>
+                  <Label alignment="CENTER" layoutX="48.0" layoutY="13.0" text="Загрузка, пожалуйста подождите..." textAlignment="CENTER" textFill="#757575" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="38.0" fitWidth="43.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/spinner.gif" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
       <ImageView fx:id="exitImg" fitHeight="69.0" fitWidth="30.0" layoutX="764.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/close.png" />
@@ -214,14 +240,6 @@
       <ImageView fx:id="collapseImg" fitHeight="69.0" fitWidth="30.0" layoutX="734.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/collapse.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fx:id="changeImg" fitHeight="48.0" fitWidth="48.0" layoutX="740.0" layoutY="538.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/change.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

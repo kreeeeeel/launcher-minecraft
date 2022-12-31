@@ -121,9 +121,27 @@
                         <Font name="Franklin Gothic Medium" size="17.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="alertImg" fitHeight="69.0" fitWidth="62.0" layoutX="7.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="69.0" fitWidth="62.0" layoutX="7.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/error.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="loadPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="243.0" layoutY="255.0" prefHeight="45.0" prefWidth="320.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+               <children>
+                  <Label alignment="CENTER" layoutX="48.0" layoutY="13.0" text="Загрузка, пожалуйста подождите..." textAlignment="CENTER" textFill="#757575" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="38.0" fitWidth="43.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/spinner.gif" />
                      </image>
                   </ImageView>
                </children>

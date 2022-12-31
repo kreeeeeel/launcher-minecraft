@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -15,7 +14,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-radius: 25з;" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AccountController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-radius: 25з;" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.MainController">
    <children>
       <Pane layoutY="535.0" prefHeight="65.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
@@ -38,23 +37,6 @@
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Pane fx:id="exitAccountPane" layoutX="586.0" layoutY="15.0" prefHeight="36.0" prefWidth="200.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;">
-               <children>
-                  <Label layoutX="36.0" layoutY="7.0" text="Выйти из аккаунта" textFill="#dddddd">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="18.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="69.0" fitWidth="30.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/exit.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Pane>
             <ImageView fx:id="settingsImg" fitHeight="30.0" fitWidth="30.0" layoutX="153.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/settings.png" />
@@ -63,6 +45,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
+            <Button fx:id="exitAccountBtn" focusTraversable="false" layoutX="605.0" layoutY="17.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="181.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Выйти из аккаунта" textFill="#dddddd">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
       <ScrollPane hbarPolicy="NEVER" layoutY="38.0" prefHeight="496.0" prefWidth="800.0" style="-fx-background-color: transparent;">
@@ -73,25 +63,6 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </ScrollPane>
-      <Group fx:id="loadingGroup" visible="false">
-         <children>
-            <Pane opacity="0.54" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: black;" />
-            <Pane layoutX="215.0" layoutY="245.0" prefHeight="57.0" prefWidth="402.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
-               <children>
-                  <Label alignment="CENTER" layoutX="52.0" layoutY="19.0" text="Обновление данных, пожалуйста подождите..." textAlignment="CENTER" textFill="#757575" wrapText="true">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="38.0" fitWidth="43.0" layoutX="7.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/spinner.gif" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-         </children>
-      </Group>
       <Pane fx:id="paneUpdate" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
             <Pane layoutX="115.0" layoutY="245.0" prefHeight="110.0" prefWidth="570.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
@@ -111,7 +82,7 @@
                         <Image url="@../images/spinner.gif" />
                      </image>
                   </ImageView>
-                  <ProgressBar fx:id="progresUpdate" layoutX="76.0" layoutY="69.0" prefHeight="18.0" prefWidth="472.0" progress="0.0" style="-fx-background-color: white;" />
+                  <ProgressBar fx:id="progressUpdate" layoutX="76.0" layoutY="69.0" prefHeight="18.0" prefWidth="472.0" progress="0.0" style="-fx-background-color: white;" />
                </children>
             </Pane>
          </children>
@@ -229,7 +200,7 @@
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="settingsRamText" layoutX="169.0" layoutY="46.0" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: white;" text="1024">
+                  <TextField fx:id="settingsRamText" focusTraversable="false" layoutX="169.0" layoutY="46.0" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: white;" text="1024">
                      <font>
                         <Font name="Franklin Gothic Medium" size="15.0" />
                      </font>
@@ -314,6 +285,24 @@
                   <ImageView fx:id="alertImg" fitHeight="69.0" fitWidth="62.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/error.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="loadPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="199.0" layoutY="272.0" prefHeight="57.0" prefWidth="402.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+               <children>
+                  <Label alignment="CENTER" layoutX="52.0" layoutY="19.0" text="Обновление данных, пожалуйста подождите..." textAlignment="CENTER" textFill="#757575" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="38.0" fitWidth="43.0" layoutX="7.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/spinner.gif" />
                      </image>
                   </ImageView>
                </children>

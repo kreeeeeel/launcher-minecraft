@@ -1,6 +1,7 @@
 package com.application.launcher;
 
 import com.application.launcher.controller.AuthController;
+import com.application.launcher.utils.RetrofitUtils;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -13,6 +14,9 @@ public class Runner extends Application {
 
     @Override
     public void start(Stage stage) throws URISyntaxException, IOException {
+
+        RetrofitUtils.generate();
+
         stage.setTitle("Title");
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);

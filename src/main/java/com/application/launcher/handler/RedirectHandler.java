@@ -1,6 +1,6 @@
-package com.application.launcher.utils;
+package com.application.launcher.handler;
 
-public class AuthFromRegUtils {
+public class RedirectHandler {
     public static String username;
     public static String password;
     public static boolean register;

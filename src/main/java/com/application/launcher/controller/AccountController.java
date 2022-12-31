@@ -10,7 +10,7 @@ import com.application.launcher.rest.response.ServerResponse;
 import com.application.launcher.rest.response.SettingsResponse;
 import com.application.launcher.utils.LaunchUtils;
 import com.application.launcher.utils.MD5Utils;
-import com.application.launcher.utils.TokenUtils;
+import com.application.launcher.handler.TokenHandler;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -49,12 +49,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.management.ManagementFactory;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -167,11 +167,11 @@ public class AccountController extends Application {
     private List<String> list;
 
     private final AtomicInteger sendRequest = new AtomicInteger(0);
-    private final AtomicInteger succesRequest = new AtomicInteger(0);
+    private final AtomicInteger successRequest = new AtomicInteger(0);
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/account.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setScene(scene);
         stage.show();
@@ -300,7 +300,7 @@ public class AccountController extends Application {
             service.execute(() -> {
 
                 removeClientPane.setVisible(true);
-                deleteFiles("client");
+                //deleteFiles("client");
                 alertShow("Удаление файлов", "Файлы были удалены..", false);
                 removeClientPane.setVisible(false);
 
@@ -316,16 +316,24 @@ public class AccountController extends Application {
 
     public void mouseOnRubleImg() {
         rubleImg.setOnMouseEntered(event -> {
-            String path = new File(Runner.class.getResource("images/pay.png").getPath()).getAbsolutePath();
-            Image image = new Image(path);
+            try {
+                String path = new File(Runner.class.getResource("images/pay.png").toURI()).toString();
+                Image image = new Image(path);
 
-            rubleImg.setImage(image);
+                rubleImg.setImage(image);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
         });
         rubleImg.setOnMouseExited(event -> {
-            String path = new File(Runner.class.getResource("images/balance.png").getPath()).getAbsolutePath();
-            Image image = new Image(path);
+            try {
+                String path = new File(Runner.class.getResource("images/balance.png").toURI()).toString();
+                Image image = new Image(path);
 
-            rubleImg.setImage(image);
+                rubleImg.setImage(image);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
         });
         rubleImg.setOnMouseClicked(event -> followingALink(URL + PAY, "Вы действительно хотите перейти по ссылке для пополнения своего баланса?"));
     }
@@ -344,44 +352,47 @@ public class AccountController extends Application {
         });
     }
 
+    class UpdateExecutor implements Callback<ProfileResponse>{
+
+        @Override
+        public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+            if (!response.isSuccessful()) {
+                alertShow("Ошибка", "Произошла ошибка, при получении данных о пользователе..", true);
+                return;
+            }
+
+            ProfileResponse profileResponse = response.body();
+            if (profileResponse == null) {
+                alertShow("Ошибка авторизации!", "Произошла ошибка, нет полученных данных", true);
+                return;
+            }
+
+            Platform.runLater(() -> {
+                showLogin(profileResponse.getLogin());
+                showPhoto(profileResponse.getLogin());
+
+                showBalance(profileResponse.getBalance());
+                showServers(profileResponse.getServers());
+
+                loadingGroup.setVisible(false);
+            });
+        }
+
+        @Override
+        public void onFailure(Call call, Throwable throwable) {
+            alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", true);
+        }
+    }
+
     public void update() {
 
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
+            Platform.runLater(() -> loadingGroup.setVisible(true));
+            String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
 
-            String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
             ProfileApi profileApi = retrofit.create(ProfileApi.class);
-            profileApi.getProfile(token).enqueue(new Callback<>() {
-                @Override
-                public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-
-                    if (!response.isSuccessful()) {
-                        alertShow("Ошибка", "Произошла ошибка, при получении данных о пользователе..", true);
-                        return;
-                    }
-
-                    ProfileResponse profileResponse = response.body();
-                    if (profileResponse == null) {
-                        alertShow("Ошибка авторизации!", "Произошла ошибка, нет полученных данных", true);
-                        return;
-                    }
-
-                    Platform.runLater(() -> {
-                        showLogin(profileResponse.getLogin());
-                        showPhoto(profileResponse.getLogin());
-
-                        showBalance(profileResponse.getBalance());
-                        showServers(profileResponse.getServers());
-                    });
-                }
-
-                @Override
-                public void onFailure(Call<ProfileResponse> call, Throwable t) {
-                    alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", true);
-                }
-            });
-
-            loadingGroup.setVisible(false);
+            profileApi.getProfile(token).enqueue(new UpdateExecutor());
         });
     }
 
@@ -426,7 +437,12 @@ public class AccountController extends Application {
         serversAnchor.getChildren().clear();
         if (servers == null || servers.length <= 0) {
 
-            String path = new File(Runner.class.getResource("images/shoked.png").getPath()).getAbsolutePath();
+            String path = null;
+            try {
+                path = new File(Runner.class.getResource("images/shoked.png").toURI()).toString();
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
             Image image = new Image(path);
             ImageView notfound = new ImageView(image);
 
@@ -536,7 +552,8 @@ public class AccountController extends Application {
     }
 
     public ImageView getIcon(String name, int x, int y) {
-        String path = new File(Runner.class.getResource("images/" + name + ".png").getPath()).getAbsolutePath();
+        String path = "file:///" + new File("images/" + name + ".png").getAbsolutePath();
+        System.out.println(path);
         ImageView imageView = new ImageView(new Image(path));
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
@@ -558,13 +575,39 @@ public class AccountController extends Application {
         return label;
     }
 
+    class LauncherExecutor implements Callback<ClientResponse> {
+
+        private String launcher;
+
+        LauncherExecutor(String launcher) {
+            this.launcher = launcher;
+        }
+
+        @Override
+        public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
+            if (!response.isSuccessful()) {
+                //alertShow("Ошибка авторизации!", "Неверно указан логин или пароль!");
+                return;
+            }
+
+            ClientResponse clientResponse = response.body();
+            updateFiles(launcher, clientResponse);
+        }
+
+        @Override
+        public void onFailure(Call<ClientResponse> call, Throwable throwable) {
+            System.out.println(throwable);
+            //alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", false);
+        }
+    }
+
     public void getLauncherInfo(String launcher) {
 
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
 
             paneUpdate.setVisible(true);
-            String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
+            String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
@@ -572,26 +615,61 @@ public class AccountController extends Application {
                     .build();
 
             LauncherApi launcherApi = retrofit.create(LauncherApi.class);
-            launcherApi.getLauncher(token, launcher).enqueue(new Callback<>() {
-                @Override
-                public void onResponse(Call<ClientResponse> call, Response<ClientResponse> response) {
-
-                    if (!response.isSuccessful()) {
-                        //alertShow("Ошибка авторизации!", "Неверно указан логин или пароль!");
-                        return;
-                    }
-
-                    ClientResponse clientResponse = response.body();
-                    updateFiles(launcher, clientResponse);
-                }
-
-                @Override
-                public void onFailure(Call<ClientResponse> call, Throwable t) {
-                    //alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..");
-                }
-            });
+            launcherApi.getLauncher(token, launcher).enqueue(new LauncherExecutor(launcher));
         });
 
+    }
+
+    class UpdateFilesExecutor implements Callback<ResponseBody> {
+
+        private FileResponse fileResponse;
+        private String name;
+
+        UpdateFilesExecutor(FileResponse fileResponse, String name) {
+            this.fileResponse = fileResponse;
+            this.name = name;
+        }
+
+        @Override
+        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            int cur = successRequest.incrementAndGet();
+
+            showUpdateProgress((double) cur/ sendRequest.get());
+            showUpdate(fileResponse.getPath());
+
+            if (!response.isSuccessful()) {
+                //alertShow("Ошибка авторизации!", "Неверно указан логин или пароль!");
+                System.out.println(response.code());
+                return;
+            }
+
+            try {
+                ResponseBody responseBody = response.body();
+                InputStream inputStream = new BufferedInputStream(responseBody.byteStream());
+                FileOutputStream fileOutputStream = new FileOutputStream(fileResponse.getPath());
+
+                byte[] buffer = new byte[65536];
+                int line = 0;
+                while ((line = inputStream.read(buffer, 0, buffer.length)) != -1) {
+                    fileOutputStream.write(buffer, 0, line);
+                }
+                inputStream.close();
+                fileOutputStream.close();
+
+            } catch (IOException ex){
+                System.out.println(ex.getMessage());
+            }
+
+            if (sendRequest.get() == cur) {
+                launchMinecraft(name);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ResponseBody> call, Throwable t) {
+            System.out.println(t.getMessage());
+        }
     }
 
     public void updateFiles(String name, ClientResponse clientResponse) {
@@ -600,7 +678,7 @@ public class AccountController extends Application {
         service.execute(() -> {
 
             sendRequest.set(0);
-            succesRequest.set(0);
+            successRequest.set(0);
 
             folders = 0;
             files = 0;
@@ -610,7 +688,7 @@ public class AccountController extends Application {
                 fileUpdate.setText("Подготовка к обновлению..");
             });
 
-            String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
+            String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -645,7 +723,7 @@ public class AccountController extends Application {
 
                 folders += 1;
                 double value = (double) folders / (clientResponse.getCountFiles() + clientResponse.getCountFolders());
-                showUpdateProgres(value);
+                showUpdateProgress(value);
             }
 
             for (FileResponse fileResponse : clientResponse.getFiles()) {
@@ -659,131 +737,17 @@ public class AccountController extends Application {
 
                 if (!file.exists() || hash == null || !hash.equals(fileResponse.getMd5()) || file.length() != fileResponse.getSize()) {
                     sendRequest.incrementAndGet();
-                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/").replace("launcher/",""), StandardCharsets.UTF_8)).enqueue(new Callback<>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                            int cur = succesRequest.incrementAndGet();
-                            showUpdateProgres((double) cur/ sendRequest.get());
-
-                            showUpdate(fileResponse.getPath());
-
-
-                            if (!response.isSuccessful()) {
-                                //alertShow("Ошибка авторизации!", "Неверно указан логин или пароль!");
-                                System.out.println(response.code());
-                                return;
-                            }
-
-
-                            try(InputStream inputStream = new BufferedInputStream(response.body().byteStream())) {
-                                FileOutputStream fileOutputStream = new FileOutputStream(fileResponse.getPath());
-                                fileOutputStream.write(inputStream.readAllBytes());
-
-                                fileOutputStream.flush();
-                                inputStream.close();
-                                fileOutputStream.close();
-
-                            } catch (IOException ex) {
-                                System.out.println(ex.getMessage());
-                            }
-
-                            if (sendRequest.get() == cur) {
-                                launchMinecraft(name);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            System.out.println(t.getMessage());
-                            //alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", true);
-                            return;
-                        }
-                    });
+                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/").replace("launcher/",""))).enqueue(new UpdateFilesExecutor(fileResponse, name));
                 }
+            }
+
+            if (sendRequest.get() == 0) {
+                launchMinecraft(name);
             }
         });
-
-        if (sendRequest.get() == 0) {
-            launchMinecraft(name);
-        }
     }
 
-    /*public void checkingFiles(String name, ClientResponse clientResponse) {
-
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        service.execute(() -> {
-
-            MD5Utils md5Utils = new MD5Utils();
-            File folder = new File("client");
-            if( folder.mkdir() ){
-                showUpdate("Создание папки с клиентами.");
-            }
-
-            File launcher = new File("client/" + name);
-            if( launcher.mkdir() ){
-                showUpdate("Проверка файлов..");
-            }
-
-            Platform.runLater(() -> progresUpdate.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS));
-            indexingFiles("client/" + name);
-
-            Platform.runLater(() -> titleUpdate.setText("Проверка целосности файлов.."));
-            for(String path : list) {
-
-                showUpdate(path);
-                if(!clientResponse.isPath(path)) {
-                    deleteFiles(path);
-                }
-
-                File file = new File(path);
-                String hash = null;
-
-                if(!file.exists()) {
-                    alertShow("Произошла ошибка", "Произошла ошибка в проверке файлов..", true);
-                    return;
-                }
-
-                try {
-                    hash = md5Utils.getMD5File(path);
-                } catch (IOException | NoSuchAlgorithmException ex) {}
-
-                FileResponse fileResponse = clientResponse.getFileResponse(path);
-                if(file.isFile() && (!hash.equals(fileResponse.getMd5()) || fileResponse.getSize() != file.length())){
-                    alertShow("Произошла ошибка", "Произошла ошибка в проверке файлов..", true);
-                    return;
-                }
-            }
-
-            //launchMinecraft(name);
-            paneUpdate.setVisible(false);
-        });
-    }*/
-
-    public void indexingFiles(String path) {
-        File file = new File(path);
-        for (File item : file.listFiles()) {
-
-            list.add(item.getPath());
-            if (item.isDirectory()) {
-                indexingFiles(item.getPath());
-            }
-        }
-    }
-
-    public void deleteFiles(String path) {
-        File file = new File(path);
-        if (file.isFile()) file.delete();
-        if (file.isDirectory()) {
-            File[] array = file.listFiles();
-            for (File temp : array) {
-                deleteFiles(temp.getPath());
-            }
-            file.delete();
-        }
-    }
-
-    public void showUpdateProgres(double value) {
+    public void showUpdateProgress(double value) {
         Platform.runLater(() -> progresUpdate.setProgress(value));
     }
 
@@ -793,24 +757,29 @@ public class AccountController extends Application {
 
     public void alertShow(String title, String text, boolean warning) {
 
-        String path = new File(Runner.class.getResource("images/" + (warning ? "warning" : "error") + ".png").getPath()).getAbsolutePath();
-        Image image = new Image(path);
+        try {
+            String path = new File(Runner.class.getResource("images/" + (warning ? "warning" : "error") + ".png").toURI()).toString();
+            Image image = new Image(path);
 
-        Platform.runLater(() -> {
-            FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), alertPane);
-            fadeTransition.setFromValue(0.0);
-            fadeTransition.setByValue(1.0);
-            fadeTransition.setAutoReverse(true);
+            Platform.runLater(() -> {
+                FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), alertPane);
+                fadeTransition.setFromValue(0.0);
+                fadeTransition.setByValue(1.0);
+                fadeTransition.setAutoReverse(true);
 
-            paneUpdate.setVisible(false);
+                paneUpdate.setVisible(false);
 
-            alertPane.setVisible(true);
-            alertTitle.setText(title);
-            alertMessage.setText(text);
-            alertImg.setImage(image);
+                alertPane.setVisible(true);
+                alertTitle.setText(title);
+                alertMessage.setText(text);
+                alertImg.setImage(image);
 
-            fadeTransition.play();
-        });
+                fadeTransition.play();
+            });
+        }
+        catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void followingALink(String url, String content) {
@@ -853,44 +822,56 @@ public class AccountController extends Application {
     public void initSettings() {
 
         Platform.runLater(() -> {
-            long usedMBytes = Runtime.getRuntime().totalMemory();
+            long usedMBytes = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+                    .getOperatingSystemMXBean()).getTotalPhysicalMemorySize() / (1024 * 1024);
             settingsRamLabel.setText("Доступно " + usedMBytes + " MB");
         });
 
     }
 
+    class LaunchExecutor implements Callback<SettingsResponse> {
+
+        private String client;
+
+        LaunchExecutor(String client) {
+            this.client = client;
+        }
+
+        @Override
+        public void onResponse(Call<SettingsResponse> call, Response<SettingsResponse> response) {
+
+            if (!response.isSuccessful()) {
+                alertShow("Ошибка запуска!", "Не удалось получить данные..", false);
+                return;
+            }
+
+            SettingsResponse settingsResponse = response.body();
+            if (settingsResponse == null) {
+                alertShow("Ошибка запуска!", "Тело запроса оказалось пустым..", false);
+                return;
+            }
+
+            Platform.runLater(() -> titleUpdate.setText("Запуск.."));
+            showUpdate("Инициализация запуска..");
+            showUpdateProgress(-1.0);
+
+            Stage stage = (Stage) titleUpdate.getScene().getWindow();
+            //LaunchUtils launchUtils = new LaunchUtils(stage, client, settingsResponse, fullscreen, auto);
+            //launchUtils.start(stage, client, settingsResponse, boxLaunchFullScreen.isSelected());
+        }
+
+        @Override
+        public void onFailure(Call<SettingsResponse> call, Throwable t) {
+            alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", false);
+        }
+
+    }
+
     public void launchMinecraft(String client) {
-        String token = TokenUtils.getTokenType() + " " + TokenUtils.getAccessToken();
+        String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
+
         LauncherApi launcherApi = retrofit.create(LauncherApi.class);
-
-        launcherApi.getLauncherSettings(token, client).enqueue(new Callback<>() {
-            @Override
-            public void onResponse(Call<SettingsResponse> call, Response<SettingsResponse> response) {
-
-                if (!response.isSuccessful()) {
-                    alertShow("Ошибка запуска!", "Не удалось получить данные..", false);
-                    return;
-                }
-
-                SettingsResponse settingsResponse = response.body();
-                if (settingsResponse == null) {
-                    alertShow("Ошибка запуска!", "Тело запроса оказалось пустым..", false);
-                    return;
-                }
-
-                Platform.runLater(() -> titleUpdate.setText("Запуск.."));
-                showUpdate("Инициализация запуска..");
-                showUpdateProgres(-1.0);
-
-                LaunchUtils launchUtils = new LaunchUtils();
-                launchUtils.start(client, settingsResponse, boxLaunchFullScreen.isSelected());
-            }
-
-            @Override
-            public void onFailure(Call<SettingsResponse> call, Throwable t) {
-                alertShow("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..", false);
-            }
-        });
+        launcherApi.getLauncherSettings(token, client).enqueue(new LaunchExecutor(client));
     }
 
 }

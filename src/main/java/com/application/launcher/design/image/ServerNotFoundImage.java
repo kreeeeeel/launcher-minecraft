@@ -1,0 +1,26 @@
+package com.application.launcher.design.image;
+
+import com.application.launcher.utils.FileUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class ServerNotFoundImage {
+
+    private final ImageView imageView;
+
+    public ServerNotFoundImage(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    public void setImageView() {
+        FileUtils fileUtils = new FileUtils();
+
+        Image image = new Image(fileUtils.getResource("shoked"));
+        ImageView notfound = new ImageView(image);
+        notfound.setLayoutX(345);
+        notfound.setLayoutY(106);
+        notfound.setFitWidth(96);
+        notfound.setFitHeight(96);
+    }
+
+}
