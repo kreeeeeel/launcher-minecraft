@@ -1,15 +1,12 @@
 package com.application.launcher.service;
 
 import com.application.launcher.controller.AuthController;
-import com.application.launcher.controller.RegisterController;
 import com.application.launcher.design.draw.AlertDraw;
 import com.application.launcher.handler.RedirectHandler;
 import com.application.launcher.rest.api.AuthApi;
-import com.application.launcher.rest.request.AuthRequest;
 import com.application.launcher.rest.request.RegisterRequest;
 import com.application.launcher.utils.RetrofitUtils;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,14 +16,13 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.application.launcher.utils.Constant.*;
-import static com.application.launcher.utils.Constant.PASSWORD_MAX;
+import static com.application.launcher.constant.Constant.NAME_MAX;
+import static com.application.launcher.constant.Constant.NAME_MIN;
 
 public class RegisterService {
 
@@ -103,8 +99,8 @@ public class RegisterService {
 
     class RegisterExecutor implements Callback<ResponseBody> {
 
-        private String username;
-        private String pass;
+        private final String username;
+        private final String pass;
 
         RegisterExecutor(String username, String pass) {
             this.username = username;

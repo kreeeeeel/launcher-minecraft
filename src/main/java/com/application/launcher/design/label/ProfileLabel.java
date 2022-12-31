@@ -6,7 +6,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Locale;

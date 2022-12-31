@@ -4,14 +4,14 @@ import com.application.launcher.utils.FileUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import static com.application.launcher.utils.Constant.ICONS;
-import static com.application.launcher.utils.Constant.URL;
+import static com.application.launcher.constant.Constant.ICONS;
+import static com.application.launcher.constant.Constant.API;
 
 public class ServerIconImage {
 
     public ImageView getImage(String path) {
         ImageView icon = new ImageView();
-        icon.setImage(new Image(URL + ICONS + path));
+        icon.setImage(new Image(API + ICONS + path));
         icon.setLayoutX(14);
         icon.setLayoutY(13);
         icon.setFitWidth(150);

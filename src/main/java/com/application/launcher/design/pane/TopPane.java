@@ -4,7 +4,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class TopPane {
-    private Pane top;
+    private final Pane top;
 
     private double stagePosX;
     private double stagePosY;

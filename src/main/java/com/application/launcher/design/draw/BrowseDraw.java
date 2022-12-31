@@ -1,6 +1,5 @@
 package com.application.launcher.design.draw;
 
-import com.application.launcher.design.draw.AlertDraw;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.control.Button;

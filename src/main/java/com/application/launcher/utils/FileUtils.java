@@ -1,9 +1,9 @@
 package com.application.launcher.utils;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 

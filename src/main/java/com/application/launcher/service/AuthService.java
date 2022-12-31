@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.application.launcher.utils.Constant.*;
+import static com.application.launcher.constant.Constant.*;
 
 public class AuthService {
     private final String username;

@@ -1,7 +1,6 @@
 package com.application.launcher.design.image;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 public class ExitImage {
 

@@ -16,11 +16,11 @@ public class ServerNotFoundImage {
         FileUtils fileUtils = new FileUtils();
 
         Image image = new Image(fileUtils.getResource("shoked"));
-        ImageView notfound = new ImageView(image);
-        notfound.setLayoutX(345);
-        notfound.setLayoutY(106);
-        notfound.setFitWidth(96);
-        notfound.setFitHeight(96);
+        imageView.setImage(image);
+        imageView.setLayoutX(345);
+        imageView.setLayoutY(106);
+        imageView.setFitWidth(96);
+        imageView.setFitHeight(96);
     }
 
 }

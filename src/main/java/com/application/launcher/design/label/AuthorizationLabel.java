@@ -1,7 +1,6 @@
 package com.application.launcher.design.label;
 
 import com.application.launcher.controller.AuthController;
-import com.application.launcher.controller.RegisterController;
 import com.application.launcher.design.draw.AlertDraw;
 import javafx.application.Platform;
 import javafx.scene.control.Label;

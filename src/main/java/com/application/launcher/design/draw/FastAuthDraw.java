@@ -6,7 +6,6 @@ import com.application.launcher.entity.ConfigEntity;
 import com.application.launcher.handler.AccountHandler;
 import com.application.launcher.service.AuthService;
 import com.application.launcher.utils.ConfigUtils;
-import com.application.launcher.utils.Constant;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Cursor;
@@ -25,10 +24,12 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.application.launcher.utils.Constant.PHOTO;
+import static com.application.launcher.constant.Constant.API;
+import static com.application.launcher.constant.Constant.PHOTO;
 
 public class FastAuthDraw {
 
@@ -173,7 +174,7 @@ public class FastAuthDraw {
 
     public Image getImage(String username) {
         try {
-            return new Image(new URL(Constant.URL + PHOTO + username+ ".png").openStream());
+            return new Image(new URL(API + PHOTO + username+ ".png").openStream());
         } catch (IOException e) {
             return null;
         }
@@ -201,7 +202,7 @@ public class FastAuthDraw {
 
     public ImageView getRemoveImage(ConfigEntity configEntity, AccountEntity accountEntity) {
         try {
-            ImageView imageView = new ImageView(Runner.class.getResource("images/remove.png").toURI().toString());
+            ImageView imageView = new ImageView(Objects.requireNonNull(Runner.class.getResource("images/remove.png")).toURI().toString());
             imageView.setFitWidth(30);
             imageView.setFitHeight(30);
             imageView.setLayoutX(262);

@@ -6,8 +6,8 @@ import javafx.scene.paint.Paint;
 
 public class RecoveryLabel {
 
-    private Label label;
-    private BrowseDraw browseDraw;
+    private final Label label;
+    private final BrowseDraw browseDraw;
 
     public RecoveryLabel(Label label, BrowseDraw browseDraw) {
         this.label = label;

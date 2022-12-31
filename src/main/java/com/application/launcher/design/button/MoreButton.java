@@ -7,7 +7,7 @@ import javafx.scene.text.Font;
 
 public class MoreButton {
 
-    private Button button;
+    private final Button button;
 
     public MoreButton() {
         button = new Button();

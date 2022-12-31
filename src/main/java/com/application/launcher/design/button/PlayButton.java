@@ -8,7 +8,7 @@ import javafx.scene.text.Font;
 
 public class PlayButton {
 
-    private Button button;
+    private final Button button;
 
     public PlayButton() {
         button = new Button();
