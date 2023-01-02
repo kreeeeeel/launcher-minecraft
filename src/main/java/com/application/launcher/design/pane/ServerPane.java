@@ -2,6 +2,7 @@ package com.application.launcher.design.pane;
 
 import com.application.launcher.design.button.MoreButton;
 import com.application.launcher.design.button.PlayButton;
+import com.application.launcher.design.draw.PlayersDraw;
 import com.application.launcher.design.image.ServerIconImage;
 import com.application.launcher.design.label.ServerLabel;
 import com.application.launcher.rest.response.ServerResponse;
@@ -13,10 +14,12 @@ import javafx.scene.layout.Pane;
 public class ServerPane {
     private final ServerResponse serverResponse;
     private final LauncherService launcherService;
+    private final PlayersDraw playersDraw;
 
-    public ServerPane(ServerResponse serverResponse, LauncherService launcherService) {
+    public ServerPane(ServerResponse serverResponse, LauncherService launcherService, PlayersDraw playersDraw) {
         this.serverResponse = serverResponse;
         this.launcherService = launcherService;
+        this.playersDraw = playersDraw;
     }
 
     public Pane getPane() {
@@ -53,16 +56,16 @@ public class ServerPane {
         ImageView wipeOtherImageView = serverIconImage.getIcon("clear", 457, 68);
         Label wipeOtherLabel = serverLabel.getLabel("Вайп доп.миров: " + serverResponse.getWipeOther(), "#dddddd", 484, 69, 16);
 
-        launcherService.setLauncher(serverResponse.getClient());
 
-        PlayButton playButton = new PlayButton();
+        PlayButton playButton = new PlayButton(launcherService);
         playButton.setOnMouseEntered();
         playButton.setOnMouseExited();
-        playButton.setOnMouseClicked(launcherService);
+        playButton.setOnMouseClicked(serverResponse.getClient());
 
-        MoreButton moreButton = new MoreButton();
+        MoreButton moreButton = new MoreButton(playersDraw);
         moreButton.setOnMouseEntered();
         moreButton.setOnMouseExited();
+        moreButton.setOnMouseClicked(serverResponse.getTitle(), serverResponse.getIp(), serverResponse.getPort());
 
         pane.getChildren().addAll(iconImageView, titleLabel, versionImageView, versionLabel, playersImageView, playersLabel, pvpImageView, pvpLabel,
                 sizeImageView, sizeLabel, startImageView, startLabel, wipeImageView, wipeLabel, wipeOtherImageView, wipeOtherLabel, playButton.getButton(), moreButton.getButton());

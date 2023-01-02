@@ -14,6 +14,7 @@ public class ServerResponse {
 
     private int online;
     private int players;
+    private int port;
 
     public String getIp() {
         return ip;
@@ -61,5 +62,9 @@ public class ServerResponse {
 
     public String getPvp() {
         return pvp;
+    }
+
+    public int getPort() {
+        return port;
     }
 }

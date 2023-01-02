@@ -9,8 +9,10 @@ import javafx.scene.text.Font;
 public class PlayButton {
 
     private final Button button;
+    private final LauncherService launcherService;
 
-    public PlayButton() {
+    public PlayButton(LauncherService launcherService) {
+        this.launcherService = launcherService;
         button = new Button();
     }
 
@@ -37,8 +39,11 @@ public class PlayButton {
         button.setOnMouseExited(event -> button.setStyle("-fx-background-color: #227322"));
     }
 
-    public void setOnMouseClicked(LauncherService launcherService) {
-        button.setOnMouseClicked(event -> launcherService.init());
+    public void setOnMouseClicked(String launcher) {
+        button.setOnMouseClicked(event -> {
+            launcherService.setLauncher(launcher);
+            launcherService.init();
+        });
     }
 
 }

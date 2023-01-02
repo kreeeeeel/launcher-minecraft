@@ -1,10 +1,7 @@
 package com.application.launcher.controller;
 
 import com.application.launcher.Runner;
-import com.application.launcher.design.draw.AlertDraw;
-import com.application.launcher.design.draw.BrowseDraw;
-import com.application.launcher.design.draw.ExitAccountDraw;
-import com.application.launcher.design.draw.SettingsDraw;
+import com.application.launcher.design.draw.*;
 import com.application.launcher.design.image.CollapseImage;
 import com.application.launcher.design.image.ExitImage;
 import com.application.launcher.design.image.PayImage;
@@ -34,6 +31,7 @@ public class MainController extends Application {
     @FXML private ImageView rubleImg;
     @FXML private ImageView settingsCloseImg;
     @FXML private ImageView settingsImg;
+    @FXML private ImageView playersCloseImg;
 
     @FXML private Label alertMessage;
     @FXML private Label alertTitle;
@@ -44,6 +42,7 @@ public class MainController extends Application {
     @FXML private Label titleUpdate;
     @FXML private Label urlContent;
     @FXML private Label urlLabel;
+    @FXML private Label playersServerLabel;
 
     @FXML private Pane alertPane;
     @FXML private Pane exitPane;
@@ -53,6 +52,7 @@ public class MainController extends Application {
     @FXML private Pane top;
     @FXML private Pane urlPane;
     @FXML private Pane loadPane;
+    @FXML private Pane playersPane;
 
     @FXML private CheckBox boxLaunchAuto;
     @FXML private CheckBox boxLaunchFullScreen;
@@ -68,6 +68,7 @@ public class MainController extends Application {
     @FXML private Circle photoCircle;
     @FXML private ProgressBar progressUpdate;
     @FXML private AnchorPane serversAnchor;
+    @FXML private AnchorPane playersAnchor;
     @FXML private TextField settingsRamText;
 
     @Override
@@ -83,6 +84,7 @@ public class MainController extends Application {
 
         List<Pane> list = new ArrayList<>();
         list.add(paneUpdate);
+        list.add(loadPane);
 
         AlertDraw alertDraw = new AlertDraw(
                 list,
@@ -134,6 +136,18 @@ public class MainController extends Application {
         payImage.setOnMouseExited();
         payImage.setOnMouseClicked();
 
+        PlayersDraw playersDraw = new PlayersDraw(
+                playersPane,
+                loadPane,
+                playersAnchor,
+                playersCloseImg,
+                playersServerLabel,
+                alertDraw
+        );
+        playersDraw.setOnMouseEntered();
+        playersDraw.setOnMouseExited();
+        playersDraw.setOnMouseClicked();
+
         LauncherService launcherService = new LauncherService(
                 paneUpdate,
                 fileUpdate,
@@ -152,7 +166,8 @@ public class MainController extends Application {
                 photoCircle,
                 loadPane,
                 alertDraw,
-                launcherService
+                launcherService,
+                playersDraw
         );
         profileService.init();
 

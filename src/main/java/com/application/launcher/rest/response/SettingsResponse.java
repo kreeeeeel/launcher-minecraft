@@ -12,6 +12,8 @@ public class SettingsResponse {
     private String tweak;
     private String type;
     private String launchwrapper;
+    private String ip;
+    private String port;
 
     public String getUuid() {
         return uuid;
@@ -55,5 +57,13 @@ public class SettingsResponse {
 
     public String getLaunchwrapper() {
         return launchwrapper;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public String getPort() {
+        return port;
     }
 }

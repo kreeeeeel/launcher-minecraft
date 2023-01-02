@@ -12,10 +12,12 @@ import javafx.scene.layout.Pane;
 
 public class ServersDraw {
 
+    private final PlayersDraw playersDraw;
     private final AnchorPane anchorPane;
     private final LauncherService launcherService;
 
-    public ServersDraw(AnchorPane anchorPane, LauncherService launcherService) {
+    public ServersDraw(PlayersDraw playersDraw, AnchorPane anchorPane, LauncherService launcherService) {
+        this.playersDraw = playersDraw;
         this.anchorPane = anchorPane;
         this.launcherService = launcherService;
     }
@@ -31,7 +33,7 @@ public class ServersDraw {
         int count = 0;
         for (ServerResponse serverResponse : servers) {
 
-            ServerPane serverPane = new ServerPane(serverResponse, launcherService);
+            ServerPane serverPane = new ServerPane(serverResponse, launcherService, playersDraw);
             Pane pane = serverPane.getPane();
             pane.setLayoutY(14 + 186 * count);
 

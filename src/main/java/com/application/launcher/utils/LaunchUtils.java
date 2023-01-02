@@ -73,9 +73,9 @@ public class LaunchUtils {
 
             if (auto) {
                 params.add("--server");
-                params.add("185.221.153.142");
+                params.add(settingsResponse.getIp());
                 params.add("--port");
-                params.add("25565");
+                params.add(settingsResponse.getPort());
             }
 
             ProcessBuilder processBuilder = new ProcessBuilder(params);
@@ -87,7 +87,7 @@ public class LaunchUtils {
             Process process = processBuilder.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader er = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            String s = "";
+            String s;
             while((s = in.readLine()) != null){
                 System.out.println(s);
             }

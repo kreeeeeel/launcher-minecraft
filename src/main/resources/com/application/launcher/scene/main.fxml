@@ -309,6 +309,32 @@
             </Pane>
          </children>
       </Pane>
+      <Pane fx:id="playersPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="67.0" layoutY="87.0" prefHeight="426.0" prefWidth="667.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+               <children>
+                  <Label fx:id="playersServerLabel" alignment="CENTER" layoutX="8.0" layoutY="8.0" prefHeight="20.0" prefWidth="654.0" text="Текущие игроки на сервере 'Hitech Classic' | 0 из 20">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="playersCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="634.0" layoutY="2.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ScrollPane hbarPolicy="NEVER" layoutY="32.0" prefHeight="389.0" prefWidth="667.0">
+                    <content>
+                      <AnchorPane fx:id="playersAnchor" minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="653.0" />
+                    </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
       <Pane fx:id="top" prefHeight="38.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
             <ImageView fx:id="exitImg" fitHeight="69.0" fitWidth="30.0" layoutX="761.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">

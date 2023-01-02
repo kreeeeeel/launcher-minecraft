@@ -1,6 +1,7 @@
 package com.application.launcher.service;
 
 import com.application.launcher.design.draw.AlertDraw;
+import com.application.launcher.design.draw.PlayersDraw;
 import com.application.launcher.design.draw.ServersDraw;
 import com.application.launcher.design.image.PhotoImage;
 import com.application.launcher.design.label.ProfileLabel;
@@ -36,7 +37,9 @@ public class ProfileService {
     private final AlertDraw alertDraw;
     private final LauncherService launcherService;
 
-    public ProfileService(Label login, Label balance, ImageView settings, ImageView ruble, AnchorPane anchorPane, Circle circle, Pane pane, AlertDraw alertDraw, LauncherService launcherService) {
+    private final PlayersDraw playersDraw;
+
+    public ProfileService(Label login, Label balance, ImageView settings, ImageView ruble, AnchorPane anchorPane, Circle circle, Pane pane, AlertDraw alertDraw, LauncherService launcherService, PlayersDraw playersDraw) {
         this.login = login;
         this.balance = balance;
         this.settings = settings;
@@ -46,6 +49,7 @@ public class ProfileService {
         this.pane = pane;
         this.alertDraw = alertDraw;
         this.launcherService = launcherService;
+        this.playersDraw = playersDraw;
     }
 
     public void init() {
@@ -84,7 +88,7 @@ public class ProfileService {
                 profileLabel.setLogin(profileResponse);
                 profileLabel.setBalance(profileResponse);
 
-                ServersDraw serversDraw = new ServersDraw(anchorPane, launcherService);
+                ServersDraw serversDraw = new ServersDraw(playersDraw, anchorPane, launcherService);
                 serversDraw.setServers(profileResponse.getServers());
 
                 pane.setVisible(false);

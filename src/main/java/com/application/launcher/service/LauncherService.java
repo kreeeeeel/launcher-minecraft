@@ -160,7 +160,7 @@ public class LauncherService {
                 Platform.runLater(() -> fileUpdate.setText(fileResponse.getPath()));
                 if (!file.exists() || hash == null || !hash.equals(fileResponse.getMd5()) || file.length() != fileResponse.getSize()) {
                     sendRequest.incrementAndGet();
-                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/").replace("launcher/",""))).enqueue(new UpdateFilesExecutor(fileResponse, name));
+                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/"))).enqueue(new UpdateFilesExecutor(fileResponse, name));
                 }
             }
 
