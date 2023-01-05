@@ -39,6 +39,7 @@ public class AuthController extends Application {
     @FXML private Pane authPane;
     @FXML private Pane loadPane;
     @FXML private Pane alertPane;
+    @FXML private Pane alertPaneMain;
     @FXML private Pane urlPane;
     @FXML private Pane fastAuthPane;
 
@@ -89,7 +90,7 @@ public class AuthController extends Application {
         list.add(authPane);
         list.add(fastAuthPane);
 
-        AlertDraw alertDraw = new AlertDraw(list, alertPane, alertCloseImg, alertTitle, alertMessage);
+        AlertDraw alertDraw = new AlertDraw(list, alertPane, alertPaneMain, alertCloseImg, alertTitle, alertMessage);
         BrowseDraw recoveryDraw = new BrowseDraw(
                 Constant.WEB + Constant.RECOVERY,
                 "Вы действительно хотите перейти по ссылке для восстановления пароля?",

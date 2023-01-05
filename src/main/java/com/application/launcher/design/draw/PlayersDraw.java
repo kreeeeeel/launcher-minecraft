@@ -3,14 +3,20 @@ package com.application.launcher.design.draw;
 import com.application.launcher.design.pane.PlayerPane;
 import com.application.launcher.query.MCQuery;
 import com.application.launcher.query.QueryResponse;
+import com.application.launcher.utils.FileUtils;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,7 +31,7 @@ public class PlayersDraw {
     private String name;
     private String ip = "localhost";
     private int port = 25565;
-    private int countForX, countForY;
+    private int count = 0;
 
     public PlayersDraw(Pane pane, Pane loadPane, AnchorPane anchorPane, ImageView imageView, Label label, AlertDraw alertDraw) {
         this.pane = pane;
@@ -51,12 +57,12 @@ public class PlayersDraw {
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
 
-            Platform.runLater(() -> loadPane.setVisible(true));
+            count = 0;
+            Platform.runLater(() -> {
+                loadPane.setVisible(true);
+                anchorPane.getChildren().clear();
+            });
 
-            countForX = 0;
-            countForY = 0;
-
-            Platform.runLater(() -> anchorPane.getChildren().clear());
             MCQuery mcQuery = new MCQuery(ip, port);
             QueryResponse queryResponse = mcQuery.fullStat();
 
@@ -78,18 +84,14 @@ public class PlayersDraw {
                     continue;
                 }
 
-                player.setLayoutX(16 + 215 * countForX);
-                player.setLayoutY(8 + 48 * countForY);
-
-                if(countForX++ > 2) {
-                    countForX = 0;
-                    countForY++;
-                }
+                player.setLayoutY(4 + 51 * count);
                 Platform.runLater(() -> anchorPane.getChildren().add(player));
+                count++;
             }
+
             Platform.runLater(() -> {
-                label.setText(name + " | " + queryResponse.getOnlinePlayers() + " из " + queryResponse.getMaxPlayers());
-                anchorPane.setPrefHeight(Math.max(387, 8 + 48 * countForY));
+                label.setText(name);
+                anchorPane.setPrefHeight(Math.max(387, 4 + 51 * count));
                 loadPane.setVisible(false);
 
                 FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), pane);

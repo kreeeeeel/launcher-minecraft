@@ -5,8 +5,10 @@ import com.application.launcher.utils.ConfigUtils;
 import com.application.launcher.utils.FileUtils;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -23,8 +25,9 @@ import java.util.concurrent.Executors;
 public class SettingsDraw {
     private final TextField textField;
     private final Label label;
-    private final CheckBox checkBoxSize;
-    private final CheckBox checkBoxAuto;
+    private final Slider slider;
+    private final RadioButton checkBoxSize;
+    private final RadioButton checkBoxAuto;
 
     private final Pane pane;
     private final Pane paneRemove;
@@ -36,9 +39,12 @@ public class SettingsDraw {
     private final ImageView closeImageView;
     private final AlertDraw alertDraw;
 
-    public SettingsDraw(TextField textField, Label label, CheckBox checkBoxSize, CheckBox checkBoxAuto, Pane pane, Pane paneRemove, Button clear, Button folder, ImageView openImageView, ImageView closeImageView, AlertDraw alertDraw) {
+    private long maxMemory;
+
+    public SettingsDraw(TextField textField, Label label, Slider slider, RadioButton checkBoxSize, RadioButton checkBoxAuto, Pane pane, Pane paneRemove, Button clear, Button folder, ImageView openImageView, ImageView closeImageView, AlertDraw alertDraw) {
         this.textField = textField;
         this.label = label;
+        this.slider = slider;
         this.checkBoxSize = checkBoxSize;
         this.checkBoxAuto = checkBoxAuto;
         this.pane = pane;
@@ -52,29 +58,34 @@ public class SettingsDraw {
 
     public void init() {
         ConfigUtils configUtils = new ConfigUtils();
+        configUtils.init();
         ConfigEntity configEntity = configUtils.getConfigEntity();
 
-        long usedMBytes = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+        maxMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
                 .getOperatingSystemMXBean()).getTotalPhysicalMemorySize() / (1024 * 1024);
 
         if (configEntity == null) {
             configEntity = new ConfigEntity();
-            configEntity.setSize(usedMBytes / 2);
+            configEntity.setSize(maxMemory / 2);
             configEntity.setFullscreen(true);
             configEntity.setAutoConnect(true);
         }
 
-        if (configEntity.getSize() > usedMBytes){
-            configEntity.setSize(usedMBytes / 2);
+        if (configEntity.getSize() > maxMemory){
+            configEntity.setSize(maxMemory / 2);
             configUtils.write();
         }
 
         ConfigEntity finalConfigEntity = configEntity;
         Platform.runLater(() -> {
-            label.setText("Доступно " + usedMBytes + " MB");
+            label.setText("Выделяется " + finalConfigEntity.getSize() + " МБ памяти");
             textField.setText(String.valueOf(finalConfigEntity.getSize()));
+
             checkBoxSize.setSelected(finalConfigEntity.isFullscreen());
             checkBoxAuto.setSelected(finalConfigEntity.isAutoConnect());
+
+            slider.setMax(maxMemory);
+            slider.setValue(finalConfigEntity.getSize());
         });
     }
 
@@ -127,7 +138,7 @@ public class SettingsDraw {
 
                 FileUtils fileUtils = new FileUtils();
                 fileUtils.deleteFiles("launcher");
-                alertDraw.init("Удаление файлов", "Файлы были удалены..");
+                alertDraw.init("Удаление файлов", "Операция прошла успешно!");
                 paneRemove.setVisible(false);
 
             });
@@ -138,19 +149,33 @@ public class SettingsDraw {
     public void setOnAction() {
 
         checkBoxAuto.setOnAction(event -> {
+            checkBoxAuto.setFocusTraversable(false);
+
             ConfigUtils configUtils = new ConfigUtils();
+            configUtils.init();
+
             ConfigEntity configEntity = configUtils.getConfigEntity();
             configEntity.setAutoConnect(checkBoxAuto.isSelected());
+            configUtils.setConfigEntity(configEntity);
             configUtils.write();
         });
 
         checkBoxSize.setOnAction(event -> {
+            checkBoxAuto.setFocusTraversable(false);
+
             ConfigUtils configUtils = new ConfigUtils();
+            configUtils.init();
             ConfigEntity configEntity = configUtils.getConfigEntity();
             configEntity.setFullscreen(checkBoxSize.isSelected());
+            configUtils.setConfigEntity(configEntity);
             configUtils.write();
         });
 
+
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            slider.setFocusTraversable(false);
+            textField.setText(String.valueOf((long) slider.getValue()));
+        });
     }
 
     public void textProperty() {
@@ -161,17 +186,16 @@ public class SettingsDraw {
                 return;
             }
 
-            long usedMBytes = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getTotalPhysicalMemorySize() / (1024 * 1024);
             int value = Integer.parseInt(newValue);
 
-            if(value > usedMBytes) {
-                alertDraw.init("Контроль памяти", "Значение не должно быть больше " + usedMBytes + " МБ");
+            if(value > maxMemory) {
+                alertDraw.init("Контроль памяти", "Выбранное значение должно быть не больше " + maxMemory + " МБ");
                 textField.setText(oldValue);
                 return;
             }
 
-            if(value < 512) {
-                alertDraw.init("Контроль памяти", "Значение не должно быть меньше 512 МБ");
+            if(value < 0) {
+                alertDraw.init("Контроль памяти", "Выбранное значение не должно быть меньше 0 МБ");
                 textField.setText(oldValue);
                 return;
             }
@@ -182,6 +206,9 @@ public class SettingsDraw {
             ConfigEntity configEntity = configUtils.getConfigEntity();
             configEntity.setSize(value);
             configUtils.write();
+
+            label.setText("Выделяется " + value + " МБ памяти");
+            slider.setValue(value);
 
         });
     }

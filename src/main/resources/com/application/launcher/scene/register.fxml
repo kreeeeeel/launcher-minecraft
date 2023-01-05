@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.RegisterController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/8.0.351" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.RegisterController">
    <children>
       <Pane layoutX="14.0" prefHeight="600.0" prefWidth="327.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
@@ -101,7 +101,7 @@
       </Pane>
       <Pane fx:id="alertPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="189.0" layoutY="210.0" prefHeight="90.0" prefWidth="422.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane fx:id="alertPaneMain" layoutX="189.0" layoutY="210.0" prefHeight="90.0" prefWidth="422.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
                   <ImageView fx:id="alertCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="388.0" layoutY="6.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>

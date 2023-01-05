@@ -1,5 +1,6 @@
 package com.application.launcher.utils;
 
+import com.application.launcher.controller.MainController;
 import com.application.launcher.handler.TokenHandler;
 import com.application.launcher.rest.response.SettingsResponse;
 import javafx.application.Platform;
@@ -67,15 +68,15 @@ public class LaunchUtils {
             params.add("--versionType");
             params.add(settingsResponse.getType());
 
-            if (fullscreen) {
-                params.add("--fullscreen");
-            }
-
             if (auto) {
                 params.add("--server");
                 params.add(settingsResponse.getIp());
                 params.add("--port");
                 params.add(settingsResponse.getPort());
+            }
+
+            if (fullscreen) {
+                params.add("--fullscreen");
             }
 
             ProcessBuilder processBuilder = new ProcessBuilder(params);

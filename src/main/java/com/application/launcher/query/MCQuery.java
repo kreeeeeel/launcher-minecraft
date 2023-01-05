@@ -131,7 +131,7 @@ public class MCQuery
 		}
 		catch (SocketTimeoutException e)
 		{
-			System.err.println("Socket Timeout! Is the server offline?");
+			//System.err.println("Socket Timeout! Is the server offline?");
 			//System.exit(1);
 			// throw exception
 		}
@@ -183,17 +183,5 @@ public class MCQuery
 			out += String.format("%02X ", bb);
 		}
 		return out;
-	}
-
-	//Testing
-	public static void main(String args[])
-	{
-		MCQuery mc = new MCQuery();
-
-		System.out.println(mc.basicStat().toString());
-		System.out.println(mc.basicStat().asJSON());
-		System.out.println("=====================");
-		System.out.println(mc.fullStat().toString());
-		System.out.println(mc.fullStat().asJSON());
 	}
 }

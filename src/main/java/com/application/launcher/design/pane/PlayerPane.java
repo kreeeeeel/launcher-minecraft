@@ -24,21 +24,22 @@ public class PlayerPane {
     public Pane getPane(){
         try {
             Pane pane = new Pane();
-            pane.setPrefSize(200, 38);
+            pane.setLayoutX(14);
+            pane.setPrefSize(282, 45);
             pane.setStyle("-fx-background-radius: 5px; -fx-background-color: #ffffff");
 
             Circle circle = new Circle();
-            circle.setLayoutX(22);
-            circle.setLayoutY(19);
-            circle.setRadius(15);
+            circle.setLayoutX(26);
+            circle.setLayoutY(23);
+            circle.setRadius(19);
             circle.setFill(new ImagePattern(new Image(new URL(API + PHOTO + name + ".png").openStream())));
             circle.setStroke(Paint.valueOf("gray"));
 
             Label label = new Label(name);
-            label.setLayoutX(45);
-            label.setLayoutY(9);
-            label.setPrefSize(148, 20);
-            label.setFont(Font.font("Franklin Gothic Medium", 17));
+            label.setLayoutX(55);
+            label.setLayoutY(12);
+            label.setPrefSize(218, 22);
+            label.setFont(Font.font("Franklin Gothic Medium", 18));
             label.setTextFill(Paint.valueOf("#464646"));
 
             pane.getChildren().addAll(circle, label);

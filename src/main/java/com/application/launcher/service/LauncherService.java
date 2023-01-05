@@ -10,10 +10,7 @@ import com.application.launcher.utils.LaunchUtils;
 import com.application.launcher.utils.MD5Utils;
 import com.application.launcher.utils.RetrofitUtils;
 import javafx.application.Platform;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import okhttp3.ResponseBody;
@@ -36,15 +33,15 @@ public class LauncherService {
     private final Label fileUpdate;
     private final Label titleUpdate;
     private final ProgressBar progressBar;
-    private final CheckBox boxLaunchFullScreen;
-    private final CheckBox boxLaunchAuto;
+    private final RadioButton boxLaunchFullScreen;
+    private final RadioButton boxLaunchAuto;
 
     private final AlertDraw alertDraw;
 
     private final AtomicInteger sendRequest = new AtomicInteger(0);
     private final AtomicInteger successRequest = new AtomicInteger(0);
 
-    public LauncherService(Pane pane, Label fileUpdate, Label titleUpdate, ProgressBar progressBar, CheckBox boxLaunchFullScreen, CheckBox boxLaunchAuto, AlertDraw alertDraw) {
+    public LauncherService(Pane pane, Label fileUpdate, Label titleUpdate, ProgressBar progressBar, RadioButton boxLaunchFullScreen, RadioButton boxLaunchAuto, AlertDraw alertDraw) {
         this.pane = pane;
         this.fileUpdate = fileUpdate;
         this.titleUpdate = titleUpdate;

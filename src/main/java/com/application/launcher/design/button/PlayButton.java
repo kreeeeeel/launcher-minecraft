@@ -18,12 +18,12 @@ public class PlayButton {
 
     public Button getButton() {
 
-        button.setText("Играть");
-        button.setLayoutX(636);
-        button.setLayoutY(129);
-        button.setPrefSize(113, 34);
+        button.setText("Начать игру");
+        button.setLayoutX(532);
+        button.setLayoutY(93);
+        button.setPrefSize(131, 29);
         button.setStyle("-fx-background-color: #227322");
-        button.setFont(Font.font("Franklin Gothic Medium", 18));
+        button.setFont(Font.font("Franklin Gothic Medium", 17));
         button.setTextFill(Paint.valueOf("#dddddd"));
         button.setCursor(Cursor.HAND);
         button.setFocusTraversable(false);

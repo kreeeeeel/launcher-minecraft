@@ -85,8 +85,8 @@ public class FastAuthDraw {
         executorService.execute(() -> {
 
             button.setDisable(true);
-
             count = 0;
+
             AccountHandler.setPane(null);
             AccountHandler.setUsername(null);
             AccountHandler.setPassword(null);
@@ -95,30 +95,17 @@ public class FastAuthDraw {
                 alertDraw.init("Пусто :(", "У вас нет сохраненных аккаунтов..");
                 return;
             }
-            Platform.runLater(() -> {
-                anchorPane.getChildren().clear();
-                if (animation) {
 
-                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), pane);
-                    fadeTransition.setFromValue(0.0);
-                    fadeTransition.setByValue(1.0);
-                    fadeTransition.setAutoReverse(true);
-
-                    pane.setVisible(true);
-                    fadeTransition.play();
-                }
-            });
-
+            Platform.runLater(() -> anchorPane.getChildren().clear());
             for (AccountEntity accountEntity : configEntity.getAccounts()) {
 
                 Image image = getImage(accountEntity.getUsername());
                 if (image == null) {
-                    configEntity.getAccounts().removeIf(account -> account.getUsername().equals(accountEntity.getUsername()));
                     continue;
                 }
 
                 Platform.runLater(() -> {
-                    Pane paneUser = getPane(accountEntity, count);
+                    Pane paneUser = getPane(accountEntity);
                     Circle circle = getCircle(image);
                     Label label = getLabel(accountEntity.getUsername());
                     ImageView imageView = getRemoveImage(configEntity, accountEntity);
@@ -128,22 +115,32 @@ public class FastAuthDraw {
                 });
                 count++;
             }
-            anchorPane.setPrefHeight(Math.max(count * 50, 304));
+
             if (count == 0) {
                 alertDraw.init("Пусто :(", "У вас нет сохраненных аккаунтов..");
+            }
+
+            if (animation) {
+                anchorPane.setPrefHeight(Math.max(count * 50, 304));
+
+                FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), pane);
+                fadeTransition.setFromValue(0.0);
+                fadeTransition.setByValue(1.0);
+                fadeTransition.setAutoReverse(true);
+
+                pane.setVisible(true);
+                fadeTransition.play();
             }
         });
 
     }
 
-    public Pane getPane(AccountEntity accountEntity, int count) {
-
-        count = count - 1;
+    public Pane getPane(AccountEntity accountEntity) {
 
         Pane paneG = new Pane();
         paneG.setPrefSize(300, 45);
         paneG.setLayoutX(13);
-        paneG.setLayoutY(count*50);
+        paneG.setLayoutY( (count-1) * 50 );
         paneG.setStyle("-fx-background-color: white; -fx-background-radius: 5px");
         paneG.setCursor(Cursor.HAND);
 

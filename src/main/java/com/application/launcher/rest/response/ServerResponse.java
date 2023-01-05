@@ -10,10 +10,7 @@ public class ServerResponse {
     private String size;
     private String start;
     private String wipe;
-    private String wipeOther;
-
     private int online;
-    private int players;
     private int port;
 
     public String getIp() {
@@ -38,14 +35,6 @@ public class ServerResponse {
 
     public int getOnline() {
         return online;
-    }
-
-    public int getPlayers() {
-        return players;
-    }
-
-    public String getWipeOther() {
-        return wipeOther;
     }
 
     public String getWipe() {

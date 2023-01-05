@@ -35,13 +35,13 @@ public class ServersDraw {
 
             ServerPane serverPane = new ServerPane(serverResponse, launcherService, playersDraw);
             Pane pane = serverPane.getPane();
-            pane.setLayoutY(14 + 186 * count);
+            pane.setLayoutY(8 + 143 * count);
 
             anchorPane.getChildren().add(pane);
             count += 1;
 
         }
-        anchorPane.setPrefHeight(Math.max(494, 14 + 186 * count));
+        anchorPane.setPrefHeight(Math.max(494, 8 + 143 * count));
     }
 
     public void notFound() {

@@ -45,6 +45,7 @@ public class MainController extends Application {
     @FXML private Label playersServerLabel;
 
     @FXML private Pane alertPane;
+    @FXML private Pane alertPaneMain;
     @FXML private Pane exitPane;
     @FXML private Pane paneUpdate;
     @FXML private Pane removeClientPane;
@@ -54,8 +55,8 @@ public class MainController extends Application {
     @FXML private Pane loadPane;
     @FXML private Pane playersPane;
 
-    @FXML private CheckBox boxLaunchAuto;
-    @FXML private CheckBox boxLaunchFullScreen;
+    @FXML private RadioButton boxLaunchAuto;
+    @FXML private RadioButton boxLaunchFullScreen;
 
     @FXML private Button exitAccountBtn;
     @FXML private Button cancelBtn;
@@ -70,6 +71,7 @@ public class MainController extends Application {
     @FXML private AnchorPane serversAnchor;
     @FXML private AnchorPane playersAnchor;
     @FXML private TextField settingsRamText;
+    @FXML private Slider settingsRamSlider;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -89,6 +91,7 @@ public class MainController extends Application {
         AlertDraw alertDraw = new AlertDraw(
                 list,
                 alertPane,
+                alertPaneMain,
                 alertCloseImg,
                 alertTitle,
                 alertMessage
@@ -174,6 +177,7 @@ public class MainController extends Application {
         SettingsDraw settingsDraw = new SettingsDraw(
                 settingsRamText,
                 settingsRamLabel,
+                settingsRamSlider,
                 boxLaunchFullScreen,
                 boxLaunchAuto,
                 settingsPane,

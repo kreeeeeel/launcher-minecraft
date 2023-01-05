@@ -34,6 +34,7 @@ public class RegisterController extends Application {
     @FXML private Label registerTitle;
 
     @FXML private Pane alertPane;
+    @FXML private Pane alertPaneMain;
     @FXML private Pane registerPane;
     @FXML private Pane loadPane;
 
@@ -74,7 +75,7 @@ public class RegisterController extends Application {
         List<Pane> list = new ArrayList<>();
         list.add(registerPane);
 
-        AlertDraw alertDraw = new AlertDraw(list, alertPane, alertCloseImg, alertTitle, alertMessage);
+        AlertDraw alertDraw = new AlertDraw(list, alertPane, alertPaneMain, alertCloseImg, alertTitle, alertMessage);
 
         ExitImage exitImage = new ExitImage(exitImg);
         exitImage.setOnMouseEntered();

@@ -21,8 +21,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.application.launcher.constant.Constant.NAME_MAX;
-import static com.application.launcher.constant.Constant.NAME_MIN;
+import static com.application.launcher.constant.Constant.*;
 
 public class RegisterService {
 
@@ -69,7 +68,12 @@ public class RegisterService {
                 return;
             }
 
-            if(fullName.length() < NAME_MIN || fullName.length() > NAME_MAX){
+            if (username.length() < LOGIN_MIN || username.length() > LOGIN_MAX) {
+                alertDraw.init("Неверный формат", "Логин должен содержать от " + LOGIN_MIN + " до " + LOGIN_MAX + " символов..");
+                return;
+            }
+
+            if(fullName.length() < NAME_MIN || fullName.length() > NAME_MAX) {
                 alertDraw.init("Неверный формат", "Имя должно содержать от " + NAME_MIN + " до " + NAME_MAX + " символов..");
                 return;
             }
@@ -84,7 +88,10 @@ public class RegisterService {
                 return;
             }
 
-            Platform.runLater(() -> pane.setVisible(true));
+            Platform.runLater(() -> {
+                title.setText(username);
+                pane.setVisible(true);
+            });
             RegisterRequest registerRequest = new RegisterRequest(
                     fullName,
                     username,

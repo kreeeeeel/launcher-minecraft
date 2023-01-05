@@ -2,10 +2,11 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-radius: 25з;" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-radius: 25з;" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/8.0.351" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.MainController">
    <children>
       <Pane layoutY="535.0" prefHeight="65.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
@@ -96,7 +97,7 @@
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="78.0" layoutY="45.0" text="Вы действительно хотите выйти из аккаунта?" textFill="#5e5e5e" wrapText="true">
+                  <Label layoutX="78.0" layoutY="45.0" text="Вы действительно хотите выйти?" textFill="#5e5e5e" wrapText="true">
                      <font>
                         <Font name="Franklin Gothic Medium" size="17.0" />
                      </font>
@@ -172,14 +173,9 @@
       </Pane>
       <Pane fx:id="settingsPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="274.0" layoutY="178.0" prefHeight="244.0" prefWidth="252.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane layoutX="210.0" layoutY="165.0" prefHeight="264.0" prefWidth="380.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
-                  <Label layoutX="41.0" layoutY="9.0" text="Настройки" textFill="#544646">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="20.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="settingsClear" focusTraversable="false" layoutX="22.0" layoutY="196.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Очистить клиент" textFill="#dbdbdb">
+                  <Button fx:id="settingsClear" focusTraversable="false" layoutX="59.0" layoutY="215.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="263.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Очистить папку со сборками" textFill="#dbdbdb">
                      <font>
                         <Font name="Franklin Gothic Medium" size="18.0" />
                      </font>
@@ -187,45 +183,35 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="settingsOpenFolder" focusTraversable="false" layoutX="22.0" layoutY="151.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Перейти в папку" textFill="#dddddd">
+                  <Button fx:id="settingsOpenFolder" focusTraversable="false" layoutX="59.0" layoutY="173.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="263.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Открыть папку с лаунчером" textFill="#dddddd">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="18.0" />
+                        <Font name="Franklin Gothic Medium" size="17.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label layoutX="14.0" layoutY="47.0" text="Оперативная память" textFill="#544646">
+                  <Label layoutX="153.0" layoutY="13.0" text="Настройки" textFill="#544646">
                      <font>
                         <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="settingsRamText" focusTraversable="false" layoutX="169.0" layoutY="46.0" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: white;" text="1024">
+                  <TextField fx:id="settingsRamText" focusTraversable="false" layoutX="287.0" layoutY="66.0" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: white;" text="0">
                      <font>
                         <Font name="Franklin Gothic Medium" size="15.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="settingsRamLabel" layoutX="14.0" layoutY="60.0" prefHeight="14.0" prefWidth="148.0" text="Доступно 10200 MB" textFill="#544646">
+                  <Label fx:id="settingsRamLabel" alignment="CENTER" layoutX="2.0" layoutY="45.0" prefHeight="16.0" prefWidth="380.0" text="Выделяется 0 МБ памяти" textFill="#544646">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="12.0" />
+                        <Font name="Franklin Gothic Medium" size="14.0" />
                      </font>
                   </Label>
-                  <CheckBox fx:id="boxLaunchFullScreen" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" text="Запуск в полном экране" textFill="#544646">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox fx:id="boxLaunchAuto" layoutX="14.0" layoutY="111.0" mnemonicParsing="false" text="Авто вход на сервер" textFill="#544646">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="16.0" />
-                     </font>
-                  </CheckBox>
                   <ImageView fitHeight="69.0" fitWidth="30.0" layoutX="7.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/settings.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="settingsCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="215.0" layoutY="7.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="settingsCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="343.0" layoutY="7.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/close.png" />
                      </image>
@@ -233,25 +219,41 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+                  <Slider fx:id="settingsRamSlider" layoutX="22.0" layoutY="64.0" max="0.0" minorTickCount="5" prefHeight="32.0" prefWidth="263.0" showTickLabels="true" />
+                  <Label layoutX="87.0" layoutY="30.0" prefHeight="6.0" prefWidth="209.0" text="Выберите нужное значение памяти " textAlignment="CENTER" textFill="#544646" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="13.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="boxLaunchFullScreen" focusTraversable="false" layoutX="21.0" layoutY="107.0" mnemonicParsing="false" text="Запускать игру во весь экран">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="boxLaunchAuto" focusTraversable="false" layoutX="21.0" layoutY="135.0" mnemonicParsing="false" text="Автоматическое подключение к серверу">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </RadioButton>
                </children>
             </Pane>
          </children>
       </Pane>
       <Pane fx:id="removeClientPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="183.0" layoutY="255.0" prefHeight="90.0" prefWidth="435.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane layoutX="240.0" layoutY="265.0" prefHeight="71.0" prefWidth="321.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
-                  <Label layoutX="78.0" layoutY="23.0" text="Удаление файлов" textFill="#544646">
+                  <Label layoutX="65.0" layoutY="14.0" text="Удаление файлов" textFill="#544646">
                      <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="78.0" layoutY="47.0" text="Удаление файлов клиента, пожалуйста подождите.." textFill="#5e5e5e">
+                  <Label layoutX="65.0" layoutY="38.0" text="Выполняется, пожалуйста подождите.." textFill="#5e5e5e">
                      <font>
                         <Font name="Franklin Gothic Medium" size="14.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="52.0" fitWidth="62.0" layoutX="9.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="52.0" fitWidth="62.0" layoutX="6.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/spinner.gif" />
                      </image>
@@ -262,7 +264,7 @@
       </Pane>
       <Pane fx:id="alertPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="189.0" layoutY="210.0" prefHeight="90.0" prefWidth="422.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane fx:id="alertPaneMain" layoutX="189.0" layoutY="210.0" prefHeight="90.0" prefWidth="422.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
                   <ImageView fx:id="alertCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="388.0" layoutY="6.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -277,7 +279,7 @@
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="alertMessage" layoutX="78.0" layoutY="45.0" prefHeight="22.0" prefWidth="327.0" text="Данный аккаунт в базе данных не найден!" textFill="#5e5e5e" wrapText="true">
+                  <Label fx:id="alertMessage" layoutX="78.0" layoutY="45.0" prefHeight="16.0" prefWidth="327.0" text="Выбранное значение не должно быть меньше 0" textFill="#5e5e5e" wrapText="true">
                      <font>
                         <Font name="Franklin Gothic Medium" size="17.0" />
                      </font>
@@ -311,14 +313,14 @@
       </Pane>
       <Pane fx:id="playersPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="67.0" layoutY="87.0" prefHeight="426.0" prefWidth="667.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane layoutX="245.0" layoutY="85.0" prefHeight="431.0" prefWidth="311.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
-                  <Label fx:id="playersServerLabel" alignment="CENTER" layoutX="8.0" layoutY="8.0" prefHeight="20.0" prefWidth="654.0" text="Текущие игроки на сервере 'Hitech Classic' | 0 из 20">
+                  <Label fx:id="playersServerLabel" alignment="CENTER" layoutY="9.0" prefHeight="20.0" prefWidth="311.0" text="Technomagic + Хуйня какаято">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
+                        <Font name="Franklin Gothic Medium" size="14.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="playersCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="634.0" layoutY="2.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="playersCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="276.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/close.png" />
                      </image>
@@ -326,9 +328,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ScrollPane hbarPolicy="NEVER" layoutY="32.0" prefHeight="389.0" prefWidth="667.0">
+                  <ScrollPane hbarPolicy="NEVER" layoutY="34.0" prefHeight="389.0" prefWidth="311.0">
                     <content>
-                      <AnchorPane fx:id="playersAnchor" minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="653.0" />
+                      <AnchorPane fx:id="playersAnchor" minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="300.0" />
                     </content>
                   </ScrollPane>
                </children>
