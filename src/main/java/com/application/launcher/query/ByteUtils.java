@@ -25,10 +25,7 @@ public class ByteUtils
 
 		byte[] out = new byte[(b - a) + 1];
 
-		for (int i = a; i <= b; i++)
-		{
-			out[i - a] = in[i];
-		}
+		if (b + 1 - a >= 0) System.arraycopy(in, a, out, 0, b + 1 - a);
 		return out;
 	}
 
@@ -42,7 +39,7 @@ public class ByteUtils
 	 */
 	public static byte[] trim(byte[] arr)
 	{
-		if(arr == null || arr[0]!=0 && arr[arr.length]!=0) return arr; //return the input if it has no leading/trailing null bytes
+		if(arr == null) return null; //return the input if it has no leading/trailing null bytes
 
 		int begin=0, end=arr.length;
 		for(int i=0; i<arr.length; i++) // find the first non-null byte
@@ -70,18 +67,13 @@ public class ByteUtils
 	 */
 	public static byte[][] split(byte[] input)
 	{
-		ByteBuffer buf; //TODO
-		ByteBuffer buf2;//TODO
 
 		ArrayList<byte[]> temp = new ArrayList<>();
 
-		byte[][] output; //TODO be more efficient here
+		byte[][] output;
 		if (input == null){
 			return null;
 		}
-
-		output = new byte[input.length][input.length]; //excessively large, but this is the maximum size it can be (actually, less, but it's a good upper bound)
-		int out_index = 0;
 
 		int index_cache = 0;
 		for(int i=0; i<input.length; i++)
@@ -121,20 +113,11 @@ public class ByteUtils
 	public static byte[] padArrayEnd(byte[] arr, int amount)
 	{
 		byte[] arr2 = new byte[arr.length+amount];
-		for(int i=0; i<arr.length; i++) {
-			arr2[i] = arr[i];
-		}
+		System.arraycopy(arr, 0, arr2, 0, arr.length);
 		for(int i=arr.length; i<arr2.length; i++) {
 			arr2[i] = 0;
 		}
 		return arr2;
-	}
-
-	public static short bytesToShort(byte[] b)
-	{
-		ByteBuffer buf = ByteBuffer.wrap(b, 0, 2);
-		buf.order(ByteOrder.LITTLE_ENDIAN);
-		return buf.getShort();
 	}
 
 	/**
@@ -148,17 +131,9 @@ public class ByteUtils
 						(byte) (in >>> 24	& 0xFF),
 						(byte) (in >>> 16	& 0xFF),
 						(byte) (in >>> 8	& 0xFF),
-						(byte) (in >>> 0	& 0xFF)
+						(byte) (in & 0xFF)
 				};
 		return b;
-	}
-
-	/**
-	 * Converts the first four bytes of a byte array to an int (big-endian)
-	 */
-	public static int bytesToInt(byte[] in)
-	{
-		return ByteBuffer.wrap(in).getInt();
 	}
 
 }

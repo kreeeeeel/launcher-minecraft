@@ -1,18 +1,56 @@
 package com.application.launcher.rest.response;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class SettingsResponse {
+
+    @SerializedName("uuid")
+    @Expose
     private String uuid;
+
+    @SerializedName("username")
+    @Expose
     private String username;
-    private String javaagent;
+
+    @SerializedName("natives")
+    @Expose
     private String natives;
+
+    @SerializedName("libraries")
+    @Expose
     private String libraries;
+
+    @SerializedName("version")
+    @Expose
     private String version;
+
+    @SerializedName("index")
+    @Expose
     private String index;
+
+    @SerializedName("user")
+    @Expose
     private String user;
+
+    @SerializedName("tweak")
+    @Expose
     private String tweak;
+
+    @SerializedName("type")
+    @Expose
     private String type;
+
+    @SerializedName("launchwrapper")
+    @Expose
     private String launchwrapper;
+
+    @SerializedName("ip")
+    @Expose
     private String ip;
+
+    @SerializedName("port")
+    @Expose
     private String port;
 
     public String getUuid() {
@@ -21,10 +59,6 @@ public class SettingsResponse {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getJavaagent() {
-        return javaagent;
     }
 
     public String getNatives() {

@@ -5,6 +5,7 @@ import com.application.launcher.design.label.ServerNotFoundLabel;
 import com.application.launcher.design.pane.ServerPane;
 import com.application.launcher.rest.response.ServerResponse;
 import com.application.launcher.service.LauncherService;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -46,19 +47,23 @@ public class ServersDraw {
 
     public void notFound() {
 
-        ImageView notFoundImageView = new ImageView();
-        Label notFoundTitleLabel = new Label();
-        Label notFoundDescriptionLabel = new Label();
+        Platform.runLater(() -> {
 
-        ServerNotFoundImage serverNotFoundImage = new ServerNotFoundImage(notFoundImageView);
-        serverNotFoundImage.setImageView();
+            ImageView notFoundImageView = new ImageView();
+            Label notFoundTitleLabel = new Label();
+            Label notFoundDescriptionLabel = new Label();
 
-        ServerNotFoundLabel serverNotFoundLabel = new ServerNotFoundLabel(notFoundTitleLabel, notFoundDescriptionLabel);
-        serverNotFoundLabel.setTitle();
-        serverNotFoundLabel.setDescription();
+            ServerNotFoundImage serverNotFoundImage = new ServerNotFoundImage(notFoundImageView);
+            serverNotFoundImage.setImageView();
 
-        anchorPane.getChildren().addAll(notFoundImageView, notFoundTitleLabel, notFoundDescriptionLabel);
-        anchorPane.setPrefHeight(494);
+            ServerNotFoundLabel serverNotFoundLabel = new ServerNotFoundLabel(notFoundTitleLabel, notFoundDescriptionLabel);
+            serverNotFoundLabel.setTitle();
+            serverNotFoundLabel.setDescription();
+
+            anchorPane.getChildren().addAll(notFoundImageView, notFoundTitleLabel, notFoundDescriptionLabel);
+            anchorPane.setPrefHeight(494);
+
+        });
 
     }
 }

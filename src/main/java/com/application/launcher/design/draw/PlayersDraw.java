@@ -3,20 +3,14 @@ package com.application.launcher.design.draw;
 import com.application.launcher.design.pane.PlayerPane;
 import com.application.launcher.query.MCQuery;
 import com.application.launcher.query.QueryResponse;
-import com.application.launcher.utils.FileUtils;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

@@ -1,16 +1,52 @@
 package com.application.launcher.rest.response;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ServerResponse {
+
+    @SerializedName("ip")
+    @Expose
     private String ip;
+
+    @SerializedName("title")
+    @Expose
     private String title;
+
+    @SerializedName("icon")
+    @Expose
     private String icon;
+
+    @SerializedName("version")
+    @Expose
     private String version;
+
+    @SerializedName("client")
+    @Expose
     private String client;
+
+    @SerializedName("pvp")
+    @Expose
     private String pvp;
+
+    @SerializedName("size")
+    @Expose
     private String size;
+
+    @SerializedName("start")
+    @Expose
     private String start;
+
+    @SerializedName("wipe")
+    @Expose
     private String wipe;
-    private int online;
+
+    @SerializedName("mark")
+    @Expose
+    private String mark;
+
+    @SerializedName("port")
+    @Expose
     private int port;
 
     public String getIp() {
@@ -33,10 +69,6 @@ public class ServerResponse {
         return version;
     }
 
-    public int getOnline() {
-        return online;
-    }
-
     public String getWipe() {
         return wipe;
     }
@@ -55,5 +87,9 @@ public class ServerResponse {
 
     public int getPort() {
         return port;
+    }
+
+    public String getMark() {
+        return mark;
     }
 }

@@ -14,10 +14,10 @@ public class MD5Utils {
 
         byte[] dataBytes = new byte[1024];
 
-        int nread = 0;
+        int nread;
         while ((nread = fis.read(dataBytes)) != -1) {
             md.update(dataBytes, 0, nread);
-        };
+        }
         byte[] mdbytes = md.digest();
 
         //convert the byte to hex format

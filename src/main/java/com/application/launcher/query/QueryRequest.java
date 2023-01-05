@@ -20,12 +20,7 @@ public class QueryRequest
 		byteStream = new ByteArrayOutputStream(size);
 		dataStream = new DataOutputStream(byteStream);
 	}
-	public QueryRequest(byte type)
-	{
-		this.type = type;
-		//TODO move static type variables to Request
-	}
-	
+
 	//convert the data in this request to a byte array to send to the server
 	byte[] toBytes()
 	{

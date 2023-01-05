@@ -21,10 +21,10 @@ public class FileUtils {
         return "file:///" + new File("images/" + name + ".png").getAbsolutePath();
     }
 
-    public boolean write(String input){
+    public void write(String input){
         try {
             if(!file.isFile() && !file.createNewFile()){
-                return false;
+                return;
             }
 
             byte[] bytes = input.getBytes(StandardCharsets.UTF_8);
@@ -32,10 +32,8 @@ public class FileUtils {
             bos.write(bytes);
             bos.flush();
             bos.close();
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -59,7 +57,7 @@ public class FileUtils {
 
     public void deleteFiles(String path) {
         File file = new File(path);
-        if(file.isFile()) file.delete();
+        if(file.isFile() && !file.delete()) return;
         if(file.isDirectory()){
             File[] array = file.listFiles();
             if (array != null) {
@@ -67,6 +65,7 @@ public class FileUtils {
                     deleteFiles(temp.getPath());
                 }
             }
+
             file.delete();
         }
     }

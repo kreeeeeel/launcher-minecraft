@@ -66,9 +66,7 @@ public class AuthService {
                 pane.setVisible(true);
             });
 
-            AuthRequest authRequest = new AuthRequest();
-            authRequest.setUsername(username);
-            authRequest.setPassword(password);
+            AuthRequest authRequest = new AuthRequest(username, password);
 
             Retrofit retrofit = RetrofitUtils.getRetrofit();
             AuthApi authApi = retrofit.create(AuthApi.class);

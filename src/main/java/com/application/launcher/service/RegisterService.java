@@ -118,18 +118,20 @@ public class RegisterService {
         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
             try {
                 if(!response.isSuccessful()) {
-                    switch (response.errorBody().string()) {
-                        case "Username is already taken!": {
-                            alertDraw.init("Имя пользователя", "Даннное имя пользователя занято!");
-                            break;
-                        }
-                        case "Email Address already in use!": {
-                            alertDraw.init("E-mail адрес", "Даннный e-mail адрес занято!");
-                            break;
-                        }
-                        default: {
-                            alertDraw.init("Ошибка регистрации", "Произошла ошибка, попробуйте позже..");
-                            break;
+                    if (response.errorBody() != null) {
+                        switch (response.errorBody().string()) {
+                            case "Username is already taken!": {
+                                alertDraw.init("Имя пользователя", "Даннное имя пользователя занято!");
+                                break;
+                            }
+                            case "Email Address already in use!": {
+                                alertDraw.init("E-mail адрес", "Даннный e-mail адрес занято!");
+                                break;
+                            }
+                            default: {
+                                alertDraw.init("Ошибка регистрации", "Произошла ошибка, попробуйте позже..");
+                                break;
+                            }
                         }
                     }
 

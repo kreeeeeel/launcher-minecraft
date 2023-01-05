@@ -1,43 +1,25 @@
 package com.application.launcher.rest.response;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ClientResponse {
+    @SerializedName("files")
+    @Expose
     private List<FileResponse> files;
+
+    @SerializedName("folders")
+    @Expose
     private List<String> folders;
-    private int countFiles;
-    private int countFolders;
 
     public List<FileResponse> getFiles() {
         return files;
     }
 
-    public void setFiles(List<FileResponse> files) {
-        this.files = files;
-    }
-
     public List<String> getFolders() {
         return folders;
-    }
-
-    public void setFolders(List<String> folders) {
-        this.folders = folders;
-    }
-
-    public int getCountFiles() {
-        return countFiles;
-    }
-
-    public void setCountFiles(int countFiles) {
-        this.countFiles = countFiles;
-    }
-
-    public int getCountFolders() {
-        return countFolders;
-    }
-
-    public void setCountFolders(int countFolders) {
-        this.countFolders = countFolders;
     }
 
     public FileResponse getFileResponse(String name){

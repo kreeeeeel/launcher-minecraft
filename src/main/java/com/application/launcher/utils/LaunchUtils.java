@@ -1,6 +1,5 @@
 package com.application.launcher.utils;
 
-import com.application.launcher.controller.MainController;
 import com.application.launcher.handler.TokenHandler;
 import com.application.launcher.rest.response.SettingsResponse;
 import javafx.application.Platform;

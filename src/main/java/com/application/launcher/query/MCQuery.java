@@ -20,11 +20,6 @@ public class MCQuery
 	private DatagramSocket socket = null; //prevent socket already bound exception
 	private int token;
 
-	public MCQuery(){} // for testing, defaults to "localhost:25565"
-	public MCQuery(String address)
-	{
-		this(address, 25565);
-	}
 	public MCQuery(String address, int port)
 	{
 		serverAddress = address;
@@ -47,26 +42,6 @@ public class MCQuery
 		}
 
 		token = Integer.parseInt(new String(result).trim());
-	}
-
-	/**
-	 * Use this to get basic status information from the server.
-	 * @return a <code>QueryResponse</code> object
-	 */
-	public QueryResponse basicStat()
-	{
-		handshake(); //get the session token first
-
-		QueryRequest req = new QueryRequest(); //create a request
-		req.type = STAT;
-		req.sessionID = generateSessionID();
-		req.setPayload(token);
-		byte[] send = req.toBytes();
-
-		byte[] result = sendUDP(send);
-
-		QueryResponse res = new QueryResponse(result, false);
-		return res;
 	}
 
 	/**
@@ -95,8 +70,7 @@ public class MCQuery
 		 * note: buffer size = base + #players(online) * 16(max username length)
 		 */
 
-		QueryResponse res = new QueryResponse(result, true);
-		return res;
+		return new QueryResponse(result);
 	}
 
 	private byte[] sendUDP(byte[] input)
@@ -159,29 +133,4 @@ public class MCQuery
 		return 1;
 	}
 
-	//@Override
-	//public void finalize()
-	//{
-	//socket.close();
-	//}
-
-	//debug
-	static void printBytes(byte[] arr)
-	{
-		for(byte b : arr) System.out.print(b + " ");
-		System.out.println();
-	}
-	static void printHex(byte[] arr)
-	{
-		System.out.println(toHex(arr));
-	}
-	static String toHex(byte[] b)
-	{
-		String out = "";
-		for(byte bb : b)
-		{
-			out += String.format("%02X ", bb);
-		}
-		return out;
-	}
 }

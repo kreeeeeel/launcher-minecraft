@@ -27,18 +27,9 @@ public class ServerIconImage {
         FileUtils fileUtils = new FileUtils();
         ImageView markImage = new ImageView();
 
-        String name =
-                mark.equals("TEST") ? "test" :
-                    mark.equals("BETA") ? "beta" :
-                        mark.equals("OBT") ? "obt" :
-                                mark.equals("WIPE") ? "wipe" :
-                                        "new";
-
-        markImage.setImage(new Image(fileUtils.getResource(name)));
+        markImage.setImage(new Image(fileUtils.getResource(mark)));
         markImage.setLayoutX(92);
         markImage.setLayoutY(102);
-        //markImage.setFitWidth(30);
-        //markImage.setFitHeight(14);
         return markImage;
     }
 

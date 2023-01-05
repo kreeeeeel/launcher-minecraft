@@ -56,7 +56,7 @@ public class ProfileService {
 
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
-            Platform.runLater(() -> pane.setVisible(true));
+            pane.setVisible(true);
             String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
 
             ProfileApi profileApi = RetrofitUtils.getRetrofit().create(ProfileApi.class);

@@ -20,6 +20,7 @@ import retrofit2.Response;
 
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -157,7 +158,11 @@ public class LauncherService {
                 Platform.runLater(() -> fileUpdate.setText(fileResponse.getPath()));
                 if (!file.exists() || hash == null || !hash.equals(fileResponse.getMd5()) || file.length() != fileResponse.getSize()) {
                     sendRequest.incrementAndGet();
-                    launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/"))).enqueue(new UpdateFilesExecutor(fileResponse, name));
+                    try {
+                        launcherApi.download(token, URLEncoder.encode(fileResponse.getPath().replace("\\", "/"), StandardCharsets.UTF_8.toString())).enqueue(new UpdateFilesExecutor(fileResponse, name));
+                    } catch (UnsupportedEncodingException e) {
+                        alertDraw.init("Ошибка загрузки", "Не удалось получить файл..");
+                    }
                 }
             }
 
