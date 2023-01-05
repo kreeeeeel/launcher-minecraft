@@ -97,6 +97,7 @@ public class LaunchUtils {
 
             int status = process.waitFor();
             System.out.println("Exited with status: " + status);
+            System.exit(1);
 
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());
