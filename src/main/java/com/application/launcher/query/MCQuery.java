@@ -12,8 +12,8 @@ public class MCQuery
 	final static byte HANDSHAKE = 9;
 	final static byte STAT = 0;
 
-	String serverAddress = "localhost";
-	int queryPort = 25565; // the default minecraft query port
+	String serverAddress;
+	int queryPort; // the default minecraft query port
 
 	int localPort = 25566; // the local port we're connected to the server on
 
@@ -50,10 +50,6 @@ public class MCQuery
 	 */
 	public QueryResponse fullStat()
 	{
-//		basicStat() calls handshake()
-//		QueryResponse basicResp = this.basicStat();
-//		int numPlayers = basicResp.onlinePlayers; //TODO use to determine max length of full stat
-
 		handshake();
 
 		QueryRequest req = new QueryRequest();
@@ -122,6 +118,10 @@ public class MCQuery
 		}
 
 		return null;
+	}
+
+	public void close(){
+		socket.close();
 	}
 
 	private int generateSessionID()

@@ -18,7 +18,7 @@ public class FileUtils {
     public FileUtils() {}
 
     public String getResource(String name) {
-        return "file:///" + new File("images/" + name + ".png").getAbsolutePath();
+        return "file:///" + new File("resources/" + name + ".png").getAbsolutePath();
     }
 
     public void write(String input){

@@ -2,8 +2,8 @@ package com.application.launcher.controller;
 
 import com.application.launcher.Runner;
 import com.application.launcher.constant.Constant;
-import com.application.launcher.design.draw.AuthDraw;
 import com.application.launcher.design.draw.AlertDraw;
+import com.application.launcher.design.draw.AuthDraw;
 import com.application.launcher.design.draw.BrowseDraw;
 import com.application.launcher.design.draw.FastAuthDraw;
 import com.application.launcher.design.image.CollapseImage;

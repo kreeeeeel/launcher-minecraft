@@ -1,9 +1,8 @@
 package com.application.launcher.utils;
 
-import com.application.launcher.handler.TokenHandler;
-import com.application.launcher.rest.response.SettingsResponse;
+import com.application.launcher.design.draw.AlertDraw;
+import com.application.launcher.design.draw.ProcessDraw;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,94 +12,79 @@ import java.util.ArrayList;
 
 public class LaunchUtils {
 
-    private final Stage stage;
     private final String client;
-    private final SettingsResponse settingsResponse;
-    private final boolean fullscreen;
-    private final boolean auto;
+    private final ProcessDraw processDraw;
+    private final AlertDraw alertDraw;
 
-    public LaunchUtils(Stage stage, String client, SettingsResponse settingsResponse, boolean fullscreen, boolean auto) {
-        this.stage = stage;
+    public LaunchUtils(String client, ProcessDraw processDraw, AlertDraw alertDraw) {
         this.client = client;
-        this.settingsResponse = settingsResponse;
-        this.fullscreen = fullscreen;
-        this.auto = auto;
+        this.processDraw = processDraw;
+        this.alertDraw = alertDraw;
     }
 
-    public void start() {
+    public void start(ArrayList<String> params) {
         try {
 
             ConfigUtils configUtils = new ConfigUtils();
             configUtils.init();
 
             String home = System.getProperty("user.dir");
-            ArrayList<String> params = new ArrayList<>();
+            ArrayList<String> needParams = new ArrayList<>();
 
-            params.add("\"" + home + "\\jre\\bin\\javaw.exe\"");
-            params.add("-Xmx" + configUtils.getConfigEntity().getSize() + "M");
-            params.add("-XX:+UseConcMarkSweepGC");
-            params.add("-XX:+CMSIncrementalMode");
-            params.add("-XX:-UseAdaptiveSizePolicy");
-            params.add("-Xmn128M");
-            params.add("\"-Djava.library.path=" + settingsResponse.getNatives() + "\"");
-            params.add("-cp");
-            params.add(settingsResponse.getLibraries());
-            params.add(settingsResponse.getLaunchwrapper());
-            params.add("--username");
-            params.add(settingsResponse.getUsername());
-            params.add("--version");
-            params.add(settingsResponse.getVersion());
-            params.add("--gameDir");
-            params.add(home + "\\launcher\\client\\" + client + "\\");
-            params.add("--assetsDir");
-            params.add("assets");
-            params.add("--assetIndex");
-            params.add(settingsResponse.getIndex());
-            params.add("--uuid");
-            params.add(settingsResponse.getUuid());
-            params.add("--accessToken");
-            params.add(TokenHandler.getAccessToken());
-            params.add("--userType");
-            params.add(settingsResponse.getUser());
-            params.add("--tweakClass");
-            params.add(settingsResponse.getTweak());
-            params.add("--versionType");
-            params.add(settingsResponse.getType());
+            needParams.add("\"" + home + "\\jre\\bin\\javaw.exe\"");
+            needParams.add("-Xmx" + configUtils.getConfigEntity().getSize() + "M");
+            needParams.addAll(params);
+            needParams.add("--gameDir");
+            needParams.add(home + "\\launcher\\client\\" + client + "\\");
 
-            if (auto) {
-                params.add("--server");
-                params.add(settingsResponse.getIp());
-                params.add("--port");
-                params.add(settingsResponse.getPort());
-            }
-
-            if (fullscreen) {
-                params.add("--fullscreen");
-            }
-
-            ProcessBuilder processBuilder = new ProcessBuilder(params);
+            ProcessBuilder processBuilder = new ProcessBuilder(needParams);
             processBuilder.directory(new File(home + "\\launcher\\client\\" + client + "\\"));
 
-            System.out.println(String.join(" ",processBuilder.command().toArray(new String[0])));
-            Platform.runLater(stage::close);
+            System.out.println(String.join(" ", processBuilder.command().toArray(new String[0])));
 
             Process process = processBuilder.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader er = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+            processDraw.init();
+            processDraw.setOnMouseClicked(process);
+
             String s;
-            while((s = in.readLine()) != null){
+            while((s = in.readLine()) != null) {
+                processDraw.input(s);
                 System.out.println(s);
             }
             while((s = er.readLine()) != null) {
+                processDraw.input(s);
                 System.out.println(s);
             }
 
             int status = process.waitFor();
             System.out.println("Exited with status: " + status);
-            System.exit(1);
+            processDraw.close();
+            Platform.runLater(() -> alertDraw.init("Закрылась", "Игра была закрыта!"));
 
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());
+        }
+
+    }
+
+    public void setupOptions() {
+        try {
+
+            String home = System.getProperty("user.dir");
+            File file = new File(home + "\\launcher\\client\\" + client + "\\options.txt");
+
+            if (!file.isFile() && !file.createNewFile()) {
+                return;
+            }
+
+            String string = "lang:ru_ru\nguiScale:2";
+            FileUtils fileUtils = new FileUtils(file);
+            fileUtils.write(string);
+        } catch (IOException ex){
+            System.out.println(ex.getMessage());
         }
 
     }

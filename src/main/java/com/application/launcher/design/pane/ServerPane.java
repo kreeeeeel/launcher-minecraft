@@ -38,6 +38,8 @@ public class ServerPane {
         ServerLabel serverLabel = new ServerLabel();
 
         MCQuery mcQuery = new MCQuery(serverResponse.getIp(), serverResponse.getPort());
+        int online = mcQuery.fullStat().getOnlinePlayers();
+        mcQuery.close();
 
         Circle iconCircle = serverIconImage.getCircle(serverResponse.getIcon());
         Label titleLabel = serverLabel.getLabel(serverResponse.getTitle(), "#dadada", 131, 14, 17);
@@ -49,7 +51,7 @@ public class ServerPane {
         Label pvpLabel = serverLabel.getLabel("PVP: " + serverResponse.getPvp(), "#c6c6c6", 157, 66, 15);
 
         ImageView playersImageView = serverIconImage.getIcon("players", 130, 90);
-        Label playersLabel = serverLabel.getLabel(mcQuery.fullStat().getOnlinePlayers() + " игроков", "#c6c6c6", 157, 91, 15);
+        Label playersLabel = serverLabel.getLabel(online + " игроков", "#c6c6c6", 157, 91, 15);
 
         ImageView worldImageView = serverIconImage.getIcon("world", 375, 40);
         Label worldLabel = serverLabel.getLabel(serverResponse.getSize(), "#c6c6c6", 402, 41, 15);

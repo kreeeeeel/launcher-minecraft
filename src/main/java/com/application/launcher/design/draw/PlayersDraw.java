@@ -59,6 +59,7 @@ public class PlayersDraw {
 
             MCQuery mcQuery = new MCQuery(ip, port);
             QueryResponse queryResponse = mcQuery.fullStat();
+            mcQuery.close();
 
             if (queryResponse == null) {
                 Platform.runLater(() -> alertDraw.init("Недоступен", "Не удалось получить данные.."));

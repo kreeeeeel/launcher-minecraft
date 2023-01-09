@@ -43,6 +43,7 @@ public class MainController extends Application {
     @FXML private Label urlContent;
     @FXML private Label urlLabel;
     @FXML private Label playersServerLabel;
+    @FXML private Label processLabel;
 
     @FXML private Pane alertPane;
     @FXML private Pane alertPaneMain;
@@ -54,6 +55,7 @@ public class MainController extends Application {
     @FXML private Pane urlPane;
     @FXML private Pane loadPane;
     @FXML private Pane playersPane;
+    @FXML private Pane processPane;
 
     @FXML private RadioButton boxLaunchAuto;
     @FXML private RadioButton boxLaunchFullScreen;
@@ -65,13 +67,16 @@ public class MainController extends Application {
     @FXML private Button settingsClear;
     @FXML private Button settingsOpenFolder;
     @FXML private Button yesUrlBtn;
+    @FXML private Button processBtn;
 
     @FXML private Circle photoCircle;
     @FXML private ProgressBar progressUpdate;
     @FXML private AnchorPane serversAnchor;
+    @FXML private AnchorPane processAnchor;
     @FXML private AnchorPane playersAnchor;
     @FXML private TextField settingsRamText;
     @FXML private Slider settingsRamSlider;
+    @FXML private ScrollPane processScrollPane;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -87,6 +92,10 @@ public class MainController extends Application {
         List<Pane> list = new ArrayList<>();
         list.add(paneUpdate);
         list.add(loadPane);
+
+        ProcessDraw processDraw = new ProcessDraw(processLabel, processPane, processAnchor, processScrollPane, processBtn);
+        processDraw.setOnMouseEntered();
+        processDraw.setOnMouseExited();
 
         AlertDraw alertDraw = new AlertDraw(
                 list,
@@ -158,8 +167,9 @@ public class MainController extends Application {
                 progressUpdate,
                 boxLaunchFullScreen,
                 boxLaunchAuto,
-                alertDraw
-        );
+                alertDraw,
+                processDraw);
+
         ProfileService profileService = new ProfileService(
                 loginLabel,
                 balanceLabel,

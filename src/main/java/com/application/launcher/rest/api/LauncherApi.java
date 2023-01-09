@@ -1,10 +1,11 @@
 package com.application.launcher.rest.api;
 
 import com.application.launcher.rest.response.ClientResponse;
-import com.application.launcher.rest.response.SettingsResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.*;
+
+import java.util.ArrayList;
 
 public interface LauncherApi {
 
@@ -12,7 +13,7 @@ public interface LauncherApi {
     Call<ClientResponse> getLauncher(@Header("Authorization") String token, @Path("name") String launcher);
 
     @GET("/api/launcher/info/settings/{name}")
-    Call<SettingsResponse> getLauncherSettings(@Header("Authorization") String token, @Path("name") String launcher);
+    Call<ArrayList<String>> getLauncherSettings(@Header("Authorization") String token, @Path("name") String launcher, @Query("connect") boolean connect, @Query("fullscreen") boolean fullscreen);
 
     @GET("/api/launcher")
     @Streaming

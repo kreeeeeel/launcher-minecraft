@@ -1,18 +1,20 @@
 package com.application.launcher.service;
 
 import com.application.launcher.design.draw.AlertDraw;
+import com.application.launcher.design.draw.ProcessDraw;
 import com.application.launcher.handler.TokenHandler;
 import com.application.launcher.rest.api.LauncherApi;
 import com.application.launcher.rest.response.ClientResponse;
 import com.application.launcher.rest.response.FileResponse;
-import com.application.launcher.rest.response.SettingsResponse;
 import com.application.launcher.utils.LaunchUtils;
 import com.application.launcher.utils.MD5Utils;
 import com.application.launcher.utils.RetrofitUtils;
 import javafx.application.Platform;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +24,7 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -38,11 +41,12 @@ public class LauncherService {
     private final RadioButton boxLaunchAuto;
 
     private final AlertDraw alertDraw;
+    private final ProcessDraw processDraw;
 
     private final AtomicInteger sendRequest = new AtomicInteger(0);
     private final AtomicInteger successRequest = new AtomicInteger(0);
 
-    public LauncherService(Pane pane, Label fileUpdate, Label titleUpdate, ProgressBar progressBar, RadioButton boxLaunchFullScreen, RadioButton boxLaunchAuto, AlertDraw alertDraw) {
+    public LauncherService(Pane pane, Label fileUpdate, Label titleUpdate, ProgressBar progressBar, RadioButton boxLaunchFullScreen, RadioButton boxLaunchAuto, AlertDraw alertDraw, ProcessDraw processDraw) {
         this.pane = pane;
         this.fileUpdate = fileUpdate;
         this.titleUpdate = titleUpdate;
@@ -50,6 +54,7 @@ public class LauncherService {
         this.boxLaunchFullScreen = boxLaunchFullScreen;
         this.boxLaunchAuto = boxLaunchAuto;
         this.alertDraw = alertDraw;
+        this.processDraw = processDraw;
     }
 
     public void setLauncher(String launcher) {
@@ -237,10 +242,10 @@ public class LauncherService {
         String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
 
         LauncherApi launcherApi = RetrofitUtils.getRetrofit().create(LauncherApi.class);
-        launcherApi.getLauncherSettings(token, client).enqueue(new LaunchExecutor(client));
+        launcherApi.getLauncherSettings(token, client, boxLaunchFullScreen.isSelected(), boxLaunchAuto.isSelected()).enqueue(new LaunchExecutor(client));
     }
 
-    class LaunchExecutor implements Callback<SettingsResponse> {
+    class LaunchExecutor implements Callback<ArrayList<String>> {
 
         private final String client;
 
@@ -249,15 +254,15 @@ public class LauncherService {
         }
 
         @Override
-        public void onResponse(Call<SettingsResponse> call, Response<SettingsResponse> response) {
+        public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
 
             if (!response.isSuccessful()) {
                 alertDraw.init("Ошибка запуска!", "Не удалось получить данные..");
                 return;
             }
 
-            SettingsResponse settingsResponse = response.body();
-            if (settingsResponse == null) {
+            ArrayList<String> params = response.body();
+            if (params == null) {
                 alertDraw.init("Ошибка запуска!", "Тело запроса оказалось пустым..");
                 return;
             }
@@ -268,13 +273,14 @@ public class LauncherService {
                 progressBar.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
             });
 
-            Stage stage = (Stage) titleUpdate.getScene().getWindow();
-            LaunchUtils launchUtils = new LaunchUtils(stage, client, settingsResponse, boxLaunchFullScreen.isSelected(), boxLaunchAuto.isSelected());
-            launchUtils.start();
+            pane.setVisible(false);
+            LaunchUtils launchUtils = new LaunchUtils(client, processDraw, alertDraw);
+            launchUtils.setupOptions();
+            launchUtils.start(params);
         }
 
         @Override
-        public void onFailure(Call<SettingsResponse> call, Throwable t) {
+        public void onFailure(Call<ArrayList<String>> call, Throwable t) {
             alertDraw.init("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..");
         }
 

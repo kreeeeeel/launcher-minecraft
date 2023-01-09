@@ -337,6 +337,40 @@
             </Pane>
          </children>
       </Pane>
+      <Pane fx:id="processPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="58.0" layoutY="49.0" prefHeight="502.0" prefWidth="684.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+               <children>
+                  <ScrollPane fx:id="processScrollPane" prefHeight="461.0" prefWidth="684.0">
+                     <content>
+                        <AnchorPane fx:id="processAnchor" minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="673.0">
+                           <children>
+                              <Label fx:id="processLabel" layoutX="4.0" layoutY="4.0" text="Консоль">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                  <Button fx:id="processBtn" focusTraversable="false" layoutX="525.0" layoutY="463.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Закрыть игру" textFill="#dddddd">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label layoutX="8.0" layoutY="480.0" text="Игра запущена..">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
       <Pane fx:id="top" prefHeight="38.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
             <ImageView fx:id="exitImg" fitHeight="69.0" fitWidth="30.0" layoutX="761.0" layoutY="4.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
