@@ -5,7 +5,6 @@ import com.application.launcher.design.button.PlayersButton;
 import com.application.launcher.design.draw.PlayersDraw;
 import com.application.launcher.design.image.ServerIconImage;
 import com.application.launcher.design.label.ServerLabel;
-import com.application.launcher.query.MCQuery;
 import com.application.launcher.rest.response.ServerResponse;
 import com.application.launcher.service.LauncherService;
 import javafx.scene.control.Label;
@@ -37,10 +36,6 @@ public class ServerPane {
         ServerIconImage serverIconImage = new ServerIconImage();
         ServerLabel serverLabel = new ServerLabel();
 
-        MCQuery mcQuery = new MCQuery(serverResponse.getIp(), serverResponse.getPort());
-        int online = mcQuery.fullStat().getOnlinePlayers();
-        mcQuery.close();
-
         Circle iconCircle = serverIconImage.getCircle(serverResponse.getIcon());
         Label titleLabel = serverLabel.getLabel(serverResponse.getTitle(), "#dadada", 131, 14, 17);
 
@@ -51,7 +46,7 @@ public class ServerPane {
         Label pvpLabel = serverLabel.getLabel("PVP: " + serverResponse.getPvp(), "#c6c6c6", 157, 66, 15);
 
         ImageView playersImageView = serverIconImage.getIcon("players", 130, 90);
-        Label playersLabel = serverLabel.getLabel(online + " игроков", "#c6c6c6", 157, 91, 15);
+        Label playersLabel = serverLabel.getLabel(serverResponse.getOnline() + " игроков", "#c6c6c6", 157, 91, 15);
 
         ImageView worldImageView = serverIconImage.getIcon("world", 375, 40);
         Label worldLabel = serverLabel.getLabel(serverResponse.getSize(), "#c6c6c6", 402, 41, 15);

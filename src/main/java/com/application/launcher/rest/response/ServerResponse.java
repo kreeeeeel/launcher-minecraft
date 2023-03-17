@@ -49,6 +49,10 @@ public class ServerResponse {
     @Expose
     private int port;
 
+    @SerializedName("online")
+    @Expose
+    private int online;
+
     public String getIp() {
         return ip;
     }
@@ -92,4 +96,6 @@ public class ServerResponse {
     public String getMark() {
         return mark;
     }
+
+    public int getOnline() { return online; }
 }

@@ -62,11 +62,10 @@ public class SettingsDraw {
         maxMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
                 .getOperatingSystemMXBean()).getTotalPhysicalMemorySize() / (1024 * 1024);
 
-        if (configEntity == null) {
-            configEntity = new ConfigEntity();
+        if (configEntity.getSize() == 0){
             configEntity.setSize(maxMemory / 2);
-            configEntity.setFullscreen(true);
-            configEntity.setAutoConnect(true);
+            configEntity.setAutoConnect(false);
+            configEntity.setFullscreen(false);
         }
 
         if (configEntity.getSize() > maxMemory){
@@ -74,16 +73,15 @@ public class SettingsDraw {
             configUtils.write();
         }
 
-        ConfigEntity finalConfigEntity = configEntity;
         Platform.runLater(() -> {
-            label.setText("Выделяется " + finalConfigEntity.getSize() + " МБ памяти");
-            textField.setText(String.valueOf(finalConfigEntity.getSize()));
+            label.setText("Выделяется " + configEntity.getSize() + " МБ памяти");
+            textField.setText(String.valueOf(configEntity.getSize()));
 
-            checkBoxSize.setSelected(finalConfigEntity.isFullscreen());
-            checkBoxAuto.setSelected(finalConfigEntity.isAutoConnect());
+            checkBoxSize.setSelected(configEntity.isFullscreen());
+            checkBoxAuto.setSelected(configEntity.isAutoConnect());
 
             slider.setMax(maxMemory);
-            slider.setValue(finalConfigEntity.getSize());
+            slider.setValue(configEntity.getSize());
         });
     }
 

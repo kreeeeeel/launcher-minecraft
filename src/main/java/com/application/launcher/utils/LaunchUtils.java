@@ -4,10 +4,7 @@ import com.application.launcher.design.draw.AlertDraw;
 import com.application.launcher.design.draw.ProcessDraw;
 import javafx.application.Platform;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
 public class LaunchUtils {
@@ -24,23 +21,27 @@ public class LaunchUtils {
 
     public void start(ArrayList<String> params) {
         try {
-
             ConfigUtils configUtils = new ConfigUtils();
             configUtils.init();
 
             String home = System.getProperty("user.dir");
             ArrayList<String> needParams = new ArrayList<>();
 
-            needParams.add("\"" + home + "\\jre\\bin\\javaw.exe\"");
+            needParams.add("\"" + home + File.separator + "jre" + File.separator + "bin" + File.separator + "javaw.exe\"");
+            if (System.getProperty("os.name").startsWith("Windows")){
+                needParams.add("-Dos.name=Windows 10");
+                needParams.add("-Dos.version=10.0");
+            }
             needParams.add("-Xmx" + configUtils.getConfigEntity().getSize() + "M");
             needParams.addAll(params);
             needParams.add("--gameDir");
-            needParams.add(home + "\\launcher\\client\\" + client + "\\");
+            needParams.add(home + File.separator + "launcher" + File.separator + "client" + File.separator + client);
+            needParams.add("-Dminecraft.applet.TargetDirectory=" + home + File.separator + "launcher" + File.separator + "client" + File.separator+ client);
 
             ProcessBuilder processBuilder = new ProcessBuilder(needParams);
-            processBuilder.directory(new File(home + "\\launcher\\client\\" + client + "\\"));
+            processBuilder.directory(new File(home + File.separator + "launcher" + File.separator +"client" + File.separator + client + File.separator));
 
-            System.out.println(String.join(" ", processBuilder.command().toArray(new String[0])));
+            setupOptions();
 
             Process process = processBuilder.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -52,37 +53,32 @@ public class LaunchUtils {
             String s;
             while((s = in.readLine()) != null) {
                 processDraw.input(s);
-                System.out.println(s);
             }
             while((s = er.readLine()) != null) {
                 processDraw.input(s);
-                System.out.println(s);
             }
 
             int status = process.waitFor();
             System.out.println("Exited with status: " + status);
             processDraw.close();
             Platform.runLater(() -> alertDraw.init("Закрылась", "Игра была закрыта!"));
-
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());
         }
-
     }
 
     public void setupOptions() {
         try {
-
             String home = System.getProperty("user.dir");
-            File file = new File(home + "\\launcher\\client\\" + client + "\\options.txt");
+            File file = new File(home + File.separator + "launcher" + File.separator + "client" + File.separator + client + File.separator + "options.txt");
 
             if (!file.isFile() && !file.createNewFile()) {
                 return;
             }
 
-            String string = "lang:ru_ru\nguiScale:2";
+            String separator = System.getProperty("line.separator");
             FileUtils fileUtils = new FileUtils(file);
-            fileUtils.write(string);
+            fileUtils.write("lang:ru_RU" + separator + "guiScale:2");
         } catch (IOException ex){
             System.out.println(ex.getMessage());
         }

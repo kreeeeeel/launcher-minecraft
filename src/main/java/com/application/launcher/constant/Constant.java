@@ -9,8 +9,8 @@ public class Constant {
     public static final int PASSWORD_MIN = 6;
     public static final int PASSWORD_MAX = 20;
 
-    //public static final String API = "http://localhost:8745";
-    public static final String API = "http://91.201.42.253:8745";
+    public static final String API = "http://localhost:8745";
+    //public static final String API = "http://10.25.38.123:8745";
     public static final String WEB = "http://nikitapidor.com";
     public static final String RECOVERY =  "/recovery";
     public static final String PAY =  "/pay";

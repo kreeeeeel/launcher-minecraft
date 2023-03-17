@@ -275,7 +275,6 @@ public class LauncherService {
 
             pane.setVisible(false);
             LaunchUtils launchUtils = new LaunchUtils(client, processDraw, alertDraw);
-            launchUtils.setupOptions();
             launchUtils.start(params);
         }
 
