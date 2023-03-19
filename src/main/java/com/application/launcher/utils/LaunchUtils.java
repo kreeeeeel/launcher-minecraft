@@ -48,7 +48,7 @@ public class LaunchUtils {
             if (!file.isFile() && file.createNewFile()) {
                 String separator = System.getProperty("line.separator");
                 FileUtils fileUtils = new FileUtils(file);
-                fileUtils.write("lang:ru_RU" + separator + "guiScale:2");
+                fileUtils.write("lang:ru_RU" + separator + "guiScale:2" + separator + "resourcePacks:[\"default32x32.zip\"]");
             }
 
             Process process = processBuilder.start();

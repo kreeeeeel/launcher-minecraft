@@ -52,8 +52,8 @@ public class LauncherService {
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
             Platform.runLater(() -> {
-                titleUpdateS.setText("Обновление файлов..");
-                fileUpdateS.setText("Подготовка к обновлению..");
+                titleUpdateS.setText("Проверка файлов..");
+                fileUpdateS.setText("Пожалуйста, подождите..");
             });
 
             LauncherApi launcherApi = RetrofitUtils.getRetrofit().create(LauncherApi.class);

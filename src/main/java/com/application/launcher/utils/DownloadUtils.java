@@ -24,6 +24,7 @@ public class DownloadUtils {
 
         Platform.runLater(() -> {
             fileUpdateS.setText(filePath);
+            titleUpdateS.setText("Скачивание файлов : " + (int) ((progress * 100) - 1) + "%");
             progressUpdateS.setProgress(progress);
         });
 

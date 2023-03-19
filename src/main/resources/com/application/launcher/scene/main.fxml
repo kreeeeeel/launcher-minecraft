@@ -68,7 +68,7 @@
          <children>
             <Pane layoutX="115.0" layoutY="245.0" prefHeight="110.0" prefWidth="570.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
-                  <Label fx:id="titleUpdate" layoutX="78.0" layoutY="23.0" prefHeight="24.0" prefWidth="208.0" text="Обновление файлов.." textFill="#544646">
+                  <Label fx:id="titleUpdate" layoutX="78.0" layoutY="23.0" prefHeight="24.0" prefWidth="466.0" text="Обновление файлов.." textFill="#544646">
                      <font>
                         <Font name="Franklin Gothic Medium" size="20.0" />
                      </font>
