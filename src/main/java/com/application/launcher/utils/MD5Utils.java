@@ -7,8 +7,15 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5Utils {
 
-    public String getMD5File(String fileName) throws IOException, NoSuchAlgorithmException
-    {
+    public static String getMd5Hash(String absolutePath) {
+        try {
+            return MD5Utils.getMD5File(absolutePath);
+        } catch (IOException | NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
+
+    private static String getMD5File(String fileName) throws IOException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         FileInputStream fis = new FileInputStream(fileName);
 

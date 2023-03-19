@@ -1,7 +1,6 @@
 package com.application.launcher.design.label;
 
 import com.application.launcher.controller.AuthController;
-import com.application.launcher.design.draw.AlertDraw;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -12,15 +11,15 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.application.launcher.controller.RegisterController.alertRegDraw;
+
 public class AuthorizationLabel {
     private final Label label;
     private final Pane load;
-    private final AlertDraw alertDraw;
 
-    public AuthorizationLabel(Label label, Pane load, AlertDraw alertDraw) {
+    public AuthorizationLabel(Label label, Pane load) {
         this.label = label;
         this.load = load;
-        this.alertDraw = alertDraw;
     }
 
     public void setOnMouseEntered(){
@@ -41,7 +40,7 @@ public class AuthorizationLabel {
                     AuthController authController = new AuthController();
                     authController.start(stage);
                 } catch (IOException e) {
-                    alertDraw.init("Произошла ошибка", "Невозможно сменить сцену..");
+                    alertRegDraw.init("Произошла ошибка", "Невозможно сменить сцену..");
                 }
             }));
         });

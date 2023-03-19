@@ -18,16 +18,13 @@ public class AuthDraw {
     private final Pane pane;
     private final Pane fast;
 
-    private final AlertDraw alertDraw;
-
-    public AuthDraw(TextField login, PasswordField password, Button button, Label title, Pane pane, Pane fast, AlertDraw alertDraw) {
+    public AuthDraw(TextField login, PasswordField password, Button button, Label title, Pane pane, Pane fast) {
         this.login = login;
         this.password = password;
         this.button = button;
         this.title = title;
         this.pane = pane;
         this.fast = fast;
-        this.alertDraw = alertDraw;
     }
 
     public void actionFields() {
@@ -70,7 +67,7 @@ public class AuthDraw {
         String username = login.getText().trim();
         String pass = password.getText().trim();
 
-        AuthService authService = new AuthService(username, pass, alertDraw, title, pane, fast);
+        AuthService authService = new AuthService(username, pass, title, pane, fast);
         authService.init();
     }
 

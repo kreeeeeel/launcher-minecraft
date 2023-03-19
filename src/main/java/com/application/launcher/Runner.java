@@ -13,12 +13,14 @@ import java.util.Objects;
 
 public class Runner extends Application {
 
+    public static Stage primaryStage;
+
     @Override
     public void start(Stage stage) throws URISyntaxException, IOException {
-
+        primaryStage = stage;
         RetrofitUtils.generate();
 
-        stage.setTitle("Title");
+        stage.setTitle("EnchantedCraft");
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.getIcons().add(new Image(Objects.requireNonNull(Runner.class.getResource("images/logo.png")).toURI().toString()));

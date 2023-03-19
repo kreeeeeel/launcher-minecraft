@@ -19,9 +19,7 @@ public class RegisterDraw {
     private final Label title;
     private final Pane pane;
 
-    private final AlertDraw alertDraw;
-
-    public RegisterDraw(TextField email, TextField login, TextField name, PasswordField password, PasswordField passwordConfirm, Button button, Label title, Pane pane, AlertDraw alertDraw) {
+    public RegisterDraw(TextField email, TextField login, TextField name, PasswordField password, PasswordField passwordConfirm, Button button, Label title, Pane pane) {
         this.email = email;
         this.login = login;
         this.name = name;
@@ -30,7 +28,6 @@ public class RegisterDraw {
         this.button = button;
         this.title = title;
         this.pane = pane;
-        this.alertDraw = alertDraw;
     }
 
     public void setOnMouseEntered() {
@@ -98,7 +95,7 @@ public class RegisterDraw {
     }
 
     public void registerService() {
-        RegisterService registerService = new RegisterService(email, login, name, password, passwordConfirm, title, pane, alertDraw);
+        RegisterService registerService = new RegisterService(email, login, name, password, passwordConfirm, title, pane);
         registerService.init();
     }
 }

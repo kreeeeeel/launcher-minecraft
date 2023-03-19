@@ -6,7 +6,6 @@ import com.application.launcher.design.draw.PlayersDraw;
 import com.application.launcher.design.image.ServerIconImage;
 import com.application.launcher.design.label.ServerLabel;
 import com.application.launcher.rest.response.ServerResponse;
-import com.application.launcher.service.LauncherService;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,12 +13,10 @@ import javafx.scene.shape.Circle;
 
 public class ServerPane {
     private final ServerResponse serverResponse;
-    private final LauncherService launcherService;
     private final PlayersDraw playersDraw;
 
-    public ServerPane(ServerResponse serverResponse, LauncherService launcherService, PlayersDraw playersDraw) {
+    public ServerPane(ServerResponse serverResponse, PlayersDraw playersDraw) {
         this.serverResponse = serverResponse;
-        this.launcherService = launcherService;
         this.playersDraw = playersDraw;
     }
 
@@ -57,7 +54,7 @@ public class ServerPane {
         Label wipeLabel = serverLabel.getLabel("Вайп: " + serverResponse.getWipe(), "#8d8d8d", 498, 16, 14);
         ImageView markImageView = serverIconImage.getMark(serverResponse.getMark());
 
-        PlayButton playButton = new PlayButton(launcherService);
+        PlayButton playButton = new PlayButton();
         playButton.setOnMouseEntered();
         playButton.setOnMouseExited();
         playButton.setOnMouseClicked(serverResponse.getClient());

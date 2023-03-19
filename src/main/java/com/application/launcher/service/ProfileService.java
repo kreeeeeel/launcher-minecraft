@@ -1,6 +1,5 @@
 package com.application.launcher.service;
 
-import com.application.launcher.design.draw.AlertDraw;
 import com.application.launcher.design.draw.PlayersDraw;
 import com.application.launcher.design.draw.ServersDraw;
 import com.application.launcher.design.image.PhotoImage;
@@ -22,6 +21,8 @@ import retrofit2.Response;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.application.launcher.controller.MainController.alertMainDraw;
+
 public class ProfileService {
 
     private final Label login;
@@ -34,12 +35,10 @@ public class ProfileService {
 
     private final Circle circle;
     private final Pane pane;
-    private final AlertDraw alertDraw;
-    private final LauncherService launcherService;
 
     private final PlayersDraw playersDraw;
 
-    public ProfileService(Label login, Label balance, ImageView settings, ImageView ruble, AnchorPane anchorPane, Circle circle, Pane pane, AlertDraw alertDraw, LauncherService launcherService, PlayersDraw playersDraw) {
+    public ProfileService(Label login, Label balance, ImageView settings, ImageView ruble, AnchorPane anchorPane, Circle circle, Pane pane, PlayersDraw playersDraw) {
         this.login = login;
         this.balance = balance;
         this.settings = settings;
@@ -47,8 +46,6 @@ public class ProfileService {
         this.anchorPane = anchorPane;
         this.circle = circle;
         this.pane = pane;
-        this.alertDraw = alertDraw;
-        this.launcherService = launcherService;
         this.playersDraw = playersDraw;
     }
 
@@ -69,13 +66,13 @@ public class ProfileService {
         @Override
         public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
             if (!response.isSuccessful()) {
-                alertDraw.init("Ошибка", "Произошла ошибка, при получении данных о пользователе..");
+                alertMainDraw.init("Ошибка", "Произошла ошибка, при получении данных о пользователе..");
                 return;
             }
 
             ProfileResponse profileResponse = response.body();
             if (profileResponse == null) {
-                alertDraw.init("Ошибка авторизации!", "Произошла ошибка, нет полученных данных");
+                alertMainDraw.init("Ошибка авторизации!", "Произошла ошибка, нет полученных данных");
                 return;
             }
 
@@ -88,7 +85,7 @@ public class ProfileService {
                 profileLabel.setLogin(profileResponse);
                 profileLabel.setBalance(profileResponse);
 
-                ServersDraw serversDraw = new ServersDraw(playersDraw, anchorPane, launcherService);
+                ServersDraw serversDraw = new ServersDraw(playersDraw, anchorPane);
                 serversDraw.setServers(profileResponse.getServers());
 
                 pane.setVisible(false);
@@ -97,7 +94,7 @@ public class ProfileService {
 
         @Override
         public void onFailure(Call call, Throwable throwable) {
-            alertDraw.init("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..");
+            alertMainDraw.init("Произошла ошибка!", "Произошла ошибка! Попробуйте позже..");
         }
     }
 }

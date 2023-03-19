@@ -9,10 +9,8 @@ import javafx.scene.text.Font;
 public class PlayButton {
 
     private final Button button;
-    private final LauncherService launcherService;
 
-    public PlayButton(LauncherService launcherService) {
-        this.launcherService = launcherService;
+    public PlayButton() {
         button = new Button();
     }
 
@@ -41,7 +39,7 @@ public class PlayButton {
 
     public void setOnMouseClicked(String launcher) {
         button.setOnMouseClicked(event -> {
-            launcherService.setLauncher(launcher);
+            LauncherService launcherService = new LauncherService(launcher);
             launcherService.init();
         });
     }

@@ -9,20 +9,20 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
+import static com.application.launcher.controller.MainController.alertMainDraw;
+
 public class ExitAccountDraw {
     private final Button button;
     private final Button exitBtn;
     private final Button cancelBtn;
     private final Pane pane;
 
-    private final AlertDraw alertDraw;
 
-    public ExitAccountDraw(Button button, Button exitBtn, Button cancelBtn, Pane pane, AlertDraw alertDraw) {
+    public ExitAccountDraw(Button button, Button exitBtn, Button cancelBtn, Pane pane) {
         this.button = button;
         this.exitBtn = exitBtn;
         this.cancelBtn = cancelBtn;
         this.pane = pane;
-        this.alertDraw = alertDraw;
     }
 
     public void setOnMouseEntered() {
@@ -54,7 +54,7 @@ public class ExitAccountDraw {
                 AuthController authController = new AuthController();
                 authController.start(stage);
             } catch (IOException e) {
-                alertDraw.init("Произошла ошибка!", "Попробуйте позже..");
+                alertMainDraw.init("Произошла ошибка!", "Попробуйте позже..");
             }
         });
 

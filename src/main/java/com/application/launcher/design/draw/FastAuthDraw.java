@@ -30,6 +30,7 @@ import java.util.concurrent.Executors;
 
 import static com.application.launcher.constant.Constant.API;
 import static com.application.launcher.constant.Constant.PHOTO;
+import static com.application.launcher.controller.AuthController.alertAuthDraw;
 
 public class FastAuthDraw {
 
@@ -38,20 +39,18 @@ public class FastAuthDraw {
     private final Pane pane;
     private final Button button;
     private final AnchorPane anchorPane;
-    private final AlertDraw alertDraw;
 
     private final Label titleAuth;
     private final Pane paneAuth;
 
     private int count = 0;
 
-    public FastAuthDraw(ImageView openImageView, ImageView closeImageView, Pane pane, Button button, AnchorPane anchorPane, AlertDraw alertDraw, Label titleAuth, Pane paneAuth) {
+    public FastAuthDraw(ImageView openImageView, ImageView closeImageView, Pane pane, Button button, AnchorPane anchorPane, Label titleAuth, Pane paneAuth) {
         this.openImageView = openImageView;
         this.closeImageView = closeImageView;
         this.pane = pane;
         this.button = button;
         this.anchorPane = anchorPane;
-        this.alertDraw = alertDraw;
         this.titleAuth = titleAuth;
         this.paneAuth = paneAuth;
     }
@@ -92,7 +91,7 @@ public class FastAuthDraw {
             AccountHandler.setPassword(null);
 
             if (configEntity == null ||  configEntity.getAccounts() == null || configEntity.getAccounts().size() == 0) {
-                alertDraw.init("Пусто :(", "У вас нет сохраненных аккаунтов..");
+                alertAuthDraw.init("Пусто :(", "У вас нет сохраненных аккаунтов..");
                 return;
             }
 
@@ -117,7 +116,7 @@ public class FastAuthDraw {
             }
 
             if (count == 0) {
-                alertDraw.init("Пусто :(", "У вас нет сохраненных аккаунтов..");
+                alertAuthDraw.init("Пусто :(", "У вас нет сохраненных аккаунтов..");
             }
 
             if (animation) {
@@ -162,7 +161,7 @@ public class FastAuthDraw {
 
             button.setDisable(false);
             button.setOnMouseClicked(mouse -> {
-                AuthService authService = new AuthService(accountEntity.getUsername(), accountEntity.getPassword(), alertDraw, titleAuth, paneAuth, pane);
+                AuthService authService = new AuthService(accountEntity.getUsername(), accountEntity.getPassword(), titleAuth, paneAuth, pane);
                 authService.init();
             });
         });

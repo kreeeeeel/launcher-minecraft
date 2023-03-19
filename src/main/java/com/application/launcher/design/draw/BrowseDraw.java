@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static com.application.launcher.controller.MainController.alertMainDraw;
+
 public class BrowseDraw {
 
     private String url;
@@ -23,9 +25,8 @@ public class BrowseDraw {
     private final Button yes;
     private final Button no;
 
-    private final AlertDraw alertDraw;
 
-    public BrowseDraw(String url, String message, Pane pane, Label label, Label content, Button yes, Button no, AlertDraw alertDraw) {
+    public BrowseDraw(String url, String message, Pane pane, Label label, Label content, Button yes, Button no) {
         this.url = url;
         this.message = message;
         this.pane = pane;
@@ -33,8 +34,6 @@ public class BrowseDraw {
         this.content = content;
         this.yes = yes;
         this.no = no;
-
-        this.alertDraw = alertDraw;
 
         setOnMouseEntered();
         setOnMouseExited();
@@ -65,10 +64,10 @@ public class BrowseDraw {
                 if(Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().browse(new URI(url));
                 } else {
-                    alertDraw.init("Не поддерживается", "Невозможно перейти по ссылке");
+                    alertMainDraw.init("Не поддерживается", "Невозможно перейти по ссылке");
                 }
             } catch (IOException | URISyntaxException e) {
-                alertDraw.init("Произошла ошибка", "Невозможно перейти по ссылке");
+                alertMainDraw.init("Произошла ошибка", "Невозможно перейти по ссылке");
             }
             pane.setVisible(false);
         });

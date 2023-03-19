@@ -6,7 +6,6 @@ import com.application.launcher.design.image.CollapseImage;
 import com.application.launcher.design.image.ExitImage;
 import com.application.launcher.design.image.PayImage;
 import com.application.launcher.design.pane.TopPane;
-import com.application.launcher.service.LauncherService;
 import com.application.launcher.service.ProfileService;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -36,19 +35,17 @@ public class MainController extends Application {
     @FXML private Label alertMessage;
     @FXML private Label alertTitle;
     @FXML private Label balanceLabel;
-    @FXML private Label fileUpdate;
     @FXML private Label loginLabel;
     @FXML private Label settingsRamLabel;
-    @FXML private Label titleUpdate;
     @FXML private Label urlContent;
     @FXML private Label urlLabel;
     @FXML private Label playersServerLabel;
-    @FXML private Label processLabel;
+    @FXML private Label fileUpdate;
+    @FXML private Label titleUpdate;
 
     @FXML private Pane alertPane;
     @FXML private Pane alertPaneMain;
     @FXML private Pane exitPane;
-    @FXML private Pane paneUpdate;
     @FXML private Pane removeClientPane;
     @FXML private Pane settingsPane;
     @FXML private Pane top;
@@ -56,6 +53,9 @@ public class MainController extends Application {
     @FXML private Pane loadPane;
     @FXML private Pane playersPane;
     @FXML private Pane processPane;
+    @FXML private Pane paneUpdate;
+
+    @FXML private ProgressBar progressUpdate;
 
     @FXML private RadioButton boxLaunchAuto;
     @FXML private RadioButton boxLaunchFullScreen;
@@ -70,13 +70,20 @@ public class MainController extends Application {
     @FXML private Button processBtn;
 
     @FXML private Circle photoCircle;
-    @FXML private ProgressBar progressUpdate;
     @FXML private AnchorPane serversAnchor;
     @FXML private AnchorPane processAnchor;
     @FXML private AnchorPane playersAnchor;
     @FXML private TextField settingsRamText;
     @FXML private Slider settingsRamSlider;
     @FXML private ScrollPane processScrollPane;
+
+    public static ProcessDraw processDraw;
+    public static AlertDraw alertMainDraw;
+
+    public static Label fileUpdateS;
+    public static Label titleUpdateS;
+    public static ProgressBar progressUpdateS;
+    public static Pane paneUpdateS;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -89,15 +96,23 @@ public class MainController extends Application {
     @FXML
     public void initialize() {
 
+        /*
+        JavaFX это хуйня полная которая не умеет инициализировать статичные переменные сама, котагым жеме
+         */
+        fileUpdateS = fileUpdate;
+        titleUpdateS = titleUpdate;
+        progressUpdateS = progressUpdate;
+        paneUpdateS = paneUpdate;
+
         List<Pane> list = new ArrayList<>();
         list.add(paneUpdate);
         list.add(loadPane);
 
-        ProcessDraw processDraw = new ProcessDraw(processLabel, processPane, processAnchor, processScrollPane, processBtn);
+        processDraw = new ProcessDraw(processPane, processAnchor, processScrollPane, processBtn);
         processDraw.setOnMouseEntered();
         processDraw.setOnMouseExited();
 
-        AlertDraw alertDraw = new AlertDraw(
+        alertMainDraw = new AlertDraw(
                 list,
                 alertPane,
                 alertPaneMain,
@@ -112,8 +127,7 @@ public class MainController extends Application {
                 urlLabel,
                 urlContent,
                 yesUrlBtn,
-                noUrlBtn,
-                alertDraw
+                noUrlBtn
         );
         ExitImage exitImage = new ExitImage(exitImg);
         exitImage.setOnMouseEntered();
@@ -133,8 +147,7 @@ public class MainController extends Application {
                 exitAccountBtn,
                 exitBtn,
                 cancelBtn,
-                exitPane,
-                alertDraw
+                exitPane
         );
         exitAccountDraw.setOnMouseEntered();
         exitAccountDraw.setOnMouseExited();
@@ -153,22 +166,11 @@ public class MainController extends Application {
                 loadPane,
                 playersAnchor,
                 playersCloseImg,
-                playersServerLabel,
-                alertDraw
+                playersServerLabel
         );
         playersDraw.setOnMouseEntered();
         playersDraw.setOnMouseExited();
         playersDraw.setOnMouseClicked();
-
-        LauncherService launcherService = new LauncherService(
-                paneUpdate,
-                fileUpdate,
-                titleUpdate,
-                progressUpdate,
-                boxLaunchFullScreen,
-                boxLaunchAuto,
-                alertDraw,
-                processDraw);
 
         ProfileService profileService = new ProfileService(
                 loginLabel,
@@ -178,8 +180,6 @@ public class MainController extends Application {
                 serversAnchor,
                 photoCircle,
                 loadPane,
-                alertDraw,
-                launcherService,
                 playersDraw
         );
         profileService.init();
@@ -195,8 +195,7 @@ public class MainController extends Application {
                 settingsClear,
                 settingsOpenFolder,
                 settingsImg,
-                settingsCloseImg,
-                alertDraw
+                settingsCloseImg
         );
         settingsDraw.init();
         settingsDraw.setOnMouseEntered();

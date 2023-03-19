@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-radius: 25з;" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/8.0.351" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-radius: 25з;" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.MainController">
    <children>
       <Pane layoutY="535.0" prefHeight="65.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
@@ -343,15 +343,7 @@
                <children>
                   <ScrollPane fx:id="processScrollPane" prefHeight="461.0" prefWidth="684.0">
                      <content>
-                        <AnchorPane fx:id="processAnchor" minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="673.0">
-                           <children>
-                              <Label fx:id="processLabel" layoutX="4.0" layoutY="4.0" text="Консоль">
-                                 <font>
-                                    <Font name="Franklin Gothic Medium" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane fx:id="processAnchor" minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="679.0" />
                      </content>
                   </ScrollPane>
                   <Button fx:id="processBtn" focusTraversable="false" layoutX="525.0" layoutY="463.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="152.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Закрыть игру" textFill="#dddddd">
@@ -394,9 +386,9 @@
                   <Image url="@../images/logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="54.0" layoutY="8.0" text="NikitaPidor.com" textFill="#aeaeae">
+            <Label layoutX="54.0" layoutY="8.0" text="EnchantedCraft" textFill="#aeaeae">
                <font>
-                  <Font name="Franklin Gothic Medium" size="18.0" />
+                  <Font name="Georgia" size="18.0" />
                </font>
             </Label>
          </children>

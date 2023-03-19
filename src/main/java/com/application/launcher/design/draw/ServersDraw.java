@@ -4,7 +4,6 @@ import com.application.launcher.design.image.ServerNotFoundImage;
 import com.application.launcher.design.label.ServerNotFoundLabel;
 import com.application.launcher.design.pane.ServerPane;
 import com.application.launcher.rest.response.ServerResponse;
-import com.application.launcher.service.LauncherService;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -15,12 +14,10 @@ public class ServersDraw {
 
     private final PlayersDraw playersDraw;
     private final AnchorPane anchorPane;
-    private final LauncherService launcherService;
 
-    public ServersDraw(PlayersDraw playersDraw, AnchorPane anchorPane, LauncherService launcherService) {
+    public ServersDraw(PlayersDraw playersDraw, AnchorPane anchorPane) {
         this.playersDraw = playersDraw;
         this.anchorPane = anchorPane;
-        this.launcherService = launcherService;
     }
 
     public void setServers(ServerResponse[] servers) {
@@ -34,7 +31,7 @@ public class ServersDraw {
         int count = 0;
         for (ServerResponse serverResponse : servers) {
 
-            ServerPane serverPane = new ServerPane(serverResponse, launcherService, playersDraw);
+            ServerPane serverPane = new ServerPane(serverResponse, playersDraw);
             Pane pane = serverPane.getPane();
             pane.setLayoutY(8 + 143 * count);
 

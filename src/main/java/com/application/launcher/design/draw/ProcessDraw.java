@@ -9,15 +9,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class ProcessDraw {
-    private final Label label;
     private final Pane pane;
     private final AnchorPane anchorPane;
     private final ScrollPane scrollPane;
     private final Button button;
 
-    public ProcessDraw(Label label, Pane pane, AnchorPane anchorPane, ScrollPane scrollPane, Button button) {
-        this.label = label;
+    private int useLimit;
+
+    public ProcessDraw(Pane pane, AnchorPane anchorPane, ScrollPane scrollPane, Button button) {
         this.pane = pane;
         this.anchorPane = anchorPane;
         this.scrollPane = scrollPane;
@@ -26,8 +29,9 @@ public class ProcessDraw {
 
     public void init() {
         Platform.runLater(() -> {
-            label.setText("");
-            anchorPane.setPrefHeight(394);
+            useLimit = 0;
+            anchorPane.getChildren().clear();
+            anchorPane.setPrefHeight(0);
 
             pane.setVisible(true);
         });
@@ -50,17 +54,34 @@ public class ProcessDraw {
     }
 
     public void input(String message) {
-        Platform.runLater(() -> {
-            label.setText(label.getText().isEmpty() ? message : label.getText() + System.lineSeparator() + message);
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        service.execute(() -> Platform.runLater(() -> {
 
-            Text text = new Text(label.getText());
+            if (message.length() > anchorPane.getPrefWidth()) anchorPane.setPrefWidth(message.length());
+
+            Text text = new Text(message);
             text.setFont(Font.font("Franklin Gothic Medium", 12));
 
-            label.setPrefSize(text.getLayoutBounds().getWidth() + 50, text.getLayoutBounds().getHeight() + 50);
-            anchorPane.setPrefSize(label.getPrefWidth(), label.getPrefHeight());
+            if (useLimit++ > 20 || anchorPane.getChildren().size() == 0) {
+                Label label = new Label(message);
+                label.setLayoutX(0);
+                label.setLayoutY(anchorPane.getPrefHeight());
+                label.setFont(Font.font("Franklin Gothic Medium", 12));
+                label.setPrefSize(text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight());
 
-            scrollPane.setVvalue(scrollPane.getVmax());
+                anchorPane.getChildren().add(label);
+                anchorPane.setPrefHeight(anchorPane.getPrefHeight() + label.getPrefHeight());
+                useLimit = 0;
+            } else {
+                Label label = (Label) anchorPane.getChildren().get(anchorPane.getChildren().size() - 1);
 
-        });
+                text.setText(label.getText() + System.lineSeparator() + message);
+                label.setText(label.getText() + System.lineSeparator() + message);
+                anchorPane.setPrefHeight(anchorPane.getPrefHeight() + text.getLayoutBounds().getHeight() - label.getPrefHeight() + 5);
+
+                label.setPrefSize(text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight() + 5);
+            }
+            scrollPane.setVvalue(1.0);
+        }));
     }
 }

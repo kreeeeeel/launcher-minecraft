@@ -14,26 +14,26 @@ import javafx.util.Duration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.application.launcher.controller.MainController.alertMainDraw;
+
 public class PlayersDraw {
     private final Pane pane;
     private final Pane loadPane;
     private final AnchorPane anchorPane;
     private final ImageView imageView;
     private final Label label;
-    private final AlertDraw alertDraw;
 
     private String name;
     private String ip = "localhost";
     private int port = 25565;
     private int count = 0;
 
-    public PlayersDraw(Pane pane, Pane loadPane, AnchorPane anchorPane, ImageView imageView, Label label, AlertDraw alertDraw) {
+    public PlayersDraw(Pane pane, Pane loadPane, AnchorPane anchorPane, ImageView imageView, Label label) {
         this.pane = pane;
         this.loadPane = loadPane;
         this.anchorPane = anchorPane;
         this.imageView = imageView;
         this.label = label;
-        this.alertDraw = alertDraw;
     }
 
     @Override
@@ -62,12 +62,12 @@ public class PlayersDraw {
             mcQuery.close();
 
             if (queryResponse == null) {
-                Platform.runLater(() -> alertDraw.init("Недоступен", "Не удалось получить данные.."));
+                Platform.runLater(() -> alertMainDraw.init("Недоступен", "Не удалось получить данные.."));
                 return;
             }
 
             if(queryResponse.getPlayerList() == null || queryResponse.getPlayerList().size() == 0){
-                Platform.runLater(() -> alertDraw.init("Никого нет:(", "В данный момент на сервере нет игроков."));
+                Platform.runLater(() -> alertMainDraw.init("Никого нет:(", "В данный момент на сервере нет игроков."));
                 return;
             }
 

@@ -64,6 +64,8 @@ public class AuthController extends Application {
     private double stagePosX;
     private double stagePosY;
 
+    public static AlertDraw alertAuthDraw;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/auth.fxml"));
@@ -90,11 +92,11 @@ public class AuthController extends Application {
         list.add(authPane);
         list.add(fastAuthPane);
 
-        AlertDraw alertDraw = new AlertDraw(list, alertPane, alertPaneMain, alertCloseImg, alertTitle, alertMessage);
+        alertAuthDraw = new AlertDraw(list, alertPane, alertPaneMain, alertCloseImg, alertTitle, alertMessage);
         BrowseDraw recoveryDraw = new BrowseDraw(
                 Constant.WEB + Constant.RECOVERY,
                 "Вы действительно хотите перейти по ссылке для восстановления пароля?",
-                urlPane, urlLabel, urlContent, yesUrlBtn, noUrlBtn, alertDraw
+                urlPane, urlLabel, urlContent, yesUrlBtn, noUrlBtn
         );
 
         ExitImage exitImage = new ExitImage(exitImg);
@@ -107,7 +109,7 @@ public class AuthController extends Application {
         collapseImage.setOnMouseExited();
         collapseImage.setOnMouseClicked();
 
-        RegisterLabel register = new RegisterLabel(registerLabel, loadPane, alertDraw);
+        RegisterLabel register = new RegisterLabel(registerLabel, loadPane);
         register.setOnMouseEntered();
         register.setOnMouseExited();
         register.setOnMouseClicked();
@@ -117,13 +119,13 @@ public class AuthController extends Application {
         recovery.setOnMouseExited();
         recovery.setOnMouseClicked();
 
-        AuthDraw authDraw = new AuthDraw(login, password, authBtn, authTitle, authPane, fastAuthPane, alertDraw);
+        AuthDraw authDraw = new AuthDraw(login, password, authBtn, authTitle, authPane, fastAuthPane);
         authDraw.setOnMouseEntered();
         authDraw.setOnMouseExited();
         authDraw.setOnMouseClicked();
         authDraw.actionFields();
 
-        FastAuthDraw fastAuthDraw = new FastAuthDraw(fastAuthImg, fastAuthCloseImg, fastAuthPane, fastAuthBtn, fastAuthAnchor, alertDraw, authTitle, authPane);
+        FastAuthDraw fastAuthDraw = new FastAuthDraw(fastAuthImg, fastAuthCloseImg, fastAuthPane, fastAuthBtn, fastAuthAnchor, authTitle, authPane);
         fastAuthDraw.setOnMouseEntered();
         fastAuthDraw.setOnMouseExited();
         fastAuthDraw.setOnMouseClicked();
@@ -132,7 +134,7 @@ public class AuthController extends Application {
             login.setText(RedirectHandler.username);
             password.setText(RedirectHandler.password);
 
-            AuthService authService = new AuthService(RedirectHandler.username, RedirectHandler.password, alertDraw, authTitle, authPane, fastAuthPane);
+            AuthService authService = new AuthService(RedirectHandler.username, RedirectHandler.password, authTitle, authPane, fastAuthPane);
             authService.init();
 
             RedirectHandler.username = null;

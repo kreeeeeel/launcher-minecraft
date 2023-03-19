@@ -20,6 +20,8 @@ import java.lang.management.ManagementFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.application.launcher.controller.MainController.alertMainDraw;
+
 public class SettingsDraw {
     private final TextField textField;
     private final Label label;
@@ -35,11 +37,10 @@ public class SettingsDraw {
 
     private final ImageView openImageView;
     private final ImageView closeImageView;
-    private final AlertDraw alertDraw;
 
     private long maxMemory;
 
-    public SettingsDraw(TextField textField, Label label, Slider slider, RadioButton checkBoxSize, RadioButton checkBoxAuto, Pane pane, Pane paneRemove, Button clear, Button folder, ImageView openImageView, ImageView closeImageView, AlertDraw alertDraw) {
+    public SettingsDraw(TextField textField, Label label, Slider slider, RadioButton checkBoxSize, RadioButton checkBoxAuto, Pane pane, Pane paneRemove, Button clear, Button folder, ImageView openImageView, ImageView closeImageView) {
         this.textField = textField;
         this.label = label;
         this.slider = slider;
@@ -51,7 +52,6 @@ public class SettingsDraw {
         this.folder = folder;
         this.openImageView = openImageView;
         this.closeImageView = closeImageView;
-        this.alertDraw = alertDraw;
     }
 
     public void init() {
@@ -120,10 +120,10 @@ public class SettingsDraw {
                 try {
                     Desktop.getDesktop().open(new File(directory));
                 } catch (IOException e) {
-                    alertDraw.init("Открытие папки", "Не удалось открыть папку");
+                    alertMainDraw.init("Открытие папки", "Не удалось открыть папку");
                 }
             } else {
-                alertDraw.init("Не поддерживается", "Не удалось открыть папку");
+                alertMainDraw.init("Не поддерживается", "Не удалось открыть папку");
             }
         });
 
@@ -134,7 +134,7 @@ public class SettingsDraw {
 
                 FileUtils fileUtils = new FileUtils();
                 fileUtils.deleteFiles("launcher");
-                alertDraw.init("Удаление файлов", "Операция прошла успешно!");
+                alertMainDraw.init("Удаление файлов", "Операция прошла успешно!");
                 paneRemove.setVisible(false);
 
             });
@@ -185,13 +185,13 @@ public class SettingsDraw {
             int value = Integer.parseInt(newValue);
 
             if(value > maxMemory) {
-                alertDraw.init("Контроль памяти", "Выбранное значение должно быть не больше " + maxMemory + " МБ");
+                alertMainDraw.init("Контроль памяти", "Выбранное значение должно быть не больше " + maxMemory + " МБ");
                 textField.setText(oldValue);
                 return;
             }
 
             if(value < 0) {
-                alertDraw.init("Контроль памяти", "Выбранное значение не должно быть меньше 0 МБ");
+                alertMainDraw.init("Контроль памяти", "Выбранное значение не должно быть меньше 0 МБ");
                 textField.setText(oldValue);
                 return;
             }

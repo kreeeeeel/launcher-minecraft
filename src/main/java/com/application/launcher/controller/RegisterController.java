@@ -50,6 +50,8 @@ public class RegisterController extends Application {
     private double stagePosX;
     private double stagePosY;
 
+    public static AlertDraw alertRegDraw;
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/register.fxml"));
@@ -75,7 +77,7 @@ public class RegisterController extends Application {
         List<Pane> list = new ArrayList<>();
         list.add(registerPane);
 
-        AlertDraw alertDraw = new AlertDraw(list, alertPane, alertPaneMain, alertCloseImg, alertTitle, alertMessage);
+        alertRegDraw = new AlertDraw(list, alertPane, alertPaneMain, alertCloseImg, alertTitle, alertMessage);
 
         ExitImage exitImage = new ExitImage(exitImg);
         exitImage.setOnMouseEntered();
@@ -87,12 +89,12 @@ public class RegisterController extends Application {
         collapseImage.setOnMouseExited();
         collapseImage.setOnMouseClicked();
 
-        AuthorizationLabel authorizationLabel = new AuthorizationLabel(authLabel, loadPane, alertDraw);
+        AuthorizationLabel authorizationLabel = new AuthorizationLabel(authLabel, loadPane);
         authorizationLabel.setOnMouseEntered();
         authorizationLabel.setOnMouseExited();
         authorizationLabel.setOnMouseClicked();
 
-        RegisterDraw registerDraw = new RegisterDraw(email, login, name, password, passwordConfirm, register, registerTitle, registerPane, alertDraw);
+        RegisterDraw registerDraw = new RegisterDraw(email, login, name, password, passwordConfirm, register, registerTitle, registerPane);
         registerDraw.setOnMouseEntered();
         registerDraw.setOnMouseExited();
         registerDraw.setOnMouseClicked();

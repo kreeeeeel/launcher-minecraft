@@ -1,22 +1,22 @@
 package com.application.launcher.utils;
 
-import com.application.launcher.design.draw.AlertDraw;
-import com.application.launcher.design.draw.ProcessDraw;
 import javafx.application.Platform;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import static com.application.launcher.controller.MainController.alertMainDraw;
+import static com.application.launcher.controller.MainController.processDraw;
 
 public class LaunchUtils {
 
     private final String client;
-    private final ProcessDraw processDraw;
-    private final AlertDraw alertDraw;
 
-    public LaunchUtils(String client, ProcessDraw processDraw, AlertDraw alertDraw) {
+    public LaunchUtils(String client) {
         this.client = client;
-        this.processDraw = processDraw;
-        this.alertDraw = alertDraw;
     }
 
     public void start(ArrayList<String> params) {
@@ -41,7 +41,15 @@ public class LaunchUtils {
             ProcessBuilder processBuilder = new ProcessBuilder(needParams);
             processBuilder.directory(new File(home + File.separator + "launcher" + File.separator +"client" + File.separator + client + File.separator));
 
-            setupOptions();
+            File file = new File(
+                    System.getProperty("user.dir") + File.separator + "launcher" + File.separator + "client" + File.separator + client + File.separator + "options.txt"
+            );
+
+            if (!file.isFile() && file.createNewFile()) {
+                String separator = System.getProperty("line.separator");
+                FileUtils fileUtils = new FileUtils(file);
+                fileUtils.write("lang:ru_RU" + separator + "guiScale:2");
+            }
 
             Process process = processBuilder.start();
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -61,28 +69,9 @@ public class LaunchUtils {
             int status = process.waitFor();
             System.out.println("Exited with status: " + status);
             processDraw.close();
-            Platform.runLater(() -> alertDraw.init("Закрылась", "Игра была закрыта!"));
+            Platform.runLater(() -> alertMainDraw.init("Закрылась", "Игра была закрыта!"));
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
-
-    public void setupOptions() {
-        try {
-            String home = System.getProperty("user.dir");
-            File file = new File(home + File.separator + "launcher" + File.separator + "client" + File.separator + client + File.separator + "options.txt");
-
-            if (!file.isFile() && !file.createNewFile()) {
-                return;
-            }
-
-            String separator = System.getProperty("line.separator");
-            FileUtils fileUtils = new FileUtils(file);
-            fileUtils.write("lang:ru_RU" + separator + "guiScale:2");
-        } catch (IOException ex){
-            System.out.println(ex.getMessage());
-        }
-
-    }
-
 }

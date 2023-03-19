@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/8.0.351" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AuthController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AuthController">
    <children>
       <ImageView fx:id="fastAuthImg" fitHeight="48.0" fitWidth="48.0" layoutX="740.0" layoutY="538.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -24,7 +24,7 @@
       </ImageView>
       <Pane layoutX="14.0" prefHeight="600.0" prefWidth="327.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
-            <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="116.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="96.0" fitWidth="139.0" layoutX="116.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/logo.png" />
                </image>
@@ -38,9 +38,9 @@
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
             </PasswordField>
-            <Label layoutX="104.0" layoutY="142.0" text="McForce" textFill="#e1e1e1">
+            <Label layoutX="48.0" layoutY="139.0" text="EnchantedCraft" textFill="#e1e1e1">
                <font>
-                  <Font name="Franklin Gothic Medium" size="33.0" />
+                  <Font name="Georgia" size="33.0" />
                </font>
             </Label>
             <Label layoutX="59.0" layoutY="564.0" text="Нет аккаунта?" textFill="WHITE">
