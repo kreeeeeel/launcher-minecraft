@@ -38,7 +38,12 @@ public class LauncherService {
 
         ExecutorService service = Executors.newSingleThreadExecutor();
         service.execute(() -> {
-            Platform.runLater(() -> paneUpdateS.setVisible(true));
+            Platform.runLater(() -> {
+                paneUpdateS.setVisible(true);
+                titleUpdateS.setText("Выполняется запрос..");
+                fileUpdateS.setText("Пожалуйста, подождите..");
+                progressUpdateS.setProgress(-1.0);
+            });
             String token = TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken();
 
             LauncherApi launcherApi = RetrofitUtils.getRetrofit().create(LauncherApi.class);

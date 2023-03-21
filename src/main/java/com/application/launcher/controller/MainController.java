@@ -10,12 +10,12 @@ import com.application.launcher.service.ProfileService;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -59,6 +59,7 @@ public class MainController extends Application {
 
     @FXML private RadioButton boxLaunchAuto;
     @FXML private RadioButton boxLaunchFullScreen;
+    @FXML private RadioButton boxLogger;
 
     @FXML private Button exitAccountBtn;
     @FXML private Button cancelBtn;
@@ -69,7 +70,7 @@ public class MainController extends Application {
     @FXML private Button yesUrlBtn;
     @FXML private Button processBtn;
 
-    @FXML private Circle photoCircle;
+    @FXML private ImageView photoImage;
     @FXML private AnchorPane serversAnchor;
     @FXML private AnchorPane processAnchor;
     @FXML private AnchorPane playersAnchor;
@@ -77,8 +78,23 @@ public class MainController extends Application {
     @FXML private Slider settingsRamSlider;
     @FXML private ScrollPane processScrollPane;
 
+    @FXML private Pane texturesPane;
+    @FXML private ImageView textureCloseImg;
+    @FXML private ImageView textureSkinImg;
+    @FXML private ImageView textureCapeImg;
+    @FXML private Button textureChangeSkinBtn;
+    @FXML private Button textureSaveSkinBtn;
+    @FXML private Button textureChangeCapeBtn;
+    @FXML private Button textureSaveCapeBtn;
+    @FXML private Button textureRemoveCapeBtn;
+    @FXML private Label capeStatusLabel;
+
+    @FXML private ImageView pencilImg;
+    @FXML private Group groupEpilepsy;
+
     public static ProcessDraw processDraw;
     public static AlertDraw alertMainDraw;
+    public static TextureDraw textureDraw;
 
     public static Label fileUpdateS;
     public static Label titleUpdateS;
@@ -107,6 +123,17 @@ public class MainController extends Application {
         List<Pane> list = new ArrayList<>();
         list.add(paneUpdate);
         list.add(loadPane);
+
+        textureDraw = new TextureDraw(
+                texturesPane,
+                textureCloseImg,
+                textureSkinImg,
+                textureCapeImg,
+                textureChangeSkinBtn,
+                textureSaveSkinBtn,
+                textureChangeCapeBtn,
+                textureSaveCapeBtn,
+                textureRemoveCapeBtn, capeStatusLabel, photoImage, pencilImg, groupEpilepsy, loadPane);
 
         processDraw = new ProcessDraw(processPane, processAnchor, processScrollPane, processBtn);
         processDraw.setOnMouseEntered();
@@ -178,7 +205,6 @@ public class MainController extends Application {
                 settingsImg,
                 rubleImg,
                 serversAnchor,
-                photoCircle,
                 loadPane,
                 playersDraw
         );
@@ -190,6 +216,7 @@ public class MainController extends Application {
                 settingsRamSlider,
                 boxLaunchFullScreen,
                 boxLaunchAuto,
+                boxLogger,
                 settingsPane,
                 removeClientPane,
                 settingsClear,

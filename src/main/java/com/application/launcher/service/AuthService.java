@@ -1,14 +1,17 @@
 package com.application.launcher.service;
 
+import com.application.launcher.entity.ConfigEntity;
 import com.application.launcher.rest.api.AuthApi;
 import com.application.launcher.rest.handler.AuthHandler;
 import com.application.launcher.rest.request.AuthRequest;
+import com.application.launcher.utils.ConfigUtils;
 import com.application.launcher.utils.RetrofitUtils;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import retrofit2.Retrofit;
 
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,6 +54,19 @@ public class AuthService {
                 title.setText(username);
                 pane.setVisible(true);
             });
+
+            ConfigUtils configUtils = new ConfigUtils();
+            configUtils.init();
+            ConfigEntity configEntity = configUtils.getConfigEntity();
+
+            for (int i = 0; i < configEntity.getAccounts().size(); i++) {
+                if (configEntity.getAccounts().get(i).getUsername().equals(username)){
+                    configEntity.getAccounts().get(i).setPassword(password);
+                    configEntity.getAccounts().get(i).setLast(new Date().getTime());
+                    configUtils.setConfigEntity(configEntity);
+                    configUtils.write();
+                }
+            }
 
             AuthRequest authRequest = new AuthRequest(username, password);
 

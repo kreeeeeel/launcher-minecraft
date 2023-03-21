@@ -11,25 +11,22 @@ import javafx.application.Platform;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.application.launcher.constant.Constant.API;
-import static com.application.launcher.constant.Constant.PHOTO;
 import static com.application.launcher.controller.AuthController.alertAuthDraw;
 
 public class FastAuthDraw {
@@ -86,9 +83,12 @@ public class FastAuthDraw {
             button.setDisable(true);
             count = 0;
 
-            AccountHandler.setPane(null);
-            AccountHandler.setUsername(null);
-            AccountHandler.setPassword(null);
+            AccountHandler.pane = null;
+            AccountHandler.usernameLabel = null;
+            AccountHandler.lastStartLabel = null;
+
+            AccountHandler.username = null;
+            AccountHandler.password = null;
 
             if (configEntity == null ||  configEntity.getAccounts() == null || configEntity.getAccounts().size() == 0) {
                 alertAuthDraw.init("Пусто :(", "У вас нет сохраненных аккаунтов..");
@@ -97,19 +97,13 @@ public class FastAuthDraw {
 
             Platform.runLater(() -> anchorPane.getChildren().clear());
             for (AccountEntity accountEntity : configEntity.getAccounts()) {
-
-                Image image = getImage(accountEntity.getUsername());
-                if (image == null) {
-                    continue;
-                }
-
                 Platform.runLater(() -> {
                     Pane paneUser = getPane(accountEntity);
-                    Circle circle = getCircle(image);
                     Label label = getLabel(accountEntity.getUsername());
+                    Label labelLast = getLast(accountEntity.getLast());
                     ImageView imageView = getRemoveImage(configEntity, accountEntity);
 
-                    paneUser.getChildren().addAll(circle, label, imageView);
+                    paneUser.getChildren().addAll(labelLast, label, imageView);
                     anchorPane.getChildren().add(paneUser);
                 });
                 count++;
@@ -144,20 +138,28 @@ public class FastAuthDraw {
         paneG.setCursor(Cursor.HAND);
 
         paneG.setOnMouseEntered(event ->
-                paneG.setStyle("-fx-background-radius: 5px;-fx-background-color: " + ((paneG == AccountHandler.getPane()) ? "#217fdc" : "#b9b8b8")));
+                paneG.setStyle("-fx-background-radius: 5px;-fx-background-color: " + ((paneG == AccountHandler.pane) ? "#217fdc" : "#b9b8b8")));
         paneG.setOnMouseExited(event ->
-                paneG.setStyle("-fx-background-radius: 5px;-fx-background-color: " + ((paneG == AccountHandler.getPane()) ? "#2388ec" : "white")));
+                paneG.setStyle("-fx-background-radius: 5px;-fx-background-color: " + ((paneG == AccountHandler.pane) ? "#2388ec" : "white")));
         paneG.setOnMouseClicked(event -> {
 
-            if (AccountHandler.getPane() != null){
-                AccountHandler.getPane().setStyle("-fx-background-radius: 5px;-fx-background-color: white");
+            if (AccountHandler.pane != null) {
+                AccountHandler.usernameLabel.setTextFill(Paint.valueOf("#544646"));
+                AccountHandler.lastStartLabel.setTextFill(Paint.valueOf("#493d3d"));
+                AccountHandler.pane.setStyle("-fx-background-radius: 5px;-fx-background-color: white");
             }
 
             paneG.setStyle("-fx-background-radius: 5px;-fx-background-color: #217fdc");
 
-            AccountHandler.setUsername(accountEntity.getUsername());
-            AccountHandler.setPassword(accountEntity.getPassword());
-            AccountHandler.setPane(paneG);
+            AccountHandler.username = accountEntity.getUsername();
+            AccountHandler.password = accountEntity.getPassword();
+
+            AccountHandler.pane = paneG;
+            AccountHandler.usernameLabel = (Label) paneG.getChildren().get(1);
+            AccountHandler.lastStartLabel = (Label) paneG.getChildren().get(0);
+
+            AccountHandler.usernameLabel.setTextFill(Paint.valueOf("#f8f8f8"));
+            AccountHandler.lastStartLabel.setTextFill(Paint.valueOf("#f8f8f8"));
 
             button.setDisable(false);
             button.setOnMouseClicked(mouse -> {
@@ -168,31 +170,23 @@ public class FastAuthDraw {
         return paneG;
     }
 
-    public Image getImage(String username) {
-        try {
-            return new Image(new URL(API + PHOTO + username+ ".png").openStream());
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
-    public Circle getCircle(Image image) {
-        Circle circle = new Circle();
-        circle.setLayoutX(26);
-        circle.setLayoutY(23);
-        circle.setRadius(19);
-        circle.setStroke(Paint.valueOf("#544646"));
-        circle.setFill(new ImagePattern(image));
-        return circle;
-    }
 
     public Label getLabel(String username) {
         Label label = new Label(username);
         label.setPrefSize(208, 24);
-        label.setLayoutX(54);
-        label.setLayoutY(10);
-        label.setFont(Font.font("Franklin Gothic Medium", 18));
+        label.setLayoutX(14);
+        label.setLayoutY(4);
+        label.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
         label.setTextFill(Paint.valueOf("#544646"));
+        return label;
+    }
+
+    public Label getLast(Long date) {
+        Label label = new Label("Последний запуск: " + ( date != null ? new SimpleDateFormat("dd.MM.yyyy в HH:mm", new Locale("ru", "RU")).format(new Date(date)) : "Неизвестно"));
+        label.setLayoutX(14);
+        label.setLayoutY(24);
+        label.setFont(Font.font("Arial", 13));
+        label.setTextFill(Paint.valueOf("#493d3d"));
         return label;
     }
 

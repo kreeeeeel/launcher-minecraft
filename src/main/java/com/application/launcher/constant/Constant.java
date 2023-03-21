@@ -15,5 +15,4 @@ public class Constant {
     public static final String RECOVERY =  "/recovery";
     public static final String PAY =  "/pay";
     public static final String ICONS = "/resources/servers-icons/";
-    public static final String PHOTO = "/resources/photo/";
 }

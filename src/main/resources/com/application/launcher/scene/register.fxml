@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.RegisterController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.RegisterController">
    <children>
       <Pane layoutX="14.0" prefHeight="600.0" prefWidth="327.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
@@ -123,7 +123,7 @@
                   </Label>
                   <ImageView fitHeight="69.0" fitWidth="62.0" layoutX="7.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/error.png" />
+                        <Image url="@../images/info.png" />
                      </image>
                   </ImageView>
                </children>

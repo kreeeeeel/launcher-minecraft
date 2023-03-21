@@ -7,6 +7,7 @@ public class ConfigEntity {
     private long size;
     private boolean fullscreen;
     private boolean autoConnect;
+    private boolean loggerGame;
     private List<AccountEntity> accounts;
 
     public long getSize() {
@@ -62,5 +63,13 @@ public class ConfigEntity {
             }
         }
         return false;
+    }
+
+    public boolean isLoggerGame() {
+        return loggerGame;
+    }
+
+    public void setLoggerGame(boolean loggerGame) {
+        this.loggerGame = loggerGame;
     }
 }

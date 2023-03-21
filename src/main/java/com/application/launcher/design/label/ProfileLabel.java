@@ -34,15 +34,15 @@ public class ProfileLabel {
                 hour < 18 ? "Доброго дня" : "Доброго вечера") + ", " + profileResponse.getLogin();
 
         Text text = new Text(value);
-        text.setFont(Font.font("Franklin Gothic Medium", 18));
+        text.setFont(Font.font("Franklin Gothic Medium", 20));
 
-        settings.setLayoutX(text.getLayoutBounds().getWidth() + 82);
+        settings.setLayoutX(text.getLayoutBounds().getWidth() + 72);
         login.setPrefSize(text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight());
         login.setText(value);
     }
 
     public void setBalance(ProfileResponse profileResponse) {
-        String value = String.format(Locale.US, "%,d", profileResponse.getBalance().longValue());
+        String value = String.format(Locale.US, "%,.2f", profileResponse.getBalance().floatValue());
 
         Text text = new Text(value);
         text.setFont(Font.font("Franklin Gothic Medium", 18));

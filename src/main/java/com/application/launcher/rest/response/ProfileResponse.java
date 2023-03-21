@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class ProfileResponse {
 
@@ -23,6 +24,10 @@ public class ProfileResponse {
     @Expose
     private ServerResponse[] servers;
 
+    @SerializedName("textures")
+    @Expose
+    private Map<TextureType, String> textures;
+
     public String getLogin() {
         return login;
     }
@@ -37,5 +42,9 @@ public class ProfileResponse {
 
     public ServerResponse[] getServers() {
         return servers;
+    }
+
+    public Map<TextureType, String> getTextures() {
+        return textures;
     }
 }

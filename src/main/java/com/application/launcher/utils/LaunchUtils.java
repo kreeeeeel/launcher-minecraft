@@ -1,5 +1,6 @@
 package com.application.launcher.utils;
 
+import com.application.launcher.entity.ConfigEntity;
 import javafx.application.Platform;
 
 import java.io.BufferedReader;
@@ -23,6 +24,7 @@ public class LaunchUtils {
         try {
             ConfigUtils configUtils = new ConfigUtils();
             configUtils.init();
+            ConfigEntity configEntity = configUtils.getConfigEntity();
 
             String home = System.getProperty("user.dir");
             ArrayList<String> needParams = new ArrayList<>();
@@ -52,24 +54,35 @@ public class LaunchUtils {
             }
 
             Process process = processBuilder.start();
-            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            BufferedReader er = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            if (configEntity.isLoggerGame()) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader er = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 
-            processDraw.init();
-            processDraw.setOnMouseClicked(process);
+                processDraw.init();
+                processDraw.setOnMouseClicked(process);
 
-            String s;
-            while((s = in.readLine()) != null) {
-                processDraw.input(s);
+                String s;
+                while ((s = in.readLine()) != null) {
+                    processDraw.input(s);
+                }
+                while ((s = er.readLine()) != null) {
+                    processDraw.input(s);
+                }
+
+                int status = process.waitFor();
+                System.out.println("Exited with status: " + status);
+                processDraw.close();
+                Platform.runLater(() -> alertMainDraw.init("Закрылась", "Игра была закрыта!"));
+            } else {
+                new Thread(() -> {
+                    try {
+                        process.waitFor();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+                System.exit(0);
             }
-            while((s = er.readLine()) != null) {
-                processDraw.input(s);
-            }
-
-            int status = process.waitFor();
-            System.out.println("Exited with status: " + status);
-            processDraw.close();
-            Platform.runLater(() -> alertMainDraw.init("Закрылась", "Игра была закрыта!"));
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getLocalizedMessage());
         }

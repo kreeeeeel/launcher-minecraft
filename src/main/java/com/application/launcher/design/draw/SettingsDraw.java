@@ -28,6 +28,7 @@ public class SettingsDraw {
     private final Slider slider;
     private final RadioButton checkBoxSize;
     private final RadioButton checkBoxAuto;
+    private final RadioButton checkLogger;
 
     private final Pane pane;
     private final Pane paneRemove;
@@ -40,12 +41,13 @@ public class SettingsDraw {
 
     private long maxMemory;
 
-    public SettingsDraw(TextField textField, Label label, Slider slider, RadioButton checkBoxSize, RadioButton checkBoxAuto, Pane pane, Pane paneRemove, Button clear, Button folder, ImageView openImageView, ImageView closeImageView) {
+    public SettingsDraw(TextField textField, Label label, Slider slider, RadioButton checkBoxSize, RadioButton checkBoxAuto, RadioButton checkLogger, Pane pane, Pane paneRemove, Button clear, Button folder, ImageView openImageView, ImageView closeImageView) {
         this.textField = textField;
         this.label = label;
         this.slider = slider;
         this.checkBoxSize = checkBoxSize;
         this.checkBoxAuto = checkBoxAuto;
+        this.checkLogger = checkLogger;
         this.pane = pane;
         this.paneRemove = paneRemove;
         this.clear = clear;
@@ -79,6 +81,7 @@ public class SettingsDraw {
 
             checkBoxSize.setSelected(configEntity.isFullscreen());
             checkBoxAuto.setSelected(configEntity.isAutoConnect());
+            checkLogger.setSelected(configEntity.isLoggerGame());
 
             slider.setMax(maxMemory);
             slider.setValue(configEntity.getSize());
@@ -163,6 +166,17 @@ public class SettingsDraw {
             configUtils.init();
             ConfigEntity configEntity = configUtils.getConfigEntity();
             configEntity.setFullscreen(checkBoxSize.isSelected());
+            configUtils.setConfigEntity(configEntity);
+            configUtils.write();
+        });
+
+        checkLogger.setOnAction(event -> {
+            checkLogger.setFocusTraversable(false);
+
+            ConfigUtils configUtils = new ConfigUtils();
+            configUtils.init();
+            ConfigEntity configEntity = configUtils.getConfigEntity();
+            configEntity.setLoggerGame(checkLogger.isSelected());
             configUtils.setConfigEntity(configEntity);
             configUtils.write();
         });

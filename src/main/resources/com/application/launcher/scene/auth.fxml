@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AuthController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AuthController">
    <children>
       <ImageView fx:id="fastAuthImg" fitHeight="48.0" fitWidth="48.0" layoutX="740.0" layoutY="538.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -160,7 +160,7 @@
                   </Label>
                   <ImageView fitHeight="69.0" fitWidth="62.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/error.png" />
+                        <Image url="@../images/info.png" />
                      </image>
                   </ImageView>
                </children>
