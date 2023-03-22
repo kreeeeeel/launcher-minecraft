@@ -40,7 +40,7 @@ public class ParamsHandler implements Callback<ArrayList<String>> {
         });
 
         Platform.runLater(() -> paneUpdateS.setVisible(true));
-        new LaunchUtils(client).start(params);
+        LaunchUtils.start(client, params);
     }
 
     @Override

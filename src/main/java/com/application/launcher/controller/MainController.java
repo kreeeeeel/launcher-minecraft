@@ -83,10 +83,9 @@ public class MainController extends Application {
     @FXML private ImageView textureSkinImg;
     @FXML private ImageView textureCapeImg;
     @FXML private Button textureChangeSkinBtn;
-    @FXML private Button textureSaveSkinBtn;
     @FXML private Button textureChangeCapeBtn;
-    @FXML private Button textureSaveCapeBtn;
-    @FXML private Button textureRemoveCapeBtn;
+    @FXML private ImageView textureSkinRemoveImg;
+    @FXML private ImageView textureCapeRemoveImg;
     @FXML private Label capeStatusLabel;
 
     @FXML private ImageView pencilImg;
@@ -130,10 +129,15 @@ public class MainController extends Application {
                 textureSkinImg,
                 textureCapeImg,
                 textureChangeSkinBtn,
-                textureSaveSkinBtn,
                 textureChangeCapeBtn,
-                textureSaveCapeBtn,
-                textureRemoveCapeBtn, capeStatusLabel, photoImage, pencilImg, groupEpilepsy, loadPane);
+                capeStatusLabel,
+                photoImage,
+                pencilImg,
+                groupEpilepsy,
+                loadPane,
+                textureSkinRemoveImg,
+                textureCapeRemoveImg
+        );
 
         processDraw = new ProcessDraw(processPane, processAnchor, processScrollPane, processBtn);
         processDraw.setOnMouseEntered();

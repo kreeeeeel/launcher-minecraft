@@ -17,17 +17,11 @@ public class PayImage {
     }
 
     public void setOnMouseEntered() {
-        imageView.setOnMouseEntered(event -> {
-            FileUtils fileUtils = new FileUtils();
-            imageView.setImage(new Image(fileUtils.getResource("pay")));
-        });
+        imageView.setOnMouseEntered(event -> imageView.setImage(new Image(FileUtils.getResource("pay"))));
     }
 
     public void setOnMouseExited() {
-        imageView.setOnMouseExited(event -> {
-            FileUtils fileUtils = new FileUtils();
-            imageView.setImage(new Image(fileUtils.getResource("balance")));
-        });
+        imageView.setOnMouseExited(event -> imageView.setImage(new Image(FileUtils.getResource("balance"))));
     }
 
     public void setOnMouseClicked() {

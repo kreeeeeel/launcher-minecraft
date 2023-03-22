@@ -14,17 +14,9 @@ import static com.application.launcher.controller.MainController.processDraw;
 
 public class LaunchUtils {
 
-    private final String client;
-
-    public LaunchUtils(String client) {
-        this.client = client;
-    }
-
-    public void start(ArrayList<String> params) {
+    public static void start(String client, ArrayList<String> params) {
         try {
-            ConfigUtils configUtils = new ConfigUtils();
-            configUtils.init();
-            ConfigEntity configEntity = configUtils.getConfigEntity();
+            ConfigEntity configEntity = ConfigUtils.loadEntity();
 
             String home = System.getProperty("user.dir");
             ArrayList<String> needParams = new ArrayList<>();
@@ -34,7 +26,9 @@ public class LaunchUtils {
                 needParams.add("-Dos.name=Windows 10");
                 needParams.add("-Dos.version=10.0");
             }
-            needParams.add("-Xmx" + configUtils.getConfigEntity().getSize() + "M");
+            if (configEntity != null) {
+                needParams.add("-Xmx" + configEntity.getSize() + "M");
+            }
             needParams.addAll(params);
             needParams.add("--gameDir");
             needParams.add(home + File.separator + "launcher" + File.separator + "client" + File.separator + client);
@@ -49,12 +43,11 @@ public class LaunchUtils {
 
             if (!file.isFile() && file.createNewFile()) {
                 String separator = System.getProperty("line.separator");
-                FileUtils fileUtils = new FileUtils(file);
-                fileUtils.write("lang:ru_RU" + separator + "guiScale:2" + separator + "resourcePacks:[\"default32x32.zip\"]");
+                FileUtils.write(file, "lang:ru_RU" + separator + "guiScale:2" + separator + "resourcePacks:[\"default32x32.zip\"]");
             }
 
             Process process = processBuilder.start();
-            if (configEntity.isLoggerGame()) {
+            if (configEntity != null && configEntity.isLoggerGame()) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 BufferedReader er = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 

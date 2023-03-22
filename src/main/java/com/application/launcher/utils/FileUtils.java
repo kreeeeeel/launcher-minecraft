@@ -9,19 +9,11 @@ import java.nio.file.Files;
 
 public class FileUtils {
 
-    private File file;
-
-    public FileUtils(File file) {
-        this.file = file;
-    }
-
-    public FileUtils() {}
-
-    public String getResource(String name) {
+    public static String getResource(String name) {
         return "file:///" + new File("resources/" + name + ".png").getAbsolutePath();
     }
 
-    public void write(String input){
+    public static void write(File file, String input){
         try {
             if(!file.isFile() && !file.createNewFile()){
                 return;
@@ -37,7 +29,7 @@ public class FileUtils {
         }
     }
 
-    public String get() {
+    public static String getString(File file) {
 
         if(!file.isFile()){
             return null;
@@ -55,7 +47,7 @@ public class FileUtils {
 
     }
 
-    public void deleteFiles(String path) {
+    public static void deleteFiles(String path) {
         File file = new File(path);
         if(file.isFile() && !file.delete()) return;
         if(file.isDirectory()){
@@ -66,7 +58,9 @@ public class FileUtils {
                 }
             }
 
-            file.delete();
+            if(file.delete()) {
+                System.out.println("File " + path + " removed!");
+            }
         }
     }
 }

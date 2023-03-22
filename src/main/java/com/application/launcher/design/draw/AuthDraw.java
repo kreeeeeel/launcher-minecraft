@@ -1,10 +1,9 @@
 package com.application.launcher.design.draw;
 
+import com.application.launcher.entity.ConfigEntity;
 import com.application.launcher.service.AuthService;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import com.application.launcher.utils.ConfigUtils;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
@@ -16,15 +15,15 @@ public class AuthDraw {
 
     private final Label title;
     private final Pane pane;
-    private final Pane fast;
+    private final RadioButton saveAccount;
 
-    public AuthDraw(TextField login, PasswordField password, Button button, Label title, Pane pane, Pane fast) {
+    public AuthDraw(TextField login, PasswordField password, Button button, Label title, Pane pane, RadioButton saveAccount) {
         this.login = login;
         this.password = password;
         this.button = button;
         this.title = title;
         this.pane = pane;
-        this.fast = fast;
+        this.saveAccount = saveAccount;
     }
 
     public void actionFields() {
@@ -49,6 +48,14 @@ public class AuthDraw {
                 authService();
             }
         });
+
+        saveAccount.setOnAction(event -> {
+            ConfigEntity configEntity = ConfigUtils.loadEntity();
+            if (configEntity != null) {
+                configEntity.setSaveAccount(saveAccount.isSelected());
+                ConfigUtils.write(configEntity);
+            }
+        });
     }
 
     public void setOnMouseEntered() {
@@ -67,7 +74,7 @@ public class AuthDraw {
         String username = login.getText().trim();
         String pass = password.getText().trim();
 
-        AuthService authService = new AuthService(username, pass, title, pane, fast);
+        AuthService authService = new AuthService(username, pass, title, pane, saveAccount.isSelected());
         authService.init();
     }
 

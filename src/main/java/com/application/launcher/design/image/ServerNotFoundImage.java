@@ -13,9 +13,7 @@ public class ServerNotFoundImage {
     }
 
     public void setImageView() {
-        FileUtils fileUtils = new FileUtils();
-
-        Image image = new Image(fileUtils.getResource("shoked"));
+        Image image = new Image(FileUtils.getResource("shoked"));
         imageView.setImage(image);
         imageView.setLayoutX(345);
         imageView.setLayoutY(106);

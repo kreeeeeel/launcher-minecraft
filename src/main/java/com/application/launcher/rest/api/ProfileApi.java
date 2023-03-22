@@ -20,4 +20,7 @@ public interface ProfileApi {
     @DELETE("/api/profile/cape")
     Call<ResponseBody> deleteCape(@Header("Authorization") String token);
 
+    @DELETE("/api/profile/skin")
+    Call<TextureResponse> deleteSkin(@Header("Authorization") String token);
+
 }

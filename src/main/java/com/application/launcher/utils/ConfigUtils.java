@@ -8,39 +8,28 @@ import java.io.IOException;
 
 public class ConfigUtils {
 
-    private ConfigEntity configEntity;
-
-    public ConfigEntity getConfigEntity(){
-        return configEntity;
-    }
-
-    public void setConfigEntity(ConfigEntity configEntity){
-        this.configEntity = configEntity;
-    }
-
-    public void init() {
+    public static ConfigEntity loadEntity() {
         try {
             File file = new File("config.json");
-            if (!file.isFile() && file.createNewFile()){
-                return;
+            if (!file.isFile() && !file.createNewFile()){
+                return null;
             }
 
-            FileUtils fileUtils = new FileUtils(file);
-            configEntity = new Gson().fromJson(fileUtils.get(), ConfigEntity.class);
+            return new Gson().fromJson(FileUtils.getString(file), ConfigEntity.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        return new ConfigEntity();
     }
 
-    public void write(){
+    public static void write(ConfigEntity configEntity){
         try {
             File file = new File("config.json");
             if (!file.isFile() && file.createNewFile()){
                 return;
             }
 
-            FileUtils fileUtils = new FileUtils(file);
-            fileUtils.write(new Gson().toJson(configEntity));
+            FileUtils.write(file, new Gson().toJson(configEntity));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

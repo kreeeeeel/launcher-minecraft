@@ -24,18 +24,16 @@ public class ServerIconImage {
 
     public ImageView getMark(String mark) {
 
-        FileUtils fileUtils = new FileUtils();
         ImageView markImage = new ImageView();
 
-        markImage.setImage(new Image(fileUtils.getResource(mark)));
+        markImage.setImage(new Image(FileUtils.getResource(mark)));
         markImage.setLayoutX(92);
         markImage.setLayoutY(102);
         return markImage;
     }
 
     public ImageView getIcon(String name, int x, int y) {
-        FileUtils fileUtils = new FileUtils();
-        ImageView imageView = new ImageView(new Image(fileUtils.getResource(name)));
+        ImageView imageView = new ImageView(new Image(FileUtils.getResource(name)));
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
 

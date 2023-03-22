@@ -21,10 +21,12 @@ public class AuthHandler implements Callback<TokenResponse> {
 
     private final String username;
     private final String password;
+    private final boolean isSave;
 
-    public AuthHandler(String username, String password) {
+    public AuthHandler(String username, String password, boolean isSave) {
         this.username = username;
         this.password = password;
+        this.isSave = isSave;
     }
 
     @Override
@@ -41,20 +43,17 @@ public class AuthHandler implements Callback<TokenResponse> {
             return;
         }
 
-        ConfigUtils configUtils = new ConfigUtils();
-        configUtils.init();
-
         AccountEntity accountEntity = new AccountEntity();
         accountEntity.setUsername(username);
         accountEntity.setPassword(password);
 
-        ConfigEntity configEntity = configUtils.getConfigEntity();
+        ConfigEntity configEntity = ConfigUtils.loadEntity();
         if(configEntity == null){
             configEntity = new ConfigEntity();
         }
-        configEntity.addAccount(accountEntity);
-        configUtils.setConfigEntity(configEntity);
-        configUtils.write();
+        configEntity.setSaveAccount(isSave);
+        configEntity.setAccountEntity(accountEntity);
+        ConfigUtils.write(configEntity);
 
         TokenHandler.setAccessToken(tokenResponse.getAccessToken());
         TokenHandler.setTokenType(tokenResponse.getTokenType());

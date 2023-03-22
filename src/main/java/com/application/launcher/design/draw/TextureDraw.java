@@ -3,6 +3,7 @@ package com.application.launcher.design.draw;
 import com.application.launcher.handler.TokenHandler;
 import com.application.launcher.rest.api.ProfileApi;
 import com.application.launcher.rest.handler.CapeHandler;
+import com.application.launcher.rest.handler.SkinHandler;
 import com.application.launcher.rest.handler.TexturesHandler;
 import com.application.launcher.rest.response.TextureType;
 import com.application.launcher.utils.FileUtils;
@@ -38,37 +39,34 @@ public class TextureDraw {
     private final ImageView textureSkinImg;
     private final ImageView textureCapeImg;
     private final Button textureChangeSkinBtn;
-    private final Button textureSaveSkinBtn;
     private final Button textureChangeCapeBtn;
-    private final Button textureSaveCapeBtn;
-    private final Button textureRemoveCapeBtn;
     private final Label capeStatusLabel;
     private final ImageView photoImage;
     private final ImageView pencilImg;
     private final Group groupEpilepsy;
     private final Pane loadPane;
 
-    private BufferedImage bufferedImageSkin = null;
-    private BufferedImage bufferedImageCape = null;
+    private final ImageView textureSkinRemoveImg;
+    private final ImageView textureCapeRemoveImg;
+
     private String username;
 
     private final FileChooser fileChooser;
 
-    public TextureDraw(Pane texturesPane, ImageView textureCloseImg, ImageView textureSkinImg, ImageView textureCapeImg, Button textureChangeSkinBtn, Button textureSaveSkinBtn, Button textureChangeCapeBtn, Button textureSaveCapeBtn, Button textureRemoveCapeBtn, Label capeStatusLabel, ImageView photoImage, ImageView pencilImg, Group groupEpilepsy, Pane loadPane) {
+    public TextureDraw(Pane texturesPane, ImageView textureCloseImg, ImageView textureSkinImg, ImageView textureCapeImg, Button textureChangeSkinBtn, Button textureChangeCapeBtn, Label capeStatusLabel, ImageView photoImage, ImageView pencilImg, Group groupEpilepsy, Pane loadPane, ImageView textureSkinRemoveImg, ImageView textureCapeRemoveImg) {
         this.texturesPane = texturesPane;
         this.textureCloseImg = textureCloseImg;
         this.textureSkinImg = textureSkinImg;
         this.textureCapeImg = textureCapeImg;
         this.textureChangeSkinBtn = textureChangeSkinBtn;
-        this.textureSaveSkinBtn = textureSaveSkinBtn;
         this.textureChangeCapeBtn = textureChangeCapeBtn;
-        this.textureSaveCapeBtn = textureSaveCapeBtn;
-        this.textureRemoveCapeBtn = textureRemoveCapeBtn;
         this.capeStatusLabel = capeStatusLabel;
         this.photoImage = photoImage;
         this.pencilImg = pencilImg;
         this.groupEpilepsy = groupEpilepsy;
         this.loadPane = loadPane;
+        this.textureSkinRemoveImg = textureSkinRemoveImg;
+        this.textureCapeRemoveImg = textureCapeRemoveImg;
 
         setOnMouseEntered();
         setOnMouseExited();
@@ -85,13 +83,11 @@ public class TextureDraw {
 
     public void setTextureSkin(BufferedImage bufferedImage) {
         try {
-            bufferedImageSkin = bufferedImage;
-
             BufferedImage bufferedImageResult = new BufferedImage(128, 256, BufferedImage.TYPE_INT_ARGB);
             Graphics graphics = bufferedImageResult.getGraphics();
 
             int width = bufferedImage.getWidth() / 64;
-            int height = bufferedImage.getHeight() / 64;
+            int height = bufferedImage.getHeight() / (bufferedImage.getHeight() == 64 && bufferedImage.getWidth() != 128 ? 64 : 32);
 
             graphics.drawImage(bufferedImage.getSubimage(width * 8, height * 8, width * 8, height * 8), 32, 0, 64, 64, null);
             graphics.drawImage(bufferedImage.getSubimage(width * 20, height * 20, width * 8, height * 12), 32, 64, 64, 96, null);
@@ -107,7 +103,7 @@ public class TextureDraw {
 
             BufferedImage resizedImage = new BufferedImage(32, 32, SCALE_DEFAULT);
             graphics = resizedImage.createGraphics();
-            graphics.drawImage(bufferedImage.getSubimage(8, 8, 8, 8), 0, 0, 32, 32, null);
+            graphics.drawImage(bufferedImage.getSubimage(width * 8, height * 8, width * 8, height * 8), 0, 0, 32, 32, null);
             ImageIO.write(resizedImage, "png", file);
             photoImage.setImage(new Image(file.toURI().toString()));
             if (file.delete()){
@@ -120,8 +116,6 @@ public class TextureDraw {
 
     public void setTextureCape(BufferedImage bufferedImage) {
         try {
-            bufferedImageCape = bufferedImage;
-
             BufferedImage bufferedImageResult = new BufferedImage(128, 256, 2);
             Graphics graphics = bufferedImageResult.getGraphics();
             int width = bufferedImage.getWidth() / 64;
@@ -136,13 +130,12 @@ public class TextureDraw {
             }
 
             Platform.runLater(() -> {
-                textureCapeImg.setLayoutX(16);
-                textureCapeImg.setLayoutY(14);
-                textureCapeImg.setFitWidth(101);
-                textureCapeImg.setFitHeight(178);
+                textureCapeImg.setLayoutX(19);
+                textureCapeImg.setLayoutY(16);
+                textureCapeImg.setFitWidth(126);
+                textureCapeImg.setFitHeight(208);
 
-                textureSaveCapeBtn.setDisable(false);
-                textureRemoveCapeBtn.setDisable(false);
+                textureCapeRemoveImg.setDisable(false);
                 capeStatusLabel.setVisible(false);
             });
         } catch (IOException e) {
@@ -157,10 +150,9 @@ public class TextureDraw {
         });
         textureCloseImg.setOnMouseEntered(event -> textureCloseImg.setOpacity(1.0));
         textureChangeSkinBtn.setOnMouseEntered(event -> textureChangeSkinBtn.setStyle("-fx-background-color: #0f330f; -fx-background-radius: 5px"));
-        textureChangeCapeBtn.setOnMouseEntered(event -> textureChangeCapeBtn.setStyle("-fx-background-color: #0f330f; -fx-background-radius: 5px"));
-        textureSaveSkinBtn.setOnMouseEntered(event -> textureSaveSkinBtn.setStyle("-fx-background-color: #055b75; -fx-background-radius: 5px"));
-        textureSaveCapeBtn.setOnMouseEntered(event -> textureSaveCapeBtn.setStyle("-fx-background-color: #055b75; -fx-background-radius: 5px"));
-        textureRemoveCapeBtn.setOnMouseEntered(event -> textureRemoveCapeBtn.setStyle("-fx-background-color: #670404;-fx-background-radius: 5px"));
+        textureChangeCapeBtn.setOnMouseEntered(event -> textureChangeCapeBtn.setStyle("-fx-background-color: #025959; -fx-background-radius: 5px"));
+        textureSkinRemoveImg.setOnMouseEntered(event -> textureSkinRemoveImg.setOpacity(1.0));
+        textureCapeRemoveImg.setOnMouseEntered(event -> textureCapeRemoveImg.setOpacity(1.0));
     }
 
     public void setOnMouseExited(){
@@ -170,10 +162,9 @@ public class TextureDraw {
         });
         textureCloseImg.setOnMouseExited(event -> textureCloseImg.setOpacity(0.6));
         textureChangeSkinBtn.setOnMouseExited(event -> textureChangeSkinBtn.setStyle("-fx-background-color: #134213; -fx-background-radius: 5px"));
-        textureChangeCapeBtn.setOnMouseExited(event -> textureChangeCapeBtn.setStyle("-fx-background-color: #134213; -fx-background-radius: 5px"));
-        textureSaveSkinBtn.setOnMouseExited(event -> textureSaveSkinBtn.setStyle("-fx-background-color: #067597; -fx-background-radius: 5px"));
-        textureSaveCapeBtn.setOnMouseExited(event -> textureSaveCapeBtn.setStyle("-fx-background-color: #067597; -fx-background-radius: 5px"));
-        textureRemoveCapeBtn.setOnMouseExited(event -> textureRemoveCapeBtn.setStyle("-fx-background-color: #8c0606;-fx-background-radius: 5px"));
+        textureChangeCapeBtn.setOnMouseExited(event -> textureChangeCapeBtn.setStyle("-fx-background-color: #037e7e; -fx-background-radius: 5px"));
+        textureSkinRemoveImg.setOnMouseExited(event -> textureSkinRemoveImg.setOpacity(0.6));
+        textureCapeRemoveImg.setOnMouseExited(event -> textureCapeRemoveImg.setOpacity(0.6));
     }
 
     public void setOnMouseClicked() {
@@ -181,25 +172,27 @@ public class TextureDraw {
         pencilImg.setOnMouseClicked(event -> openEdit());
         textureCloseImg.setOnMouseClicked(event -> texturesPane.setVisible(false));
 
-        textureSaveSkinBtn.setOnMouseClicked(event -> fileAction(false, true));
-        textureSaveCapeBtn.setOnMouseClicked(event -> fileAction(false, false));
-        textureChangeSkinBtn.setOnMouseClicked(event -> fileAction(true, true));
-        textureChangeCapeBtn.setOnMouseClicked(event -> fileAction(true, false));
+        textureChangeSkinBtn.setOnMouseClicked(event -> fileAction(true));
+        textureChangeCapeBtn.setOnMouseClicked(event -> fileAction(false));
 
-        textureRemoveCapeBtn.setOnMouseClicked(event -> {
+        textureCapeRemoveImg.setOnMouseClicked(event -> {
             Platform.runLater(() -> loadPane.setVisible(true));
             ProfileApi profileApi = RetrofitUtils.getRetrofit().create(ProfileApi.class);
             profileApi.deleteCape(TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken()).enqueue(new CapeHandler());
         });
+
+        textureSkinRemoveImg.setOnMouseClicked(event -> {
+            Platform.runLater(() -> loadPane.setVisible(true));
+            ProfileApi profileApi = RetrofitUtils.getRetrofit().create(ProfileApi.class);
+            profileApi.deleteSkin(TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken()).enqueue(new SkinHandler());
+        });
     }
 
-    public void fileAction(boolean upload, boolean skin) {
+    public void fileAction(boolean skin) {
         try {
-            fileChooser.setTitle((upload ? "Upload " : "Save ") + (skin ? "skin :" : "cape : ") + username);
+            fileChooser.setTitle("Save " + (skin ? "skin :" : "cape : ") + username);
             fileChooser.setInitialFileName(username + (skin ? "_skin" : "_cape") + ".png");
-            File file = upload ?
-                    fileChooser.showOpenDialog(textureChangeSkinBtn.getScene().getWindow()) :
-                    fileChooser.showSaveDialog(textureSaveCapeBtn.getScene().getWindow());
+            File file = fileChooser.showOpenDialog(textureChangeSkinBtn.getScene().getWindow());
 
             if (file != null){
                 BufferedImage image = ImageIO.read(file);
@@ -208,31 +201,30 @@ public class TextureDraw {
                     return;
                 }
 
-                if (skin && (image.getWidth() != 64 || image.getHeight() != 64)) {
-                    alertMainDraw.init("Ошибка разрешения файла", "Разрешение файла должно быть 64x64!");
+                if (!isValidSizeTexture(image.getWidth(), image.getHeight())) {
+                    alertMainDraw.init("Ошибка разрешения файла", "Неверное разрешение файла!");
                     return;
                 }
 
-                if ((!skin && file.length() > 250000) || (skin && file.length() > 500000)) {
-                    alertMainDraw.init("Ошибка размера файла", "Размер файла должен быть меньше " + (!skin ? "250" : "500") + " КБ!");
+                if (skin && file.length() > 500000) {
+                    alertMainDraw.init("Размер файла", "Размер файла должен быть меньше 500 КБ!");
                     return;
                 }
 
-                if (upload) {
-                    Platform.runLater(() -> loadPane.setVisible(true));
+                Platform.runLater(() -> loadPane.setVisible(true));
 
-                    MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", UUID.randomUUID() + ".png", RequestBody.create(MediaType.parse("image/*"), file));
-                    ProfileApi profileApi = RetrofitUtils.getRetrofit().create(ProfileApi.class);
-                    profileApi.uploadTexture(TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken(), filePart, skin ? TextureType.SKIN : TextureType.CAPE).enqueue(new TexturesHandler());
-                } else {
-                    ImageIO.write(skin ? bufferedImageSkin : bufferedImageCape, "png", file);
-                    alertMainDraw.init("Сохранение файла", "Файл скина был успешно сохранён!");
-                }
+                MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", UUID.randomUUID() + ".png", RequestBody.create(MediaType.parse("image/*"), file));
+                ProfileApi profileApi = RetrofitUtils.getRetrofit().create(ProfileApi.class);
+                profileApi.uploadTexture(TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken(), filePart, skin ? TextureType.SKIN : TextureType.CAPE).enqueue(new TexturesHandler());
             }
 
         } catch (IOException e) {
             alertMainDraw.init("Ошибка чтения файла", "Не удалось получить данные из файла..");
         }
+    }
+
+    private boolean isValidSizeTexture(int width, int height) {
+        return (width == 64 && (height == 64 || height == 32)) || (width == 128 && height == 64) || (width == 256 && height == 128) || (width == 512 && height == 256)  || (width == 1024 && height == 512);
     }
 
 
@@ -248,16 +240,13 @@ public class TextureDraw {
 
     public void removeCap() {
         Platform.runLater( () -> {
-            textureCapeImg.setLayoutX(20);
-            textureCapeImg.setLayoutY(49);
+            textureCapeImg.setLayoutX(30);
+            textureCapeImg.setLayoutY(48);
             textureCapeImg.setFitWidth(81);
             textureCapeImg.setFitHeight(90);
-            textureCapeImg.setImage(new Image(new FileUtils().getResource("notfound")));
+            textureCapeImg.setImage(new Image(FileUtils.getResource("notfound")));
 
-            bufferedImageCape = null;
-
-            textureSaveCapeBtn.setDisable(true);
-            textureRemoveCapeBtn.setDisable(true);
+            textureCapeRemoveImg.setDisable(true);
             capeStatusLabel.setVisible(true);
         });
     }

@@ -281,9 +281,9 @@
       </Pane>
       <Pane fx:id="texturesPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="189.0" layoutY="85.0" prefHeight="403.0" prefWidth="422.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
+            <Pane layoutX="203.0" layoutY="118.0" prefHeight="364.0" prefWidth="395.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 5px;">
                <children>
-                  <ImageView fx:id="textureCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="386.0" layoutY="5.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="textureCloseImg" fitHeight="69.0" fitWidth="30.0" layoutX="360.0" layoutY="3.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/close.png" />
                      </image>
@@ -291,64 +291,25 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Label layoutX="124.0" layoutY="6.0" text="Редактирование персонажа">
+                  <Button fx:id="textureChangeSkinBtn" layoutX="36.0" layoutY="276.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Загрузить" textFill="#dddddd">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="14.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="textureChangeSkinBtn" layoutX="30.0" layoutY="285.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="166.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Изменить" textFill="#dddddd">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
+                        <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="textureSaveSkinBtn" layoutX="30.0" layoutY="340.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="166.0" style="-fx-background-color: #067597; -fx-background-radius: 5px;" text="Сохранить" textFill="#dddddd">
+                  <Button fx:id="textureChangeCapeBtn" layoutX="210.0" layoutY="276.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="111.0" style="-fx-background-color: #037e7e; -fx-background-radius: 5px;" text="Загрузить" textFill="#dddddd">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
+                        <Font name="Franklin Gothic Medium" size="16.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="textureChangeCapeBtn" layoutX="251.0" layoutY="259.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="141.0" style="-fx-background-color: #134213; -fx-background-radius: 5px;" text="Изменить" textFill="#dddddd">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Label layoutX="25.0" layoutY="317.0" text="64x64, макс.размер 500 КБ" textAlignment="CENTER" textFill="#6f6f6f" wrapText="true">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="257.0" layoutY="293.0" text="макс.размер 250 КБ" textAlignment="CENTER" textFill="#6f6f6f" wrapText="true">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="14.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="textureSaveCapeBtn" disable="true" layoutX="251.0" layoutY="317.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="141.0" style="-fx-background-color: #067597; -fx-background-radius: 5px;" text="Сохранить" textFill="#dddddd">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="textureRemoveCapeBtn" disable="true" layoutX="251.0" layoutY="356.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="141.0" style="-fx-background-color: #8c0606; -fx-background-radius: 5px;" text="Удалить" textFill="#dddddd">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Pane layoutX="42.0" layoutY="30.0" prefHeight="245.0" prefWidth="141.0" style="-fx-background-color: #d0d0d0; -fx-background-radius: 5px;">
+                  <Pane layoutX="36.0" layoutY="22.0" prefHeight="245.0" prefWidth="141.0" style="-fx-background-color: #d0d0d0; -fx-background-radius: 5px;">
                      <children>
-                        <ImageView fx:id="textureSkinImg" fitHeight="218.0" fitWidth="120.0" layoutX="11.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="textureSkinImg" fitHeight="218.0" fitWidth="120.0" layoutX="15.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
                         <Label layoutX="20.0" layoutY="224.0" text="Ваш игровой скин">
                            <font>
                               <Font name="Cambria" size="13.0" />
@@ -356,25 +317,40 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="262.0" layoutY="30.0" prefHeight="218.0" prefWidth="120.0" style="-fx-background-color: #d0d0d0; -fx-background-radius: 5px;">
+                  <Pane layoutX="210.0" layoutY="22.0" prefHeight="245.0" prefWidth="141.0" style="-fx-background-color: #d0d0d0; -fx-background-radius: 5px;">
                      <children>
-                        <Label layoutX="5.0" layoutY="196.0" text="Ваш игровой плащ">
+                        <Label layoutX="15.0" layoutY="223.0" text="Ваш игровой плащ">
                            <font>
                               <Font name="Cambria" size="13.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="textureCapeImg" fitHeight="90.0" fitWidth="81.0" layoutX="20.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="textureCapeImg" fitHeight="110.0" fitWidth="71.0" layoutX="35.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/notfound.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="capeStatusLabel" alignment="CENTER" layoutX="20.0" layoutY="146.0" text="Нет плаща :(" textFill="#5b5c5c">
+                        <Label fx:id="capeStatusLabel" alignment="CENTER" layoutX="30.0" layoutY="146.0" text="Нет плаща :(" textFill="#5b5c5c">
                            <font>
                               <Font name="Franklin Gothic Medium" size="15.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
+                  <Label alignment="CENTER" layoutX="11.0" layoutY="315.0" prefHeight="38.0" prefWidth="373.0" style="-fx-background-color: #AF00FF40; -fx-background-radius: 5px;" text="Вы можете установить скин в любом разрешении в формате *.PNG. Максимальный размер 500 КБ." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="textureSkinRemoveImg" fitHeight="38.0" fitWidth="38.0" layoutX="145.0" layoutY="273.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/remove.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="textureCapeRemoveImg" fitHeight="38.0" fitWidth="38.0" layoutX="320.0" layoutY="273.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/remove.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
          </children>

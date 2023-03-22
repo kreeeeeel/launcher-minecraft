@@ -5,23 +5,20 @@ import com.application.launcher.constant.Constant;
 import com.application.launcher.design.draw.AlertDraw;
 import com.application.launcher.design.draw.AuthDraw;
 import com.application.launcher.design.draw.BrowseDraw;
-import com.application.launcher.design.draw.FastAuthDraw;
 import com.application.launcher.design.image.CollapseImage;
 import com.application.launcher.design.image.ExitImage;
 import com.application.launcher.design.label.RecoveryLabel;
 import com.application.launcher.design.label.RegisterLabel;
+import com.application.launcher.entity.ConfigEntity;
 import com.application.launcher.handler.RedirectHandler;
 import com.application.launcher.service.AuthService;
+import com.application.launcher.utils.ConfigUtils;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -34,14 +31,12 @@ public class AuthController extends Application {
     @FXML private Button authBtn;
     @FXML private Button yesUrlBtn;
     @FXML private Button noUrlBtn;
-    @FXML private Button fastAuthBtn;
 
     @FXML private Pane authPane;
     @FXML private Pane loadPane;
     @FXML private Pane alertPane;
     @FXML private Pane alertPaneMain;
     @FXML private Pane urlPane;
-    @FXML private Pane fastAuthPane;
 
     @FXML private Label authTitle;
     @FXML private Label alertMessage;
@@ -54,12 +49,10 @@ public class AuthController extends Application {
     @FXML private ImageView collapseImg;
     @FXML private ImageView alertCloseImg;
     @FXML private ImageView exitImg;
-    @FXML private ImageView fastAuthCloseImg;
-    @FXML private ImageView fastAuthImg;
 
     @FXML private TextField login;
     @FXML private PasswordField password;
-    @FXML private AnchorPane fastAuthAnchor;
+    @FXML private RadioButton saveAccount;
 
     private double stagePosX;
     private double stagePosY;
@@ -90,7 +83,6 @@ public class AuthController extends Application {
 
         List<Pane> list = new ArrayList<>();
         list.add(authPane);
-        list.add(fastAuthPane);
 
         alertAuthDraw = new AlertDraw(list, alertPane, alertPaneMain, alertCloseImg, alertTitle, alertMessage);
         BrowseDraw recoveryDraw = new BrowseDraw(
@@ -119,27 +111,30 @@ public class AuthController extends Application {
         recovery.setOnMouseExited();
         recovery.setOnMouseClicked();
 
-        AuthDraw authDraw = new AuthDraw(login, password, authBtn, authTitle, authPane, fastAuthPane);
+        AuthDraw authDraw = new AuthDraw(login, password, authBtn, authTitle, authPane, saveAccount);
         authDraw.setOnMouseEntered();
         authDraw.setOnMouseExited();
         authDraw.setOnMouseClicked();
         authDraw.actionFields();
 
-        FastAuthDraw fastAuthDraw = new FastAuthDraw(fastAuthImg, fastAuthCloseImg, fastAuthPane, fastAuthBtn, fastAuthAnchor, authTitle, authPane);
-        fastAuthDraw.setOnMouseEntered();
-        fastAuthDraw.setOnMouseExited();
-        fastAuthDraw.setOnMouseClicked();
-
         if (RedirectHandler.register) {
             login.setText(RedirectHandler.username);
             password.setText(RedirectHandler.password);
 
-            AuthService authService = new AuthService(RedirectHandler.username, RedirectHandler.password, authTitle, authPane, fastAuthPane);
+            AuthService authService = new AuthService(RedirectHandler.username, RedirectHandler.password, authTitle, authPane, saveAccount.isSelected());
             authService.init();
 
             RedirectHandler.username = null;
             RedirectHandler.password = null;
             RedirectHandler.register = false;
+            return;
+        }
+
+        ConfigEntity configEntity = ConfigUtils.loadEntity();
+        if (configEntity != null && configEntity.isSaveAccount()){
+            login.setText(configEntity.getAccountEntity().getUsername());
+            password.setText(configEntity.getAccountEntity().getPassword());
+            saveAccount.setSelected(true);
         }
     }
 }

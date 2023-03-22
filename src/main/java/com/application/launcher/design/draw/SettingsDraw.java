@@ -57,34 +57,32 @@ public class SettingsDraw {
     }
 
     public void init() {
-        ConfigUtils configUtils = new ConfigUtils();
-        configUtils.init();
-        ConfigEntity configEntity = configUtils.getConfigEntity();
+        ConfigEntity configEntity = ConfigUtils.loadEntity();
 
         maxMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
                 .getOperatingSystemMXBean()).getTotalPhysicalMemorySize() / (1024 * 1024);
 
-        if (configEntity.getSize() == 0){
+        if (configEntity != null && configEntity.getSize() == 0) {
             configEntity.setSize(maxMemory / 2);
             configEntity.setAutoConnect(false);
             configEntity.setFullscreen(false);
         }
 
-        if (configEntity.getSize() > maxMemory){
+        if (configEntity != null && configEntity.getSize() > maxMemory) {
             configEntity.setSize(maxMemory / 2);
-            configUtils.write();
+            ConfigUtils.write(configEntity);
         }
 
         Platform.runLater(() -> {
-            label.setText("Выделяется " + configEntity.getSize() + " МБ памяти");
-            textField.setText(String.valueOf(configEntity.getSize()));
+            label.setText("Выделяется " + (configEntity != null ? configEntity.getSize() : 0) + " МБ памяти");
+            textField.setText(String.valueOf(configEntity != null ? configEntity.getSize() : 0));
 
-            checkBoxSize.setSelected(configEntity.isFullscreen());
-            checkBoxAuto.setSelected(configEntity.isAutoConnect());
-            checkLogger.setSelected(configEntity.isLoggerGame());
+            checkBoxSize.setSelected(configEntity != null && configEntity.isFullscreen());
+            checkBoxAuto.setSelected(configEntity != null && configEntity.isAutoConnect());
+            checkLogger.setSelected(configEntity != null && configEntity.isLoggerGame());
 
             slider.setMax(maxMemory);
-            slider.setValue(configEntity.getSize());
+            slider.setValue(configEntity != null ? configEntity.getSize() : 0);
         });
     }
 
@@ -135,8 +133,7 @@ public class SettingsDraw {
             service.execute(() -> {
                 paneRemove.setVisible(true);
 
-                FileUtils fileUtils = new FileUtils();
-                fileUtils.deleteFiles("launcher");
+                FileUtils.deleteFiles("launcher");
                 alertMainDraw.init("Удаление файлов", "Операция прошла успешно!");
                 paneRemove.setVisible(false);
 
@@ -150,35 +147,30 @@ public class SettingsDraw {
         checkBoxAuto.setOnAction(event -> {
             checkBoxAuto.setFocusTraversable(false);
 
-            ConfigUtils configUtils = new ConfigUtils();
-            configUtils.init();
-
-            ConfigEntity configEntity = configUtils.getConfigEntity();
-            configEntity.setAutoConnect(checkBoxAuto.isSelected());
-            configUtils.setConfigEntity(configEntity);
-            configUtils.write();
+            ConfigEntity configEntity = ConfigUtils.loadEntity();
+            if (configEntity != null) {
+                configEntity.setAutoConnect(checkBoxAuto.isSelected());
+                ConfigUtils.write(configEntity);
+            }
         });
 
         checkBoxSize.setOnAction(event -> {
             checkBoxAuto.setFocusTraversable(false);
-
-            ConfigUtils configUtils = new ConfigUtils();
-            configUtils.init();
-            ConfigEntity configEntity = configUtils.getConfigEntity();
-            configEntity.setFullscreen(checkBoxSize.isSelected());
-            configUtils.setConfigEntity(configEntity);
-            configUtils.write();
+            ConfigEntity configEntity = ConfigUtils.loadEntity();
+            if (configEntity != null) {
+                configEntity.setFullscreen(checkBoxSize.isSelected());
+                ConfigUtils.write(configEntity);
+            }
         });
 
         checkLogger.setOnAction(event -> {
             checkLogger.setFocusTraversable(false);
 
-            ConfigUtils configUtils = new ConfigUtils();
-            configUtils.init();
-            ConfigEntity configEntity = configUtils.getConfigEntity();
-            configEntity.setLoggerGame(checkLogger.isSelected());
-            configUtils.setConfigEntity(configEntity);
-            configUtils.write();
+            ConfigEntity configEntity = ConfigUtils.loadEntity();
+            if (configEntity != null) {
+                configEntity.setLoggerGame(checkLogger.isSelected());
+                ConfigUtils.write(configEntity);
+            }
         });
 
 
@@ -210,12 +202,12 @@ public class SettingsDraw {
                 return;
             }
 
-            ConfigUtils configUtils = new ConfigUtils();
-            configUtils.init();
 
-            ConfigEntity configEntity = configUtils.getConfigEntity();
-            configEntity.setSize(value);
-            configUtils.write();
+            ConfigEntity configEntity = ConfigUtils.loadEntity();
+            if (configEntity != null) {
+                configEntity.setSize(value);
+                ConfigUtils.write(configEntity);
+            }
 
             label.setText("Выделяется " + value + " МБ памяти");
             slider.setValue(value);

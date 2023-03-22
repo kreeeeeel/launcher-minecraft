@@ -103,16 +103,13 @@ public class LauncherService {
     public void launchMinecraft(String client) {
 
         LauncherApi launcherApi = RetrofitUtils.getRetrofit().create(LauncherApi.class);
-
-        ConfigUtils configUtils = new ConfigUtils();
-        configUtils.init();
-        ConfigEntity configEntity = configUtils.getConfigEntity();
+        ConfigEntity configEntity = ConfigUtils.loadEntity();
 
         launcherApi.getLauncherSettings(
                 TokenHandler.getTokenType() + " " + TokenHandler.getAccessToken(),
                 client,
-                configEntity.isAutoConnect(),
-                configEntity.isFullscreen()
+                configEntity != null && configEntity.isAutoConnect(),
+                configEntity != null && configEntity.isFullscreen()
         ).enqueue(
             new ParamsHandler(
                 client
