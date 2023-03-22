@@ -2,16 +2,16 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AuthController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/background.css" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.launcher.controller.AuthController">
    <children>
       <Pane layoutX="14.0" prefHeight="600.0" prefWidth="327.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
          <children>
@@ -34,12 +34,12 @@
                   <Font name="Georgia" size="33.0" />
                </font>
             </Label>
-            <Label layoutX="59.0" layoutY="564.0" text="Нет аккаунта?" textFill="WHITE">
+            <Label layoutX="73.0" layoutY="564.0" text="Нет аккаунта?" textFill="WHITE">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="recoveryLabel" layoutX="42.0" layoutY="292.0" text="Я забыл(-а) пароль" textFill="#b2b2b2">
+            <Label fx:id="recoveryLabel" layoutX="89.0" layoutY="377.0" text="Восстановить пароль" textFill="#a4a4a4">
                <font>
                   <Font name="Franklin Gothic Medium" size="16.0" />
                </font>
@@ -47,7 +47,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label fx:id="registerLabel" layoutX="181.0" layoutY="564.0" text="Создать" textFill="#23c363">
+            <Label fx:id="registerLabel" layoutX="194.0" layoutY="564.0" text="Создать" textFill="#23c363">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -55,7 +55,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Button fx:id="authBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="43.0" layoutY="361.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" scaleShape="false" style="-fx-background-color: #099e47;" text="Войти" textFill="WHITESMOKE">
+            <Button fx:id="authBtn" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="42.0" layoutY="331.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" scaleShape="false" style="-fx-background-color: #099e47;" text="Войти" textFill="WHITESMOKE">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -63,11 +63,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <RadioButton fx:id="saveAccount" layoutX="99.0" layoutY="328.0" mnemonicParsing="false" text="Запомнить меня" textFill="#e1e1e1">
+            <CheckBox fx:id="saveAccount" focusTraversable="false" layoutX="43.0" layoutY="300.0" mnemonicParsing="false" text="Запомнить меня" textFill="#e1e1e1">
                <font>
-                  <Font name="Franklin Gothic Medium" size="14.0" />
+                  <Font name="Franklin Gothic Medium Italic" size="14.0" />
                </font>
-            </RadioButton>
+            </CheckBox>
          </children>
       </Pane>
       <Pane fx:id="authPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">

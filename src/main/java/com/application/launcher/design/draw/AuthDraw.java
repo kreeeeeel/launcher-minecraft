@@ -15,9 +15,9 @@ public class AuthDraw {
 
     private final Label title;
     private final Pane pane;
-    private final RadioButton saveAccount;
+    private final CheckBox saveAccount;
 
-    public AuthDraw(TextField login, PasswordField password, Button button, Label title, Pane pane, RadioButton saveAccount) {
+    public AuthDraw(TextField login, PasswordField password, Button button, Label title, Pane pane, CheckBox saveAccount) {
         this.login = login;
         this.password = password;
         this.button = button;

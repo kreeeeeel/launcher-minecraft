@@ -52,7 +52,7 @@ public class AuthController extends Application {
 
     @FXML private TextField login;
     @FXML private PasswordField password;
-    @FXML private RadioButton saveAccount;
+    @FXML private CheckBox saveAccount;
 
     private double stagePosX;
     private double stagePosY;
